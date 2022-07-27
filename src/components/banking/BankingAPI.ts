@@ -113,7 +113,7 @@ export async function crtInfo(account: string) {
     });
     const data = {
         "response": {
-            "username": account,
+            "username": account.charAt(0).toUpperCase() + account.slice(1),
             "balance": "129.38"
         }
     };

@@ -192,5 +192,3 @@ function createInfo(dispatch: any, account: string) {
     dispatch(makeInfo({account}))
     dispatch(createInfoAsync({account}))
 }
-
-
