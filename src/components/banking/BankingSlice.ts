@@ -138,7 +138,9 @@ export const bankingSlice = createSlice({
             state.amount = action.payload.amount;
         },
         makeLogin: (state, action: PayloadAction<any>) => {
-            state.user = action.payload.username;
+            let username = action.payload.account
+            let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
+            state.user = uppercase;
             state.password = action.payload.password;
         },
         makeTransaction: (state, action: PayloadAction<any>) => {
@@ -151,7 +153,9 @@ export const bankingSlice = createSlice({
             state.amount = action.payload.amount;
         },
         makeInfo: (state, action: PayloadAction<any>) => {
-            state.user = action.payload.username;
+            let username = action.payload.account
+            let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
+            state.user = uppercase;
         },
         makeDelete: (state, action: PayloadAction<any>) => {
             state.user = action.payload.username;
