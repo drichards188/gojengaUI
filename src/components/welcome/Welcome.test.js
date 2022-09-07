@@ -1,13 +1,13 @@
 import renderer from 'react-test-renderer';
 import {Welcome} from './Welcome';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 import {store} from "../../app/store";
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
-it('check login forms render on time', async () => {
+it('check login forms render on time', () => {
     const {getByText, queryByText} = render(
         <Provider store={store}>
-            <Welcome toggle='Restaurant menu'></Welcome>
+            <Welcome />
         </Provider>
     );
 // Verify that Dropdown items are hidden from the DOM
@@ -19,3 +19,4 @@ it('check login forms render on time', async () => {
 // Verify that the Dropdown items now appear in the DOM
     expect(getByText('Username'));
 });
+

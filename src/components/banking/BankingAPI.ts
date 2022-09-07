@@ -1,4 +1,6 @@
 //todo put your gojenga or postman url here
+import {returnLoginData, returnTransactionData} from "../../backend/backendInterface";
+
 const backendURL = 'https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto'
 // const backendURL = 'http://localhost:8070/crypto'
 
@@ -44,14 +46,8 @@ export async function crtTransaction(account: string, destination: string, amoun
             "amount": amount
         })
     });
-    const data = {
-        "response": {
-            "account": account,
-            "destination": destination,
-            "balance": amount,
-            "message": "transaction successful"
-        }
-    };
+
+    const data = returnTransactionData(account, destination, amount);
 
     return new Promise<{ data: any }>((resolve) =>
         setTimeout(() => resolve({data: data}), 500)
@@ -69,12 +65,7 @@ export async function crtLogin(account: string, password: string) {
         })
     });
     // const data = await response.json();
-    const data = {
-        "response": {
-            "token": "thisisthetoken",
-            "message": "login success"
-        }
-    };
+    const data = returnLoginData(account, password);
 
     return new Promise<{ data: any }>((resolve) =>
         setTimeout(() => resolve({data: data}), 500)

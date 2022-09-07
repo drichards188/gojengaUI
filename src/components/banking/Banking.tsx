@@ -36,7 +36,6 @@ export function Banking() {
     const serverAmount = useAppSelector(selectAmount);
     const isLoggedIn = useAppSelector(selectLoggedIn);
 
-
     const [username, setUsername] = useState('');
     const [destination, setDestination] = useState('');
     const [amount, setStateAmount] = useState('0');
