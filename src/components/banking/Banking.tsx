@@ -19,7 +19,7 @@ import {
     makeInfo,
     createInfoAsync, selectToken, selectMessage, selectBalance, selectAmount
 
-} from './BankingSlice';
+} from './bankingSlice';
 import styles from './Banking.module.css';
 import {Box, Container, TextField} from "@mui/material";
 import {Deposit} from "../deposit/Deposit";
@@ -152,16 +152,20 @@ export function Banking() {
     }
 
     return (
-        <div>
-            {infoDiv}
-            <div className={styles.row}>
-                {createTransactionElem}
-                {createDepositElem}
-                {createInfoElem}
+
+            <div>
+
+                    {infoDiv}
+                    <div className={styles.row}>
+                        {createTransactionElem}
+                        {createDepositElem}
+                        {createInfoElem}
+                    </div>
+                    {/*{welcomeElem}*/}
+                    {toolbar}
+
             </div>
-            {welcomeElem}
-            {toolbar}
-        </div>
+
     );
 }
 

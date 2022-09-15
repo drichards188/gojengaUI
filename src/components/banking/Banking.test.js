@@ -4,7 +4,7 @@ import {fireEvent, render} from '@testing-library/react';
 import {store} from "../../app/store";
 import {Provider} from 'react-redux';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectBankingUser, setAmount, setUser} from "./BankingSlice";
+import {selectBankingUser, setAmount, setUser} from "./bankingSlice";
 
 it('checking the render of the banking interface', () => {
     const {getByText, queryByText} = render(

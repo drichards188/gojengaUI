@@ -9,9 +9,9 @@ import {
     makeLogin,
     createLoginAsync, makeInfo, createInfoAsync,
 
-} from '../banking/BankingSlice';
+} from '../banking/bankingSlice';
 import styles from '../banking/Banking.module.css';
-import {Box, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 
 export function Welcome() {
     const banking = useAppSelector(selectBanking);
@@ -20,9 +20,10 @@ export function Welcome() {
     const [username, setUsername] = useState('');
     const [amount, setStateAmount] = useState('0');
     const [password, setPassword] = useState('');
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(false);
     const [displayUserCreation, setUserCreation] = useState(false);
     const [displayLoginCreation, setLoginCreation] = useState(false);
+    const [displayWelcomeButton, setDisplayWelcomeButton] = useState(true);
     const amountValue = Number(amount) || 0;
 
     let output;
@@ -146,13 +147,36 @@ export function Welcome() {
             </div>;
     }
 
+    let welcomeButton;
+    if (displayWelcomeButton) {
+        welcomeButton = <button
+            className={styles.button}
+            onClick={
+                () => {
+                    setDisplayWelcomeButton(false);
+                    setDisplay(true);
+                }
+            }
+        >
+            Welcome
+        </button>
+    }
+
     return (
         <div>
+            {welcomeButton}
             <div className={styles.row} id="welcomeDiv">
+
                 {createUserElem}
                 {createLoginElem}
             </div>
             {output}
+            <Button onClick={() => {
+                setDisplayWelcomeButton(true);
+                closeAccountCreation(setDisplay, setUserCreation);
+                closeLoginCreation(setDisplay, setLoginCreation);
+                setDisplay(false);
+            }}>Exit</Button>
         </div>
     );
 }

@@ -9,7 +9,7 @@ import {
     makeTransaction,
     createTransactionAsync,
 
-} from '../banking/BankingSlice';
+} from '../banking/bankingSlice';
 import styles from '../banking/Banking.module.css';
 import {Box, TextField} from "@mui/material";
 
