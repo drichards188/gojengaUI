@@ -25,6 +25,8 @@ import {Box, Container, TextField} from "@mui/material";
 import {Deposit} from "../deposit/Deposit";
 import {Transaction} from "../transaction/Transaction";
 import {Account} from "../account/Account";
+import Header from "../../etc/Header";
+import Footer from "../../etc/Footer";
 
 export function Banking() {
     const dispatch = useAppDispatch();
@@ -153,19 +155,18 @@ export function Banking() {
 
     return (
 
-            <div>
-
-                    {infoDiv}
-                    <div className={styles.row}>
-                        {createTransactionElem}
-                        {createDepositElem}
-                        {createInfoElem}
-                    </div>
-                    {/*{welcomeElem}*/}
-                    {toolbar}
-
+        <div>
+            <Header/>
+            {infoDiv}
+            <div className={styles.row}>
+                {createTransactionElem}
+                {createDepositElem}
+                {createInfoElem}
             </div>
-
+            {/*{welcomeElem}*/}
+            {toolbar}
+            <Footer/>
+        </div>
     );
 }
 
