@@ -91,7 +91,10 @@ export function Welcome() {
                 </div>
                 <button
                     className={styles.button}
-                    onClick={() => createMyUser(dispatch, username, amount)}
+                    onClick={() => {
+                        createMyUser(dispatch, username, amount);
+                        navigate("/banking");
+                    }}
                 >
                     Create User
                 </button>
@@ -136,8 +139,8 @@ export function Welcome() {
                 <button
                     className={styles.button}
                     onClick={() => {
+                        createLogin(dispatch, username, password);
                         navigate("/dashboard");
-                        // createLogin(dispatch, username, password);
                     }}
                 >
                     Login
