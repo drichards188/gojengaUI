@@ -5,8 +5,8 @@ export function Dashboard() {
     const dispatch = useAppDispatch();
 
     return (
-      <div>
-
-      </div>
+        <div>
+            <p>This is the dashboard!</p>
+        </div>
     );
 }

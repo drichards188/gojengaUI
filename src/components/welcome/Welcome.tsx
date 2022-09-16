@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {redirect, useNavigate} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {
     createUser,
@@ -25,10 +25,11 @@ export function Welcome() {
     const [displayLoginCreation, setLoginCreation] = useState(false);
     const [displayWelcomeButton, setDisplayWelcomeButton] = useState(true);
     const amountValue = Number(amount) || 0;
+    const navigate = useNavigate();
 
-    let output;
+    let Output;
     if (display) {
-        output =
+        Output =
             <div className={styles.row}>
                 <div>
 
@@ -103,10 +104,10 @@ export function Welcome() {
             </div>;
     }
 
-    let createLoginElem;
+    let CreateLoginElem;
     if (displayLoginCreation) {
 
-        createLoginElem =
+        CreateLoginElem =
             <div className={styles.row}>
                 <div>
                     <TextField
@@ -134,7 +135,10 @@ export function Welcome() {
                 </div>
                 <button
                     className={styles.button}
-                    onClick={() => createLogin(dispatch, username, password)}
+                    onClick={() => {
+                        navigate("/dashboard");
+                        // createLogin(dispatch, username, password);
+                    }}
                 >
                     Login
                 </button>
@@ -161,16 +165,15 @@ export function Welcome() {
             Welcome
         </button>
     }
-
     return (
         <div>
             {welcomeButton}
             <div className={styles.row} id="welcomeDiv">
 
                 {createUserElem}
-                {createLoginElem}
+                {CreateLoginElem}
             </div>
-            {output}
+            {Output}
             <Button onClick={() => {
                 setDisplayWelcomeButton(true);
                 closeAccountCreation(setDisplay, setUserCreation);
