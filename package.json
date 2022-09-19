@@ -18,7 +18,9 @@
     "axios": "^0.26.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-media": "^1.10.0",
     "react-redux": "^7.2.8",
+    "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "typescript": "~4.1.5"
   },

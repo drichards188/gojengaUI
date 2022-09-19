@@ -1,12 +1,12 @@
 import counterReducer, {
-    BankingState,
+    DashboardState,
     increment,
     decrement,
     incrementByAmount,
-} from './BankingSlice';
+} from './dashboardSlice';
 
 describe('counter reducer', () => {
-    const initialState: BankingState = {
+    const initialState: DashboardState = {
         amount: 0,
         balance: 0,
         user: 'david',

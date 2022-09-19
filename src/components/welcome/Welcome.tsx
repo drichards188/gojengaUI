@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {redirect, useNavigate} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {
     createUser,
@@ -9,9 +9,9 @@ import {
     makeLogin,
     createLoginAsync, makeInfo, createInfoAsync,
 
-} from '../banking/BankingSlice';
+} from '../banking/bankingSlice';
 import styles from '../banking/Banking.module.css';
-import {Box, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 
 export function Welcome() {
     const banking = useAppSelector(selectBanking);
@@ -20,14 +20,16 @@ export function Welcome() {
     const [username, setUsername] = useState('');
     const [amount, setStateAmount] = useState('0');
     const [password, setPassword] = useState('');
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(false);
     const [displayUserCreation, setUserCreation] = useState(false);
     const [displayLoginCreation, setLoginCreation] = useState(false);
+    const [displayWelcomeButton, setDisplayWelcomeButton] = useState(true);
     const amountValue = Number(amount) || 0;
+    const navigate = useNavigate();
 
-    let output;
+    let Output;
     if (display) {
-        output =
+        Output =
             <div className={styles.row}>
                 <div>
 
@@ -89,7 +91,10 @@ export function Welcome() {
                 </div>
                 <button
                     className={styles.button}
-                    onClick={() => createMyUser(dispatch, username, amount)}
+                    onClick={() => {
+                        createMyUser(dispatch, username, amount);
+                        navigate("/banking");
+                    }}
                 >
                     Create User
                 </button>
@@ -102,10 +107,10 @@ export function Welcome() {
             </div>;
     }
 
-    let createLoginElem;
+    let CreateLoginElem;
     if (displayLoginCreation) {
 
-        createLoginElem =
+        CreateLoginElem =
             <div className={styles.row}>
                 <div>
                     <TextField
@@ -133,7 +138,10 @@ export function Welcome() {
                 </div>
                 <button
                     className={styles.button}
-                    onClick={() => createLogin(dispatch, username, password)}
+                    onClick={() => {
+                        createLogin(dispatch, username, password);
+                        navigate("/dashboard");
+                    }}
                 >
                     Login
                 </button>
@@ -146,15 +154,41 @@ export function Welcome() {
             </div>;
     }
 
+    let welcomeButton;
+    if (displayWelcomeButton) {
+        welcomeButton = <button
+            className={styles.button}
+            onClick={
+                () => {
+                    setDisplayWelcomeButton(false);
+                    setDisplay(true);
+                }
+            }
+        >
+            Welcome
+        </button>
+    }
     return (
         <div>
+            {welcomeButton}
             <div className={styles.row} id="welcomeDiv">
+
                 {createUserElem}
-                {createLoginElem}
+                {CreateLoginElem}
             </div>
-            {output}
+            {Output}
+            <Button onClick={() => {
+                resetWelcome(setDisplay, setUserCreation, setLoginCreation, setDisplayWelcomeButton);
+            }}>Exit</Button>
         </div>
     );
+}
+
+function resetWelcome(setDisplay: any, setUserCreation: any, setLoginCreation: any, setDisplayWelcomeButton: any) {
+    setDisplayWelcomeButton(true);
+    closeAccountCreation(setDisplay, setUserCreation);
+    closeLoginCreation(setDisplay, setLoginCreation);
+    setDisplay(false);
 }
 
 function createMyUser(dispatch: any, username: any, amount: any) {
@@ -163,9 +197,12 @@ function createMyUser(dispatch: any, username: any, amount: any) {
 }
 
 function createLogin(dispatch: any, account: any, password: any) {
-    dispatch(makeLogin({account, password}))
-    dispatch(createLoginAsync({account, password}))
-    createInfo(dispatch, account)
+    dispatch(makeLogin({account, password}));
+    dispatch(createLoginAsync({account, password}));
+
+    //todo check that login was successful before directing
+    createInfo(dispatch, account);
+
 }
 
 function openAccountCreation(setDisplay: any, setUserCreation: any) {

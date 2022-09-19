@@ -1,8 +1,8 @@
 import {createAsyncThunk, createReducer, createSlice, PayloadAction, unwrapResult} from '@reduxjs/toolkit';
 import {RootState, AppThunk} from '../../app/store';
-import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetchCount} from './BankingAPI';
+import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetchCount} from './dashboardAPI';
 
-export interface BankingState {
+export interface DashboardState {
     amount: number;
     balance: number;
     user: string;
@@ -14,7 +14,7 @@ export interface BankingState {
     status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: BankingState = {
+const initialState: DashboardState = {
     amount: 0,
     balance: 0,
     user: 'david',

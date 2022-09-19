@@ -19,12 +19,14 @@ import {
     makeInfo,
     createInfoAsync, selectToken, selectMessage, selectBalance, selectAmount
 
-} from './BankingSlice';
+} from './bankingSlice';
 import styles from './Banking.module.css';
 import {Box, Container, TextField} from "@mui/material";
 import {Deposit} from "../deposit/Deposit";
 import {Transaction} from "../transaction/Transaction";
 import {Account} from "../account/Account";
+import Header from "../../etc/Header";
+import Footer from "../../etc/Footer";
 
 export function Banking() {
     const dispatch = useAppDispatch();
@@ -35,7 +37,6 @@ export function Banking() {
     const balance = useAppSelector(selectBalance);
     const serverAmount = useAppSelector(selectAmount);
     const isLoggedIn = useAppSelector(selectLoggedIn);
-
 
     const [username, setUsername] = useState('');
     const [destination, setDestination] = useState('');
@@ -153,15 +154,18 @@ export function Banking() {
     }
 
     return (
+
         <div>
+            <Header/>
             {infoDiv}
             <div className={styles.row}>
                 {createTransactionElem}
                 {createDepositElem}
                 {createInfoElem}
             </div>
-            {welcomeElem}
+            {/*{welcomeElem}*/}
             {toolbar}
+            <Footer/>
         </div>
     );
 }

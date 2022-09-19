@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Gojenga UI
 
-**alter BankingAPI.ts and put your gojenga url into the backendURL variable.**
+**alter bankingAPI.ts and put your gojenga url into the backendURL variable.**
 
 ## Available Scripts
 
