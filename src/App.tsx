@@ -38,9 +38,9 @@ function App() {
                         <Route path="/" element={<Welcome/>}/>
                         <Route path="/banking" element={<Banking/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="*" element={<p>404 Not Found</p>}/>
                     </Routes>
                 </header>
-
             </div>
         </BrowserRouter>
     );

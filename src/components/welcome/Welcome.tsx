@@ -178,13 +178,17 @@ export function Welcome() {
             </div>
             {Output}
             <Button onClick={() => {
-                setDisplayWelcomeButton(true);
-                closeAccountCreation(setDisplay, setUserCreation);
-                closeLoginCreation(setDisplay, setLoginCreation);
-                setDisplay(false);
+                resetWelcome(setDisplay, setUserCreation, setLoginCreation, setDisplayWelcomeButton);
             }}>Exit</Button>
         </div>
     );
+}
+
+function resetWelcome(setDisplay: any, setUserCreation: any, setLoginCreation: any, setDisplayWelcomeButton: any) {
+    setDisplayWelcomeButton(true);
+    closeAccountCreation(setDisplay, setUserCreation);
+    closeLoginCreation(setDisplay, setLoginCreation);
+    setDisplay(false);
 }
 
 function createMyUser(dispatch: any, username: any, amount: any) {
@@ -193,9 +197,12 @@ function createMyUser(dispatch: any, username: any, amount: any) {
 }
 
 function createLogin(dispatch: any, account: any, password: any) {
-    dispatch(makeLogin({account, password}))
-    dispatch(createLoginAsync({account, password}))
-    createInfo(dispatch, account)
+    dispatch(makeLogin({account, password}));
+    dispatch(createLoginAsync({account, password}));
+
+    //todo check that login was successful before directing
+    createInfo(dispatch, account);
+
 }
 
 function openAccountCreation(setDisplay: any, setUserCreation: any) {
