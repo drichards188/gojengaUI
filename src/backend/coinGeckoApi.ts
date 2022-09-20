@@ -1,16 +1,19 @@
+import {useAppDispatch} from "../app/hooks";
+import {createUser} from "../components/dashboard/dashboardSlice";
+
 const axios = require('axios');
 
-export let getRipple = async (coinKey) => {
+export const getRipple = async (coinKey: string) => {
     let response = await axios
         // .get('https://api.coingecko.com/api/v3/ping')
         .get(`https://api.coingecko.com/api/v3/coins/${coinKey}?tickers=true&market_data=false&community_data=false&developer_data=false&sparkline=false`)
-        .then(function (response) {
+        .then(function (response: any) {
             // console.log(response.data.gecko_says);
             // let theData = response.data;
             // console.log(response.data.tickers[0].last);
             return response.data.tickers[0]
         })
-        .catch((error) => {
+        .catch((error: any) => {
             if (error.response) {
                 console.error(error.response.data);
                 console.error(error.response.status);
@@ -25,12 +28,12 @@ export let getRipple = async (coinKey) => {
     return Promise.resolve(response);
 }
 
-export async function getAllCoins(dataCallback, coinArray) {
+export async function getAllCoins(coinArray: Array<string>) {
     let resp = await getWithForOf(coinArray);
-    await dataCallback(resp);
+    // await dataCallback(resp);
 }
 
-const getWithForOf = async (coinArray) => {
+const getWithForOf = async (coinArray: Array<string>) => {
     let coinData = [];
 
     for (const coin of coinArray) {
@@ -47,14 +50,14 @@ export async function getListOfCoins() {
     let response = await axios
         // .get('https://api.coingecko.com/api/v3/ping')
         .get(`https://api.coingecko.com/api/v3/coins/list`)
-        .then(function (response) {
+        .then(function (response: any) {
             // console.log(response.data.gecko_says);
             // let theData = response.data;
             // console.log(response.data.tickers[0].last);
             return response.data;
             // return response.data;
         })
-        .catch((error) => {
+        .catch((error: any) => {
             if (error.response) {
                 console.error(error.response.data);
                 console.error(error.response.status);

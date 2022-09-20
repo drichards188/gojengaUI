@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import {useState, createContext} from "react";
 import Card from "./Card";
 import {getAllCoins} from "../../backend/coinGeckoApi";
-import {CardCallbackContext, CardDataContext} from "./HomeContainer";
+// import {CardCallbackContext, CardDataContext} from "./HomeContainer";
 
 // export let CardDataContext = createContext((data) => {return data;});
 
-const Cards = (props) => {
+export const Cards = (props) => {
     const CardDataCallback = useContext(CardCallbackContext);
     const CardData = useContext(CardDataContext);
 
+    //todo replace the context callback with access to redux store
     useEffect(() => {
         getAllCoins(CardDataCallback, ['ripple', 'bitcoin']);
     }, []);

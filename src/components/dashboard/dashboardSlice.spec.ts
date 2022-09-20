@@ -5,7 +5,7 @@ import counterReducer, {
     incrementByAmount,
 } from './dashboardSlice';
 
-describe('counter reducer', () => {
+describe('dashboard reducer', () => {
     const initialState: DashboardState = {
         amount: 0,
         balance: 0,
