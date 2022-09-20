@@ -3,6 +3,7 @@ import {RootState, AppThunk} from '../../app/store';
 import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetchCount} from './dashboardAPI';
 
 export interface DashboardState {
+    coinData: { last: number},
     amount: number;
     balance: number;
     user: string;
@@ -15,6 +16,7 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
+    coinData: {last: 1},
     amount: 0,
     balance: 0,
     user: 'david',
@@ -46,8 +48,8 @@ export const createUserAsync = createAsyncThunk(
     async (payload: any) => {
         const response = await crtUser(payload.coinKey);
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let encapsulatedData = {geckoData: response.data};
+        return encapsulatedData;
     }
 );
 
@@ -209,10 +211,8 @@ export const dashboardSlice = createSlice({
             })
             .addCase(createUserAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.user = action.payload["response"]["username"];
-                state.balance = action.payload["response"]["balance"];
-                state.loggedIn = true;
-                // alert("the state.message is now " + state.message)
+                state.coinData = action.payload.geckoData;
+                // alert("the state.coinData is now " + state.coinData)
             })
             .addCase(createUserAsync.rejected, (state, action) => {
                 state.status = 'failed';
@@ -259,6 +259,7 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectBanking = (state: RootState) => state.dashboard.amount;
+export const selectCoinData = (state: RootState) => state.dashboard.coinData;
 export const selectBankingUser = (state: RootState) => state.dashboard.user;
 export const selectLoggedIn = (state: RootState) => state.dashboard.loggedIn;
 export const selectToken = (state: RootState) => state.dashboard.token;
