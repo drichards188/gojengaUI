@@ -4,28 +4,25 @@ import Footer from "../../etc/Footer";
 import {Cards} from "./Cards"
 import {useEffect} from "react";
 import {getAllCoins, getRipple} from "../../backend/coinGeckoApi";
-import {createUserAsync, selectCoinData} from "./dashboardSlice";
+import {getCoinDataAsync, selectCoinData} from "./dashboardSlice";
+import SearchBar from "./SearchBar";
 
 export function Dashboard() {
     const dispatch = useAppDispatch();
     const coinData = useAppSelector(selectCoinData);
     const coinKey = 'ripple';
 
-    // useEffect(() => {
-    //     getAllCoins( ['ripple', 'bitcoin']);
-    // }, []);
+    useEffect(() => {
+        dispatch(getCoinDataAsync({coinKey}))
+    }, []);
 
     return (
         <div>
             <Header/>
-            <p>This is the dashboard!</p>
-            <p>This is the last price {coinData.last}</p>
-            <button onClick={() => {
-                dispatch(createUserAsync({coinKey}))
-            }}>getRipple
-            </button>
-            <Cards cardData={[{last: 1.4, id: 'ripple', volume: 2400}, {last: 2.5, id: 'bitcoin', volume: 12900}]}/>
-            <Footer/>
+            <p>This is the last price of {coinKey} ${coinData.last}</p>
+            <SearchBar/>
+            <Cards cardData={[{last: 1.4, id: 'ripple', volume: 2400},
+                {last: 2.5, id: 'bitcoin', volume: 12900}]}/>
         </div>
     );
 }

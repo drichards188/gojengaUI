@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import {Counter} from './components/counter/Counter';
 import './App.css';
 import {Banking} from "./components/banking/Banking";
@@ -33,7 +32,7 @@ function App() {
         <BrowserRouter>
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
+
                     <Routes>
                         <Route path="/" element={<Welcome/>}/>
                         <Route path="/banking" element={<Banking/>}/>

@@ -1,14 +1,11 @@
-import {React, useContext, useEffect, useState} from 'react'
-import {CoinDataContext} from "./HomeContainer";
-import {CardCallbackContext, CardDataContext} from "./HomeContainer";
 import {getAllCoins} from "../../backend/coinGeckoApi";
 
-function List(props) {
-    const CardDataCallback = useContext(CardCallbackContext);
-    const CardData = useContext(CardDataContext);
-    const CoinData = useContext(CoinDataContext);
+function List(props: any) {
 
-    const filteredData = CoinData.filter((el) => {
+    const coinData = [{last: 1.4, id: 'ripple', volume: 2400},
+        {last: 2.5, id: 'bitcoin', volume: 12900}];
+
+    const filteredData = coinData.filter((el) => {
         //if no input the return the original
         if (props.input === '') {
             return el;
@@ -33,10 +30,10 @@ function List(props) {
             {filteredData.slice(0, 10).map((item) => (
                 <li style={divStyle} onClick={() => {
                     alert(item.id);
-                    let original = CardData;
-                    original.push({"id": "mita", "last": 124, "volume": 1});
-                    original.push({"id": "hiya", "last": 124, "volume": 1});
-                    CardDataCallback(original);
+                    // let original = cardDa;
+                    // original.push({"id": "mita", "last": 124, "volume": 1});
+                    // original.push({"id": "hiya", "last": 124, "volume": 1});
+                    // CardDataCallback(original);
                 }} key={item.id}>{item.id}</li>
             ))}
         </ul>

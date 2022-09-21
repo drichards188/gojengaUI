@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import logo from '../../logo.svg';
+import '../../App.css';
 import {redirect, useNavigate} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {
@@ -156,20 +158,24 @@ export function Welcome() {
 
     let welcomeButton;
     if (displayWelcomeButton) {
-        welcomeButton = <button
-            className={styles.button}
-            onClick={
-                () => {
-                    setDisplayWelcomeButton(false);
-                    setDisplay(true);
+        welcomeButton = <div>
+            <button
+                className={styles.button}
+                onClick={
+                    () => {
+                        setDisplayWelcomeButton(false);
+                        setDisplay(true);
+                    }
                 }
-            }
-        >
-            Welcome
-        </button>
+            >
+                Welcome
+            </button>
+        </div>
     }
+
     return (
         <div>
+            <img src={logo} className="App-logo" alt="logo"/>
             {welcomeButton}
             <div className={styles.row} id="welcomeDiv">
 

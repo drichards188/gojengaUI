@@ -5,15 +5,11 @@ import TextField from "@mui/material/TextField";
 import Card from "./Card";
 import List from "./List";
 import {Button} from "@mui/material";
-import {CoinDataContext} from "./HomeContainer";
-import {CardCallbackContext} from "./HomeContainer";
 
-const SearchBar = (props) => {
-    const cardDataData = useContext(CoinDataContext);
-    const cardDataCallback = useContext(CardCallbackContext);
+const SearchBar = (props: any) => {
 
     const [inputText, setInputText] = useState("");
-    let inputHandler = (e) => {
+    let inputHandler = (e: any) => {
         //convert input text to lower case
         let lowerCase = e.target.value.toLowerCase();
         setInputText(lowerCase);
@@ -21,7 +17,6 @@ const SearchBar = (props) => {
 
     return (
         <div className="main">
-            <h1>React Search</h1>
             <div className="search">
                 <TextField
                     id="outlined-basic"
@@ -31,7 +26,7 @@ const SearchBar = (props) => {
                     label="Search"
                 />
                 <Button onClick={() => {
-                    searchOnInput(cardDataData, cardDataCallback)
+                    searchOnInput()
                 }}>Search</Button>
             </div>
             <List input={inputText}/>
@@ -39,7 +34,7 @@ const SearchBar = (props) => {
     );
 }
 
-function searchOnInput(cardData, cardCallback) {
+function searchOnInput() {
 
     const matches = [{
         "id": 1,
@@ -48,7 +43,7 @@ function searchOnInput(cardData, cardCallback) {
     }];
 
     // // the prop is a callback
-    cardCallback(matches);
+    // cardCallback(matches);
     // props.setCardCallback[1](matches);
 }
 

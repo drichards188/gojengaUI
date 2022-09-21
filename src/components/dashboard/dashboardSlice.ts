@@ -43,7 +43,7 @@ export const incrementAsync = createAsyncThunk(
     }
 );
 
-export const createUserAsync = createAsyncThunk(
+export const getCoinDataAsync = createAsyncThunk(
     'dashboard/createUser',
     async (payload: any) => {
         const response = await crtUser(payload.coinKey);
@@ -206,15 +206,15 @@ export const dashboardSlice = createSlice({
             })
 
             //createUser
-            .addCase(createUserAsync.pending, (state) => {
+            .addCase(getCoinDataAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createUserAsync.fulfilled, (state, action) => {
+            .addCase(getCoinDataAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.coinData = action.payload.geckoData;
                 // alert("the state.coinData is now " + state.coinData)
             })
-            .addCase(createUserAsync.rejected, (state, action) => {
+            .addCase(getCoinDataAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 // alert("createUser rejected " + action.payload)
                 // alert("the state.message is now " + state.message)
