@@ -1,9 +1,19 @@
 import {createAsyncThunk, createReducer, createSlice, PayloadAction, unwrapResult} from '@reduxjs/toolkit';
 import {RootState, AppThunk} from '../../app/store';
-import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetchCount} from './dashboardAPI';
+import {
+    crtDelete,
+    crtDeposit,
+    crtInfo,
+    crtLogin,
+    getCoinsList,
+    crtUser,
+    fetchCount,
+    getCoinBatch
+} from './dashboardAPI';
 
 export interface DashboardState {
-    coinData: { last: number},
+    // coinData: { last: number},
+    coinData: any
     coinList: any,
     amount: number;
     balance: number;
@@ -56,22 +66,22 @@ export const getCoinDataAsync = createAsyncThunk(
 );
 
 export const getCoinListAsync = createAsyncThunk(
-    'dashboard/createTransaction',
+    'dashboard/getCoinlist',
     async (payload: any) => {
-        const response = await crtTransaction();
+        const response = await getCoinsList();
         // The value we return becomes the `fulfilled` action payload
         let wrappedData = {coinList: response.data};
         return wrappedData;
     }
 );
 
-export const createLoginAsync = createAsyncThunk(
-    'dashboard/createLogin',
+export const getCoinBatchAsync = createAsyncThunk(
+    'dashboard/getCoinBatch',
     async (payload: any) => {
-        const response = await crtLogin(payload.account, payload.password);
+        const response = await getCoinBatch(payload.coinArray);
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let wrappedData = {coinData: response};
+        return wrappedData;
     }
 );
 
@@ -192,16 +202,16 @@ export const dashboardSlice = createSlice({
             })
 
             //createLogin
-            .addCase(createLoginAsync.pending, (state) => {
+            .addCase(getCoinBatchAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createLoginAsync.fulfilled, (state, action) => {
+            .addCase(getCoinBatchAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.token = action.payload["response"]["token"];
+                state.coinData = action.payload.coinData;
                 state.loggedIn = true;
                 // alert("the state.user is now " + state.user)
             })
-            .addCase(createLoginAsync.rejected, (state, action) => {
+            .addCase(getCoinBatchAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 // alert("login rejected " + action.payload)
                 // alert("the state.user is now " + state.user)

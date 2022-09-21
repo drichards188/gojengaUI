@@ -2,8 +2,9 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import Header from "../../etc/Header";
 import {Cards} from "./Cards"
 import {useEffect} from "react";
-import {getCoinDataAsync, getCoinListAsync, selectCoinData} from "./dashboardSlice";
+import {getCoinBatchAsync, getCoinDataAsync, getCoinListAsync, selectCoinData} from "./dashboardSlice";
 import SearchBar from "./SearchBar";
+import {getCoinBatch} from "./dashboardAPI";
 
 export function Dashboard() {
     const dispatch = useAppDispatch();
@@ -11,17 +12,18 @@ export function Dashboard() {
     const coinKey = 'ripple';
 
     useEffect(() => {
-        dispatch(getCoinDataAsync({coinKey}))
+        dispatch(getCoinBatchAsync({
+            coinArray: ['ripple', 'bitcoin']
+        }));
+        dispatch(getCoinListAsync('placeholder payload'));
     }, []);
 
     return (
         <div>
             <Header/>
-            <button onClick={() => {dispatch(getCoinListAsync('myPayload'))}}>coin List</button>
-            <p>This is the last price of {coinKey} ${coinData.last}</p>
+            <p>This is the last price of {coinKey} ${coinData[0].last}</p>
             <SearchBar/>
-            <Cards cardData={[{last: 1.4, id: 'ripple', volume: 2400},
-                {last: 2.5, id: 'bitcoin', volume: 12900}]}/>
+            <Cards cardData={coinData}/>
         </div>
     );
 }

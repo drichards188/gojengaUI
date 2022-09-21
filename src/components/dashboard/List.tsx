@@ -1,4 +1,3 @@
-import {getAllCoins} from "../../backend/coinGeckoApi";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectCoinList} from "./dashboardSlice";
 
@@ -25,6 +24,7 @@ function List(props: any) {
         color: '#4fc3f7'
     }
 
+    //add pagination to results
     return (
         <ul>
             {filteredData.slice(0, 10).map((item: any) => (
