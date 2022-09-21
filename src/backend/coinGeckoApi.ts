@@ -48,7 +48,6 @@ const getWithForOf = async (coinArray: Array<string>) => {
 
 export async function getListOfCoins() {
     let response = await axios
-        // .get('https://api.coingecko.com/api/v3/ping')
         .get(`https://api.coingecko.com/api/v3/coins/list`)
         .then(function (response: any) {
             // console.log(response.data.gecko_says);

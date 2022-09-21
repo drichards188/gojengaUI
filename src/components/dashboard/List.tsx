@@ -1,11 +1,11 @@
 import {getAllCoins} from "../../backend/coinGeckoApi";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectCoinList} from "./dashboardSlice";
 
 function List(props: any) {
+    const coinData = useAppSelector(selectCoinList);
 
-    const coinData = [{last: 1.4, id: 'ripple', volume: 2400},
-        {last: 2.5, id: 'bitcoin', volume: 12900}];
-
-    const filteredData = coinData.filter((el) => {
+    const filteredData = coinData.filter((el: any) => {
         //if no input the return the original
         if (props.input === '') {
             return el;
@@ -27,7 +27,7 @@ function List(props: any) {
 
     return (
         <ul>
-            {filteredData.slice(0, 10).map((item) => (
+            {filteredData.slice(0, 10).map((item: any) => (
                 <li style={divStyle} onClick={() => {
                     alert(item.id);
                     // let original = cardDa;

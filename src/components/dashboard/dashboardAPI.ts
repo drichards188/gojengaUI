@@ -57,19 +57,29 @@ export async function crtUser(account: string) {
     );
 }
 
-export async function crtTransaction(account: string, destination: string, amount: number) {
-    const response = await fetch(backendURL, {
-        method: 'PUT',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "TRAN",
-            "account": "david",
-            "destination": destination,
-            "amount": amount
+export async function crtTransaction() {
+    let data = await axios
+        // .get('https://api.coingecko.com/api/v3/ping')
+        .get(`https://api.coingecko.com/api/v3/coins/list`)
+        .then(function (response: any) {
+            // console.log(response.data.gecko_says);
+            // let theData = response.data;
+            // console.log(response.data.tickers[0].last);
+            return response.data;
+            // return response.data;
         })
-    });
+        .catch((error: any) => {
+            if (error.response) {
+                console.error(error.response.data);
+                console.error(error.response.status);
+                console.error(error.response.headers);
+            } else if (error.request) {
+                console.error(error.request);
+            } else {
+                console.error("Error", error.message);
+            }
+        });
 
-    const data = returnTransactionData(account, destination, amount);
 
     return new Promise<{ data: any }>((resolve) =>
         setTimeout(() => resolve({data: data}), 500)

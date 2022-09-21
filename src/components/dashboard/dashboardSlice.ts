@@ -4,6 +4,7 @@ import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetch
 
 export interface DashboardState {
     coinData: { last: number},
+    coinList: any,
     amount: number;
     balance: number;
     user: string;
@@ -17,6 +18,7 @@ export interface DashboardState {
 
 const initialState: DashboardState = {
     coinData: {last: 1},
+    coinList: [{id: 'bitcoin', name: 'og-bitcoin'}],
     amount: 0,
     balance: 0,
     user: 'david',
@@ -53,13 +55,13 @@ export const getCoinDataAsync = createAsyncThunk(
     }
 );
 
-export const createTransactionAsync = createAsyncThunk(
+export const getCoinListAsync = createAsyncThunk(
     'dashboard/createTransaction',
     async (payload: any) => {
-        const response = await crtTransaction(payload.account, payload.destination, payload.amount);
+        const response = await crtTransaction();
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let wrappedData = {coinList: response.data};
+        return wrappedData;
     }
 );
 
@@ -170,12 +172,12 @@ export const dashboardSlice = createSlice({
     extraReducers: (builder) => {
         builder
             //createTransaction
-            .addCase(createTransactionAsync.pending, (state) => {
+            .addCase(getCoinListAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createTransactionAsync.fulfilled, (state, action) => {
+            .addCase(getCoinListAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.message = action.payload["response"]["message"];
+                state.coinList = action.payload.coinList;
                 // alert("the state.user is now " + state.user)
             })
 
@@ -260,7 +262,7 @@ export const {
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectBanking = (state: RootState) => state.dashboard.amount;
 export const selectCoinData = (state: RootState) => state.dashboard.coinData;
-export const selectBankingUser = (state: RootState) => state.dashboard.user;
+export const selectCoinList = (state: RootState) => state.dashboard.coinList;
 export const selectLoggedIn = (state: RootState) => state.dashboard.loggedIn;
 export const selectToken = (state: RootState) => state.dashboard.token;
 export const selectMessage = (state: RootState) => state.dashboard.message;

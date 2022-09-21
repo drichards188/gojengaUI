@@ -8,6 +8,7 @@ import counterReducer, {
 describe('dashboard reducer', () => {
     const initialState: DashboardState = {
         coinData: {last: 0},
+        coinList: [{id: 'bitcoin', name: 'og-bitcoin'}],
         amount: 0,
         balance: 0,
         user: 'david',
