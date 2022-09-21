@@ -24,6 +24,7 @@ export function Dashboard() {
                 dispatch(createUserAsync({coinKey}))
             }}>getRipple
             </button>
+            <Cards cardData={[{last: 1.4, id: 'ripple', volume: 2400}, {last: 2.5, id: 'bitcoin', volume: 12900}]}/>
             <Footer/>
         </div>
     );

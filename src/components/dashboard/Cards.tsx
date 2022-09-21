@@ -7,14 +7,13 @@ import {getAllCoins} from "../../backend/coinGeckoApi";
 
 // export let CardDataContext = createContext((data) => {return data;});
 
-export const Cards = (props) => {
-    const CardDataCallback = useContext(CardCallbackContext);
-    const CardData = useContext(CardDataContext);
+export const Cards = (props: any) => {
+
 
     //todo replace the context callback with access to redux store
-    useEffect(() => {
-        getAllCoins(CardDataCallback, ['ripple', 'bitcoin']);
-    }, []);
+    // useEffect(() => {
+    //     getAllCoins(CardDataCallback, ['ripple', 'bitcoin']);
+    // }, []);
 
     //todo be able to search and click on a coin rendering a new cards to cards
 
@@ -24,7 +23,7 @@ export const Cards = (props) => {
     return (
             <div>
                 <div>
-                    {CardData.map(cardData => (
+                    {props.cardData.map((cardData: any) => (
                         <Card data={cardData}/>
                     ))}
                 </div>
