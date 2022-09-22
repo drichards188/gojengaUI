@@ -1,8 +1,20 @@
 import {createAsyncThunk, createReducer, createSlice, PayloadAction, unwrapResult} from '@reduxjs/toolkit';
 import {RootState, AppThunk} from '../../app/store';
-import {crtDelete, crtDeposit, crtInfo, crtLogin, crtTransaction, crtUser, fetchCount} from './dashboardAPI';
+import {
+    crtDelete,
+    crtDeposit,
+    crtInfo,
+    crtLogin,
+    getCoinsList,
+    crtUser,
+    fetchCount,
+    getCoinBatch
+} from './dashboardAPI';
 
 export interface DashboardState {
+    // coinData: { last: number},
+    coinData: any
+    coinList: any,
     amount: number;
     balance: number;
     user: string;
@@ -15,6 +27,8 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
+    coinData: {last: 1},
+    coinList: [{id: 'bitcoin', name: 'og-bitcoin'}],
     amount: 0,
     balance: 0,
     user: 'david',
@@ -32,7 +46,7 @@ const initialState: DashboardState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const incrementAsync = createAsyncThunk(
-    'banking/incrementAsync',
+    'dashboard/incrementAsync',
     async (amount: number) => {
         const response = await fetchCount(amount);
         // The value we return becomes the `fulfilled` action payload
@@ -41,38 +55,38 @@ export const incrementAsync = createAsyncThunk(
     }
 );
 
-export const createUserAsync = createAsyncThunk(
-    'banking/createUser',
+export const getCoinDataAsync = createAsyncThunk(
+    'dashboard/createUser',
     async (payload: any) => {
-        const response = await crtUser(payload.username, payload.amount);
+        const response = await crtUser(payload.coinKey);
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let encapsulatedData = {geckoData: response.data};
+        return encapsulatedData;
     }
 );
 
-export const createTransactionAsync = createAsyncThunk(
-    'banking/createTransaction',
+export const getCoinListAsync = createAsyncThunk(
+    'dashboard/getCoinlist',
     async (payload: any) => {
-        const response = await crtTransaction(payload.account, payload.destination, payload.amount);
+        const response = await getCoinsList();
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let wrappedData = {coinList: response.data};
+        return wrappedData;
     }
 );
 
-export const createLoginAsync = createAsyncThunk(
-    'banking/createLogin',
+export const getCoinBatchAsync = createAsyncThunk(
+    'dashboard/getCoinBatch',
     async (payload: any) => {
-        const response = await crtLogin(payload.account, payload.password);
+        const response = await getCoinBatch(payload.coinArray);
         // The value we return becomes the `fulfilled` action payload
-
-        return response.data;
+        let wrappedData = {coinData: response};
+        return wrappedData;
     }
 );
 
 export const createDepositAsync = createAsyncThunk(
-    'banking/createDeposit',
+    'dashboard/createDeposit',
     async (payload: any) => {
         const response = await crtDeposit(payload.account, payload.amount);
         // The value we return becomes the `fulfilled` action payload
@@ -82,7 +96,7 @@ export const createDepositAsync = createAsyncThunk(
 );
 
 export const createInfoAsync = createAsyncThunk(
-    'banking/createInfo',
+    'dashboard/createInfo',
     async (payload: any) => {
         const response = await crtInfo(payload.account);
         // The value we return becomes the `fulfilled` action payload
@@ -92,7 +106,7 @@ export const createInfoAsync = createAsyncThunk(
 );
 
 export const createDeleteAsync = createAsyncThunk(
-    'banking/createDelete',
+    'dashboard/createDelete',
     async (payload: any) => {
         const response = await crtDelete(payload.account);
         // The value we return becomes the `fulfilled` action payload
@@ -101,8 +115,8 @@ export const createDeleteAsync = createAsyncThunk(
     }
 );
 
-export const bankingSlice = createSlice({
-    name: 'banking',
+export const dashboardSlice = createSlice({
+    name: 'dashboard',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
@@ -134,6 +148,7 @@ export const bankingSlice = createSlice({
             state.message = '';
         },
         createUser: (state, action: PayloadAction<any>) => {
+            alert(action.payload);
             state.user = action.payload.username;
             state.amount = action.payload.amount;
         },
@@ -167,12 +182,12 @@ export const bankingSlice = createSlice({
     extraReducers: (builder) => {
         builder
             //createTransaction
-            .addCase(createTransactionAsync.pending, (state) => {
+            .addCase(getCoinListAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createTransactionAsync.fulfilled, (state, action) => {
+            .addCase(getCoinListAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.message = action.payload["response"]["message"];
+                state.coinList = action.payload.coinList;
                 // alert("the state.user is now " + state.user)
             })
 
@@ -187,33 +202,31 @@ export const bankingSlice = createSlice({
             })
 
             //createLogin
-            .addCase(createLoginAsync.pending, (state) => {
+            .addCase(getCoinBatchAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createLoginAsync.fulfilled, (state, action) => {
+            .addCase(getCoinBatchAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.token = action.payload["response"]["token"];
+                state.coinData = action.payload.coinData;
                 state.loggedIn = true;
                 // alert("the state.user is now " + state.user)
             })
-            .addCase(createLoginAsync.rejected, (state, action) => {
+            .addCase(getCoinBatchAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 // alert("login rejected " + action.payload)
                 // alert("the state.user is now " + state.user)
             })
 
             //createUser
-            .addCase(createUserAsync.pending, (state) => {
+            .addCase(getCoinDataAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(createUserAsync.fulfilled, (state, action) => {
+            .addCase(getCoinDataAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.user = action.payload["response"]["username"];
-                state.balance = action.payload["response"]["balance"];
-                state.loggedIn = true;
-                // alert("the state.message is now " + state.message)
+                state.coinData = action.payload.geckoData;
+                // alert("the state.coinData is now " + state.coinData)
             })
-            .addCase(createUserAsync.rejected, (state, action) => {
+            .addCase(getCoinDataAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 // alert("createUser rejected " + action.payload)
                 // alert("the state.message is now " + state.message)
@@ -252,18 +265,19 @@ export const {
     makeDeposit,
     makeDelete,
     makeInfo
-} = bankingSlice.actions;
+} = dashboardSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectBanking = (state: RootState) => state.banking.amount;
-export const selectBankingUser = (state: RootState) => state.banking.user;
-export const selectLoggedIn = (state: RootState) => state.banking.loggedIn;
-export const selectToken = (state: RootState) => state.banking.token;
-export const selectMessage = (state: RootState) => state.banking.message;
-export const selectBalance = (state: RootState) => state.banking.balance;
-export const selectAmount = (state: RootState) => state.banking.amount;
+export const selectBanking = (state: RootState) => state.dashboard.amount;
+export const selectCoinData = (state: RootState) => state.dashboard.coinData;
+export const selectCoinList = (state: RootState) => state.dashboard.coinList;
+export const selectLoggedIn = (state: RootState) => state.dashboard.loggedIn;
+export const selectToken = (state: RootState) => state.dashboard.token;
+export const selectMessage = (state: RootState) => state.dashboard.message;
+export const selectBalance = (state: RootState) => state.dashboard.balance;
+export const selectAmount = (state: RootState) => state.dashboard.amount;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
@@ -277,4 +291,4 @@ export const incrementIfOdd = (amount: number): AppThunk => (
     }
 };
 
-export default bankingSlice.reducer;
+export default dashboardSlice.reducer;

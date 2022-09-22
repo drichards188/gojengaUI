@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../components/counter/counterSlice';
 import bankingReducer from "../components/banking/bankingSlice";
+import dashboardSlice from "../components/dashboard/dashboardSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    banking: bankingReducer
+    banking: bankingReducer,
+    dashboard: dashboardSlice
   },
 });
 
