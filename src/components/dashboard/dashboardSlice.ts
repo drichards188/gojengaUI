@@ -27,7 +27,7 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
-    coinData: {last: 1},
+    coinData: [{last: 1}],
     coinList: [{id: 'bitcoin', name: 'og-bitcoin'}],
     amount: 0,
     balance: 0,

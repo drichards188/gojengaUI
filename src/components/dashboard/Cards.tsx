@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import {useState, createContext} from "react";
 import Card from "./Card";
 
+//trying to do object destructuring on props
 export const Cards = (props: any) => {
-
     //todo replace the context callback with access to redux store
     // useEffect(() => {
     //     getAllCoins(CardDataCallback, ['ripple', 'bitcoin']);
@@ -18,8 +18,8 @@ export const Cards = (props: any) => {
     return (
             <div>
                 <div>
-                    {props.cardData.map((cardData: any) => (
-                        <Card data={cardData}/>
+                    {props.cardData.map((coinData: any) => (
+                        <Card data={coinData}/>
                     ))}
                 </div>
             </div>
