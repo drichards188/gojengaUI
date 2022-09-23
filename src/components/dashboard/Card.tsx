@@ -2,7 +2,9 @@ import React, {useContext} from 'react';
 import ReactDOM from 'react-dom';
 import {useState, createContext} from "react";
 
-const Card = ({id, last, volume}: any) => {
+const Card = (props: any) => {
+
+    const {id, last, volume}= props.data;
 
     // const myStops = ['rome', 'venice', 'vatican'];
     const divStyle = {
