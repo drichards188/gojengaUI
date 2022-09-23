@@ -6,7 +6,6 @@ const Card = (props: any) => {
 
     const {id, last, volume}= props.data;
 
-    // const myStops = ['rome', 'venice', 'vatican'];
     const divStyle = {
         display: 'inline-block',
         marginRight: '25px',
