@@ -85,7 +85,7 @@ export default function SearchAppBar() {
                     >
 
                         <div>
-                            <button style={{backgroundColor: 'rgba(0,0,0,0)', border: 'none'}} onClick={handleClick}>
+                            <button style={{backgroundColor: 'rgba(0,0,0,0)', border: 'none', cursor: 'pointer'}} onClick={handleClick}>
                                 <MenuIcon/></button>
 
                             <Menu
