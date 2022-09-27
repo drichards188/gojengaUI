@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Gojenga UI
 
-**alter bankingAPI.ts and put your gojenga url into the backendURL variable.**
+UI utilizes placeholder data for banking and CoinGecko for financial info
 
 ## Available Scripts
 
