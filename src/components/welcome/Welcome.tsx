@@ -26,6 +26,9 @@ export function Welcome() {
     const [displayUserCreation, setUserCreation] = useState(false);
     const [displayLoginCreation, setLoginCreation] = useState(false);
     const [displayWelcomeButton, setDisplayWelcomeButton] = useState(true);
+
+    const [items, setItems] = useState();
+
     const amountValue = Number(amount) || 0;
     const navigate = useNavigate();
 

@@ -4,7 +4,8 @@ import {useState, createContext} from "react";
 
 const Card = (props: any) => {
 
-    // const myStops = ['rome', 'venice', 'vatican'];
+    const {id, last, volume}= props.data;
+
     const divStyle = {
         display: 'inline-block',
         marginRight: '25px',
@@ -15,9 +16,9 @@ const Card = (props: any) => {
 
     return (
     <div style={divStyle}>
-        <p>{props.data.id}</p>
-        <p>{props.data.last}</p>
-        <p>{props.data.volume}</p>
+        <p>{id}</p>
+        <p>{last}</p>
+        <p>{volume}</p>
         {/*<ul>*/}
         {/*    {props.data.stops.map(myStops => (*/}
         {/*        <li>{myStops}</li>*/}

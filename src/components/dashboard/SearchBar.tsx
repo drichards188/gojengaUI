@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Card from "./Card";
 import List from "./List";
 import {Button} from "@mui/material";
+import "./Dashboard.scss";
 
 const SearchBar = (props: any) => {
 

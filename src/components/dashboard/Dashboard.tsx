@@ -4,7 +4,7 @@ import {Cards} from "./Cards"
 import {useEffect} from "react";
 import {getCoinBatchAsync, getCoinDataAsync, getCoinListAsync, selectCoinData} from "./dashboardSlice";
 import SearchBar from "./SearchBar";
-import {getCoinBatch} from "./dashboardAPI";
+import SearchAppBar from "./Search";
 
 export function Dashboard() {
     const dispatch = useAppDispatch();
@@ -20,9 +20,10 @@ export function Dashboard() {
 
     return (
         <div>
-            <Header/>
-            <p>This is the last price of {coinKey} ${coinData[0].last}</p>
-            <SearchBar/>
+            {/*<Header/>*/}
+            {/*<p>This is the last price of {coinKey} ${coinData[0].last}</p>*/}
+            {/*<SearchBar/>*/}
+            <SearchAppBar />
             <Cards cardData={coinData}/>
         </div>
     );

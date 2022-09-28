@@ -7,7 +7,7 @@ function List(props: any) {
     const filteredData = coinData.filter((el: any) => {
         //if no input the return the original
         if (props.input === '') {
-            return el;
+            // return el;
         }
         //return the item which contains the user input
         else {
