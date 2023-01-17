@@ -19,13 +19,8 @@ const Card = (props: any) => {
   return (
     <div style={divStyle}>
       <p>{id}</p>
-      <p>{last}</p>
+      <p>${last}</p>
       <p>{volume}</p>
-      {/*<ul>*/}
-      {/*    {props.data.stops.map(myStops => (*/}
-      {/*        <li>{myStops}</li>*/}
-      {/*    ))}*/}
-      {/*</ul>*/}
     </div>
   );
 };

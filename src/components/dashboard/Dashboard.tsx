@@ -33,9 +33,6 @@ export function Dashboard() {
 
   return (
     <div>
-      {/*<Header/>*/}
-      {/*<p>This is the last price of {coinKey} ${coinData[0].last}</p>*/}
-      {/*<SearchBar/>*/}
       <SearchAppBar />
       <Cards cardData={coinData} />
     </div>
