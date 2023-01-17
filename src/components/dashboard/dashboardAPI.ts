@@ -23,9 +23,6 @@ export const getCoinData = async (coinKey: string) => {
       `https://api.coingecko.com/api/v3/coins/${coinKey}?tickers=true&market_data=false&community_data=false&developer_data=false&sparkline=false`
     )
     .then(function (response: any) {
-      // console.log(response.data.gecko_says);
-      // let theData = response.data;
-      // console.log(response.data.tickers[0].last);
       return response.data.tickers[0];
     })
     .catch((error: any) => {
@@ -65,11 +62,7 @@ export async function getListOfCoins() {
   let response = await axios
     .get(`https://api.coingecko.com/api/v3/coins/list`)
     .then(function (response: any) {
-      // console.log(response.data.gecko_says);
-      // let theData = response.data;
-      // console.log(response.data.tickers[0].last);
       return response.data;
-      // return response.data;
     })
     .catch((error: any) => {
       if (error.response) {
@@ -87,26 +80,12 @@ export async function getListOfCoins() {
 }
 
 export async function crtUser(account: string) {
-  // const response = await fetch(backendURL, {
-  //     method: 'POST',
-  //     credentials: 'same-origin',
-  //     body: JSON.stringify({
-  //         "Verb": "CRT",
-  //         "Account": account,
-  //         "Password": "54321",
-  //         "Amount": amount
-  //     })
-  // });
   let data = "";
   let response = await axios
-    // .get('https://api.coingecko.com/api/v3/ping')
     .get(
       `https://api.coingecko.com/api/v3/coins/ripple?tickers=true&market_data=false&community_data=false&developer_data=false&sparkline=false`
     )
     .then(function (response: any) {
-      // console.log(response.data.gecko_says);
-      // let theData = response.data;
-      // console.log(response.data.tickers[0].last);
       data = response.data.tickers[0];
     })
     .catch((error: any) => {
@@ -120,13 +99,6 @@ export async function crtUser(account: string) {
         console.error("Error", error.message);
       }
     });
-  // const data = await response.json();
-  // const data = {
-  //     "response": {
-  //         "username": account,
-  //         "balance": amount
-  //     }
-  // };
   return new Promise<{ data: any }>((resolve) =>
     setTimeout(() => resolve({ data: data }), 500)
   );
@@ -134,14 +106,9 @@ export async function crtUser(account: string) {
 
 export async function getCoinsList() {
   let data = await axios
-    // .get('https://api.coingecko.com/api/v3/ping')
     .get(`https://api.coingecko.com/api/v3/coins/list`)
     .then(function (response: any) {
-      // console.log(response.data.gecko_says);
-      // let theData = response.data;
-      // console.log(response.data.tickers[0].last);
       return response.data;
-      // return response.data;
     })
     .catch((error: any) => {
       if (error.response) {
@@ -170,7 +137,6 @@ export async function crtLogin(account: string, password: string) {
       password: password,
     }),
   });
-  // const data = await response.json();
   const data = returnLoginData(account, password);
 
   return new Promise<{ data: any }>((resolve) =>
