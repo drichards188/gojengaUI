@@ -5,8 +5,8 @@ import { useState, createContext } from "react";
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
 
-  last = Math.round(last * 100) / 100;
-  volume = Math.round(volume * 100) / 100;
+  last = last.toFixed(4);
+  volume = volume.toFixed(2);
 
   const divStyle = {
     display: "inline-block",
