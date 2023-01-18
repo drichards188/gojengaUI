@@ -66,12 +66,24 @@ export function Banking() {
 
   let createDepositElem;
   if (displayDepositCreation) {
-    createDepositElem = <Deposit />;
+    createDepositElem = (
+      <Deposit
+        closeDepositCreation={closeDepositCreation}
+        setDisplay={setDisplay}
+        setDepositCreation={setDepositCreation}
+      />
+    );
   }
 
   let createTransactionElem;
   if (displayTransactionCreation) {
-    createTransactionElem = <Transaction />;
+    createTransactionElem = (
+      <Transaction
+        closeTransactionCreation={closeTransactionCreation}
+        setDisplay={setDisplay}
+        setTransactionCreation={setTransactionCreation}
+      />
+    );
   }
 
   let createInfoElem;
