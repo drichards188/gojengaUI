@@ -13,7 +13,7 @@ export const Cards = ({ cardData }: any) => {
     <div>
       <div>
         {cardData.map((coinData: any) => (
-          <Card data={coinData} />
+          <Card key={coinData.id} data={coinData} />
         ))}
       </div>
     </div>

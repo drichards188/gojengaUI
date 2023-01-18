@@ -18,8 +18,6 @@ export function Dashboard() {
   const coinData = useAppSelector(selectCoinData);
   const displayCoins = useAppSelector(selectCoinDisplayList);
 
-  const coinKey = "ripple";
-
   useEffect(() => {
     // dispatch(pingExpressAsync("myData"));
 

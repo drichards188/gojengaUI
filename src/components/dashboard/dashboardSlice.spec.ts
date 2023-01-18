@@ -1,9 +1,4 @@
-import counterReducer, {
-  DashboardState,
-  increment,
-  decrement,
-  incrementByAmount,
-} from "./dashboardSlice";
+import counterReducer, { DashboardState } from "./dashboardSlice";
 
 describe("dashboard reducer", () => {
   const initialState: DashboardState = {
@@ -27,18 +22,18 @@ describe("dashboard reducer", () => {
     });
   });
 
-  it("should handle increment", () => {
-    const actual = counterReducer(initialState, increment());
-    expect(actual.amount).toEqual(4);
-  });
-
-  it("should handle decrement", () => {
-    const actual = counterReducer(initialState, decrement());
-    expect(actual.amount).toEqual(2);
-  });
-
-  it("should handle incrementByAmount", () => {
-    const actual = counterReducer(initialState, incrementByAmount(2));
-    expect(actual.amount).toEqual(5);
-  });
+  // it("should handle increment", () => {
+  //   const actual = counterReducer(initialState, increment());
+  //   expect(actual.amount).toEqual(4);
+  // });
+  //
+  // it("should handle decrement", () => {
+  //   const actual = counterReducer(initialState, decrement());
+  //   expect(actual.amount).toEqual(2);
+  // });
+  //
+  // it("should handle incrementByAmount", () => {
+  //   const actual = counterReducer(initialState, incrementByAmount(2));
+  //   expect(actual.amount).toEqual(5);
+  // });
 });
