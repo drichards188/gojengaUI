@@ -1,10 +1,17 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCoinList, addCoinToDisplayList } from "./dashboardSlice";
+import { useNavigate } from "react-router-dom";
 
 function List(props: any) {
   const coinData = useAppSelector(selectCoinList);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  if (coinData == "" || null) {
+    alert("coinData is empty");
+    navigate("/");
+  }
 
   const filteredData = coinData.filter((el: any) => {
     //if no input the return the original

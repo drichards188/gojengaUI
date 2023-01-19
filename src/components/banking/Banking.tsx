@@ -59,11 +59,6 @@ export function Banking() {
     );
   }
 
-  let welcomeElem;
-  if (!isLoggedIn) {
-    welcomeElem = <Welcome />;
-  }
-
   let createDepositElem;
   if (displayDepositCreation) {
     createDepositElem = (

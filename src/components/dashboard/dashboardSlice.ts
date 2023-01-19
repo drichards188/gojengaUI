@@ -138,6 +138,11 @@ export const dashboardSlice = createSlice({
         state.displayCoinList = arr;
       }
     },
+    removeCoinFromDisplayList: (state, action: PayloadAction<string[]>) => {
+      state.displayCoinList = state.displayCoinList.filter(
+        (x: any) => x !== action.payload
+      );
+    },
     resetState: (state) => {
       return initialState;
     },
@@ -275,6 +280,7 @@ export const {
   makeDelete,
   makeInfo,
   addCoinToDisplayList,
+  removeCoinFromDisplayList,
 } = dashboardSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
