@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Welcome } from "../welcome/Welcome";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -42,6 +42,13 @@ export function Banking() {
   const [displayInfoCreation, setInfoCreation] = useState(false);
   const amountValue = Number(amount) || 0;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!bankingUser) {
+      alert("Please login");
+      navigate("/");
+    }
+  });
 
   let toolbar;
   if (isLoggedIn && display) {
