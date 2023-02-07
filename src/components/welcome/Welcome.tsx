@@ -10,7 +10,7 @@ import {
   selectBankingUser,
   makeLogin,
   createLoginAsync,
-  makeInfo,
+  setUser,
   createInfoAsync,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
@@ -19,8 +19,6 @@ import {
   getCoinBatchAsync,
   getCoinListAsync,
 } from "../dashboard/dashboardSlice";
-
-import { pingExpressAsync } from "../banking/bankingSlice";
 
 export function Welcome() {
   const banking = useAppSelector(selectBanking);
@@ -228,8 +226,9 @@ function createMyUser(dispatch: any, username: any, amount: any) {
 }
 
 function createLogin(dispatch: any, account: any, password: any) {
+  //todo setup login cycle that checks for successful token
   dispatch(makeLogin({ account, password }));
-  dispatch(pingExpressAsync({ account, password }));
+  dispatch(createLoginAsync({ account, password }));
   // dispatch(createLoginAsync({ account, password }));
 
   //todo check that login was successful before directing
@@ -257,6 +256,6 @@ function closeLoginCreation(setDisplay: any, setLoginCreation: any) {
 }
 
 function createInfo(dispatch: any, account: string) {
-  dispatch(makeInfo({ account }));
+  dispatch(setUser({ account }));
   dispatch(createInfoAsync({ account }));
 }

@@ -15,7 +15,6 @@ import {
   crtUser,
   fetchCount,
   getCoinBatch,
-  crtPing,
 } from "./dashboardAPI";
 
 export interface DashboardState {

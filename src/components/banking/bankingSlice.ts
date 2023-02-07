@@ -10,18 +10,16 @@ import {
   crtDelete,
   crtDeposit,
   crtInfo,
-  crtLogin,
   crtTransaction,
   crtUser,
   fetchCount,
 } from "./bankingAPI";
-import { crtPing } from "../dashboard/dashboardAPI";
+import { crtLogin } from "./bankingAPI";
 
 export interface BankingState {
   amount: number;
   balance: number;
   user: string;
-  password: string;
   destination: string;
   message: string;
   loggedIn: boolean;
@@ -33,7 +31,6 @@ const initialState: BankingState = {
   amount: 0,
   balance: 0,
   user: "david",
-  password: "12345",
   destination: "allie",
   message: "",
   loggedIn: false,
@@ -80,16 +77,6 @@ export const createTransactionAsync = createAsyncThunk(
   }
 );
 
-export const createLoginAsync = createAsyncThunk(
-  "banking/createLogin",
-  async (payload: any) => {
-    const response = await crtLogin(payload.account, payload.password);
-    // The value we return becomes the `fulfilled` action payload
-
-    return response.data;
-  }
-);
-
 export const createDepositAsync = createAsyncThunk(
   "banking/createDeposit",
   async (payload: any) => {
@@ -120,10 +107,10 @@ export const createDeleteAsync = createAsyncThunk(
   }
 );
 
-export const pingExpressAsync = createAsyncThunk(
+export const createLoginAsync = createAsyncThunk(
   "dashboard/pingExpress",
   async (payload: any) => {
-    let response = await crtPing(payload.account, payload.password);
+    let response = await crtLogin(payload.account, payload.password);
     return response.data;
   }
 );
@@ -147,10 +134,6 @@ export const bankingSlice = createSlice({
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.amount += action.payload;
     },
-    setUser: (state, action: PayloadAction<string>) => {
-      state.user = action.payload;
-      // alert("setUser state is " + state.user)
-    },
     setAmount: (state, action: PayloadAction<number>) => {
       state.amount = action.payload;
     },
@@ -168,7 +151,6 @@ export const bankingSlice = createSlice({
       let username = action.payload.account;
       let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
       state.user = uppercase;
-      state.password = action.payload.password;
     },
     makeTransaction: (state, action: PayloadAction<any>) => {
       state.destination = action.payload.destination;
@@ -180,7 +162,7 @@ export const bankingSlice = createSlice({
     makeDeposit: (state, action: PayloadAction<any>) => {
       state.amount = action.payload.amount;
     },
-    makeInfo: (state, action: PayloadAction<any>) => {
+    setUser: (state, action: PayloadAction<any>) => {
       let username = action.payload.account;
       let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
       state.user = uppercase;
@@ -212,22 +194,6 @@ export const bankingSlice = createSlice({
         state.status = "idle";
         state.message = action.payload["response"]["message"];
         state.balance = Number(state.balance) + Number(state.amount);
-      })
-
-      //createLogin
-      .addCase(createLoginAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createLoginAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.token = action.payload["response"]["token"];
-        state.loggedIn = true;
-        // alert("the state.user is now " + state.user)
-      })
-      .addCase(createLoginAsync.rejected, (state, action) => {
-        state.status = "failed";
-        // alert("login rejected " + action.payload)
-        // alert("the state.user is now " + state.user)
       })
 
       //createUser
@@ -263,16 +229,16 @@ export const bankingSlice = createSlice({
         // alert("the state.message is now " + state.message)
       })
 
-      //pingExpress
-      .addCase(pingExpressAsync.pending, (state) => {
+      //createLoginAsync
+      .addCase(createLoginAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(pingExpressAsync.fulfilled, (state, action) => {
+      .addCase(createLoginAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.token = action.payload.data.access_token;
         state.loggedIn = true;
       })
-      .addCase(pingExpressAsync.rejected, (state, action) => {
+      .addCase(createLoginAsync.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
@@ -284,7 +250,6 @@ export const {
   increment,
   decrement,
   incrementByAmount,
-  setUser,
   setAmount,
   resetState,
   resetMessage,
@@ -293,7 +258,7 @@ export const {
   makeLogin,
   makeDeposit,
   makeDelete,
-  makeInfo,
+  setUser,
 } = bankingSlice.actions;
 
 // The function below is called a selector and allows us to select a value from

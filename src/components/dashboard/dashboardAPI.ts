@@ -204,34 +204,3 @@ export async function crtDelete(account: string) {
     setTimeout(() => resolve({ data: data }), 500)
   );
 }
-
-export async function crtPing(username: string, password: string) {
-  let formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-
-  const headers = new Headers();
-  headers.set("Content-Type", "multipart/form-data");
-  headers.set("Is-Test", "True");
-
-  let response = await axios({
-    method: "post",
-    url: "http://localhost:8000/login",
-    data: formData,
-    headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
-  })
-    .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data));
-      return response;
-    })
-    .catch(function (response) {
-      //handle error
-      alert("failed " + response);
-      return response;
-    });
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
-  );
-}

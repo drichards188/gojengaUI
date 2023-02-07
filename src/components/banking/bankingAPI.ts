@@ -1,135 +1,156 @@
 //todo put your gojenga or postman url here
-import {returnLoginData, returnTransactionData} from "../../backend/backendInterface";
+import {
+  returnLoginData,
+  returnTransactionData,
+} from "../../backend/backendInterface";
+import axios from "axios";
 
-const backendURL = 'https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto'
+const backendURL =
+  "https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto";
 // const backendURL = 'http://localhost:8070/crypto'
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
-    return new Promise<{ data: number }>((resolve) =>
-        setTimeout(() => resolve({data: amount}), 500)
-    );
+  return new Promise<{ data: number }>((resolve) =>
+    setTimeout(() => resolve({ data: amount }), 500)
+  );
 }
 
 export async function crtUser(account: string, amount: number) {
-
-    const response = await fetch(backendURL, {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "Verb": "CRT",
-            "Account": account,
-            "Password": "54321",
-            "Amount": amount
-        })
-    });
-    // const data = await response.json();
-    const data = {
-        "response": {
-            "username": account,
-            "balance": amount
-        }
-    };
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
+  const response = await fetch(backendURL, {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      Verb: "CRT",
+      Account: account,
+      Password: "54321",
+      Amount: amount,
+    }),
+  });
+  // const data = await response.json();
+  const data = {
+    response: {
+      username: account,
+      balance: amount,
+    },
+  };
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: data }), 500)
+  );
 }
 
-export async function crtTransaction(account: string, destination: string, amount: number) {
-    const response = await fetch(backendURL, {
-        method: 'PUT',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "TRAN",
-            "account": "david",
-            "destination": destination,
-            "amount": amount
-        })
-    });
+export async function crtTransaction(
+  account: string,
+  destination: string,
+  amount: number
+) {
+  const response = await fetch(backendURL, {
+    method: "PUT",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      verb: "TRAN",
+      account: "david",
+      destination: destination,
+      amount: amount,
+    }),
+  });
 
-    const data = returnTransactionData(account, destination, amount);
+  const data = returnTransactionData(account, destination, amount);
 
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
-}
-
-export async function crtLogin(account: string, password: string) {
-    const response = await fetch(backendURL, {
-        method: 'PUT',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "LOGIN",
-            "account": account,
-            "password": password,
-        })
-    });
-    // const data = await response.json();
-    const data = returnLoginData(account, password);
-
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: data }), 500)
+  );
 }
 
 export async function crtDeposit(account: string, amount: number) {
-    const response = await fetch(backendURL, {
-        method: 'PUT',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "ADD",
-            "account": account,
-            "amount": amount
-        })
-    });
-    const data = {
-        "response": {
-            "message": "deposit success"
-        }
-    };
+  const response = await fetch(backendURL, {
+    method: "PUT",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      verb: "ADD",
+      account: account,
+      amount: amount,
+    }),
+  });
+  const data = {
+    response: {
+      message: "deposit success",
+    },
+  };
 
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: data }), 500)
+  );
 }
 
 export async function crtInfo(account: string) {
-    const response = await fetch(backendURL, {
-        method: 'PUT',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "QUERY",
-            "account": account
-        })
-    });
-    const data = {
-        "response": {
-            "username": account.charAt(0).toUpperCase() + account.slice(1),
-            "balance": "129.38"
-        }
-    };
+  const response = await fetch(backendURL, {
+    method: "PUT",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      verb: "QUERY",
+      account: account,
+    }),
+  });
+  const data = {
+    response: {
+      username: account.charAt(0).toUpperCase() + account.slice(1),
+      balance: "129.38",
+    },
+  };
 
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: data }), 500)
+  );
 }
 
 export async function crtDelete(account: string) {
-    const response = await fetch(backendURL, {
-        method: 'DELETE',
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            "verb": "DLT",
-            "account": account
-        })
-    });
-    const data = {
-        "response": {
-            "message": "login success"
-        }
-    };
+  const response = await fetch(backendURL, {
+    method: "DELETE",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      verb: "DLT",
+      account: account,
+    }),
+  });
+  const data = {
+    response: {
+      message: "login success",
+    },
+  };
 
-    return new Promise<{ data: any }>((resolve) =>
-        setTimeout(() => resolve({data: data}), 500)
-    );
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: data }), 500)
+  );
+}
+
+export async function crtLogin(username: string, password: string) {
+  let formData = new FormData();
+  formData.append("username", username);
+  formData.append("password", password);
+
+  const headers = new Headers();
+  headers.set("Content-Type", "multipart/form-data");
+  headers.set("Is-Test", "True");
+
+  let response = await axios({
+    method: "post",
+    url: "http://localhost:8000/login",
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data));
+      return response;
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
 }
