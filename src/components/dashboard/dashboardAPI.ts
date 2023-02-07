@@ -205,10 +205,10 @@ export async function crtDelete(account: string) {
   );
 }
 
-export async function crtPing() {
+export async function crtPing(username: string, password: string) {
   let formData = new FormData();
-  formData.append("username", "zala");
-  formData.append("password", "password");
+  formData.append("username", username);
+  formData.append("password", password);
 
   const headers = new Headers();
   headers.set("Content-Type", "multipart/form-data");
@@ -232,6 +232,6 @@ export async function crtPing() {
     });
 
   return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response.data }))
+    setTimeout(() => resolve({ data: response }))
   );
 }

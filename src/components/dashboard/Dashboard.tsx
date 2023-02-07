@@ -6,7 +6,6 @@ import {
   getCoinBatchAsync,
   getCoinDataAsync,
   getCoinListAsync,
-  pingExpressAsync,
   selectCoinData,
   selectCoinDisplayList,
 } from "./dashboardSlice";

@@ -109,16 +109,6 @@ export const createDeleteAsync = createAsyncThunk(
   }
 );
 
-export const pingExpressAsync = createAsyncThunk(
-  "dashboard/pingExpress",
-  async (payload: any) => {
-    let response = await crtPing();
-    // alert("pingExpressAsync " + JSON.stringify(response));
-    // return response.data;
-    return response;
-  }
-);
-
 export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
@@ -247,21 +237,6 @@ export const dashboardSlice = createSlice({
         state.loggedIn = true;
       })
       .addCase(createInfoAsync.rejected, (state, action) => {
-        state.status = "failed";
-        // alert("createUser rejected " + action.payload)
-        // alert("the state.message is now " + state.message)
-      })
-
-      //pingExpress
-      .addCase(pingExpressAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(pingExpressAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.token = action.payload.data.access_token;
-        state.loggedIn = true;
-      })
-      .addCase(pingExpressAsync.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)

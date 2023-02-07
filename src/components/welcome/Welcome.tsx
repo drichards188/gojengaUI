@@ -18,8 +18,9 @@ import { Box, Button, TextField } from "@mui/material";
 import {
   getCoinBatchAsync,
   getCoinListAsync,
-  pingExpressAsync,
 } from "../dashboard/dashboardSlice";
+
+import { pingExpressAsync } from "../banking/bankingSlice";
 
 export function Welcome() {
   const banking = useAppSelector(selectBanking);
@@ -37,12 +38,7 @@ export function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(
-      pingExpressAsync({
-        coinArray: ["hiya"],
-      })
-    );
-    // dispatch(getCoinListAsync());
+    dispatch(getCoinListAsync());
   }, []);
 
   let Output;
@@ -233,7 +229,8 @@ function createMyUser(dispatch: any, username: any, amount: any) {
 
 function createLogin(dispatch: any, account: any, password: any) {
   dispatch(makeLogin({ account, password }));
-  dispatch(createLoginAsync({ account, password }));
+  dispatch(pingExpressAsync({ account, password }));
+  // dispatch(createLoginAsync({ account, password }));
 
   //todo check that login was successful before directing
   createInfo(dispatch, account);

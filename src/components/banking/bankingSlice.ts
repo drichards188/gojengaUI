@@ -15,6 +15,7 @@ import {
   crtUser,
   fetchCount,
 } from "./bankingAPI";
+import { crtPing } from "../dashboard/dashboardAPI";
 
 export interface BankingState {
   amount: number;
@@ -115,6 +116,14 @@ export const createDeleteAsync = createAsyncThunk(
     const response = await crtDelete(payload.account);
     // The value we return becomes the `fulfilled` action payload
 
+    return response.data;
+  }
+);
+
+export const pingExpressAsync = createAsyncThunk(
+  "dashboard/pingExpress",
+  async (payload: any) => {
+    let response = await crtPing(payload.account, payload.password);
     return response.data;
   }
 );
@@ -249,6 +258,21 @@ export const bankingSlice = createSlice({
         state.loggedIn = true;
       })
       .addCase(createInfoAsync.rejected, (state, action) => {
+        state.status = "failed";
+        // alert("createUser rejected " + action.payload)
+        // alert("the state.message is now " + state.message)
+      })
+
+      //pingExpress
+      .addCase(pingExpressAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(pingExpressAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.token = action.payload.data.access_token;
+        state.loggedIn = true;
+      })
+      .addCase(pingExpressAsync.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
