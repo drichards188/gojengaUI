@@ -16,8 +16,6 @@ function handleExit(setDisplayBlockchain: any, dispatch: any) {
 
 function App() {
   const [displayCount, setDisplayCount] = useState(false);
-  const [displayBanking, setDisplayBanking] = useState(false);
-  const dispatch = useAppDispatch();
 
   let counter;
   let banking;

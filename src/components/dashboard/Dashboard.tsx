@@ -19,8 +19,6 @@ export function Dashboard() {
   const displayCoins = useAppSelector(selectCoinDisplayList);
 
   useEffect(() => {
-    // dispatch(pingExpressAsync("myData"));
-
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,

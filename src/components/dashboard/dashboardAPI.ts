@@ -1,4 +1,3 @@
-//todo put your gojenga or postman url here
 import {
   returnLoginData,
   returnTransactionData,
@@ -207,14 +206,32 @@ export async function crtDelete(account: string) {
 }
 
 export async function crtPing() {
-  const response = await fetch("http://localhost:3500", {
-    method: "GET",
-    credentials: "same-origin",
-    headers: new Headers({ "content-type": "application/json" }),
-    mode: "no-cors",
-  });
+  let formData = new FormData();
+  formData.append("username", "zala");
+  formData.append("password", "password");
 
-  const resp = await response;
+  const headers = new Headers();
+  headers.set("Content-Type", "multipart/form-data");
+  headers.set("Is-Test", "True");
 
-  return new Promise<{ data: any }>((resolve) => resolve({ data: response }));
+  let response = await axios({
+    method: "post",
+    url: "http://localhost:8000/login",
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data));
+      return response;
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response.data }))
+  );
 }

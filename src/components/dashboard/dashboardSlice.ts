@@ -112,9 +112,10 @@ export const createDeleteAsync = createAsyncThunk(
 export const pingExpressAsync = createAsyncThunk(
   "dashboard/pingExpress",
   async (payload: any) => {
-    const response = await crtPing();
-    alert(JSON.stringify(response));
-    return response.data;
+    let response = await crtPing();
+    // alert("pingExpressAsync " + JSON.stringify(response));
+    // return response.data;
+    return response;
   }
 );
 
@@ -257,7 +258,7 @@ export const dashboardSlice = createSlice({
       })
       .addCase(pingExpressAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        alert(JSON.stringify(action.payload));
+        state.token = action.payload.data.access_token;
         state.loggedIn = true;
       })
       .addCase(pingExpressAsync.rejected, (state, action) => {
