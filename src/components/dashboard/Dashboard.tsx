@@ -6,7 +6,6 @@ import {
   getCoinBatchAsync,
   getCoinDataAsync,
   getCoinListAsync,
-  pingExpressAsync,
   selectCoinData,
   selectCoinDisplayList,
 } from "./dashboardSlice";
@@ -19,8 +18,6 @@ export function Dashboard() {
   const displayCoins = useAppSelector(selectCoinDisplayList);
 
   useEffect(() => {
-    // dispatch(pingExpressAsync("myData"));
-
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,

@@ -15,7 +15,6 @@ import {
   crtUser,
   fetchCount,
   getCoinBatch,
-  crtPing,
 } from "./dashboardAPI";
 
 export interface DashboardState {
@@ -105,15 +104,6 @@ export const createDeleteAsync = createAsyncThunk(
     const response = await crtDelete(payload.account);
     // The value we return becomes the `fulfilled` action payload
 
-    return response.data;
-  }
-);
-
-export const pingExpressAsync = createAsyncThunk(
-  "dashboard/pingExpress",
-  async (payload: any) => {
-    const response = await crtPing();
-    alert(JSON.stringify(response));
     return response.data;
   }
 );
@@ -246,21 +236,6 @@ export const dashboardSlice = createSlice({
         state.loggedIn = true;
       })
       .addCase(createInfoAsync.rejected, (state, action) => {
-        state.status = "failed";
-        // alert("createUser rejected " + action.payload)
-        // alert("the state.message is now " + state.message)
-      })
-
-      //pingExpress
-      .addCase(pingExpressAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(pingExpressAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        alert(JSON.stringify(action.payload));
-        state.loggedIn = true;
-      })
-      .addCase(pingExpressAsync.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)

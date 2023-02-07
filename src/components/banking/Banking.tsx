@@ -25,7 +25,6 @@ import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
 
 export function Banking() {
-  const dispatch = useAppDispatch();
   const banking = useAppSelector(selectBanking);
   const bankingUser = useAppSelector(selectBankingUser);
   const token = useAppSelector(selectToken);
@@ -40,7 +39,6 @@ export function Banking() {
   const [displayTransactionCreation, setTransactionCreation] = useState(false);
   const [displayDepositCreation, setDepositCreation] = useState(false);
   const [displayInfoCreation, setInfoCreation] = useState(false);
-  const amountValue = Number(amount) || 0;
   const navigate = useNavigate();
 
   useEffect(() => {
