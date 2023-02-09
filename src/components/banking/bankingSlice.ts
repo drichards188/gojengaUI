@@ -110,7 +110,7 @@ export const createDeleteAsync = createAsyncThunk(
 export const createLoginAsync = createAsyncThunk(
   "dashboard/pingExpress",
   async (payload: any) => {
-    let response = await crtLogin(payload.account, payload.password);
+    let response = await crtLogin(payload.username, payload.password);
     return response.data;
   }
 );

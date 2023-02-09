@@ -125,6 +125,7 @@ export async function crtDelete(account: string) {
 }
 
 export async function crtLogin(username: string, password: string) {
+  alert("username " + username + " password " + password);
   let formData = new FormData();
   formData.append("username", username);
   formData.append("password", password);

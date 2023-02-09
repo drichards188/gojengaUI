@@ -44,16 +44,10 @@ export function Welcome() {
     Output = (
       <div className={styles.row}>
         <div>
-          <button
-            className={styles.button}
-            onClick={() => openAccountCreation(setDisplay, setUserCreation)}
-          >
+          <button className={styles.button} onClick={() => navigate("/signup")}>
             Create Account
           </button>
-          <button
-            className={styles.button}
-            onClick={() => openLoginCreation(setDisplay, setLoginCreation)}
-          >
+          <button className={styles.button} onClick={() => navigate("/login")}>
             Login
           </button>
         </div>
