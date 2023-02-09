@@ -5,9 +5,11 @@ import {
 } from "../../backend/backendInterface";
 import axios from "axios";
 
-const backendURL =
-  "https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto";
+const backendURL = "";
 // const backendURL = 'http://localhost:8070/crypto'
+
+export const sleep = (delay: number) =>
+  new Promise((resolve) => setTimeout(resolve, delay));
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
