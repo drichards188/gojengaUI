@@ -64,31 +64,25 @@ export function Banking() {
     );
   }
 
-  let createDepositElem;
+  let dialog;
   if (displayDepositCreation) {
-    createDepositElem = (
+    dialog = (
       <Deposit
         closeDepositCreation={closeDepositCreation}
         setDisplay={setDisplay}
         setDepositCreation={setDepositCreation}
       />
     );
-  }
-
-  let createTransactionElem;
-  if (displayTransactionCreation) {
-    createTransactionElem = (
+  } else if (displayTransactionCreation) {
+    dialog = (
       <Transaction
         closeTransactionCreation={closeTransactionCreation}
         setDisplay={setDisplay}
         setTransactionCreation={setTransactionCreation}
       />
     );
-  }
-
-  let createInfoElem;
-  if (displayInfoCreation) {
-    createInfoElem = (
+  } else if (displayInfoCreation) {
+    dialog = (
       <AccountInfo
         closeInfoCreation={closeInfoCreation}
         setDisplay={setDisplay}
@@ -97,9 +91,9 @@ export function Banking() {
     );
   }
 
-  let infoDiv;
+  let balanceDiv;
   if (isLoggedIn) {
-    infoDiv = (
+    balanceDiv = (
       <AccountBalance
         bankingUser={bankingUser}
         balance={balance}
@@ -111,12 +105,8 @@ export function Banking() {
   return (
     <div>
       <Header />
-      {infoDiv}
-      <div className={styles.row}>
-        {createTransactionElem}
-        {createDepositElem}
-        {createInfoElem}
-      </div>
+      {balanceDiv}
+      <div className={styles.row}>{dialog}</div>
       {toolbar}
       <Footer />
     </div>
@@ -141,7 +131,6 @@ function openInfoCreation(
 ) {
   setDisplay(false);
   setInfoCreation(true);
-  // createInfo(dispatch, username)
 }
 
 function closeTransactionCreation(

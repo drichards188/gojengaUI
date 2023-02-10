@@ -45,7 +45,7 @@ const Login = () => {
         <Button
           onClick={() => {
             dispatch(createLoginAsync({ username, password }));
-            const wait = sleep(1000);
+            const wait = sleep(2000);
             wait.then(() => {
               if (token !== "token") {
                 navigate("/dashboard");
