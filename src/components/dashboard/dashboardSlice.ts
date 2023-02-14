@@ -8,7 +8,6 @@ import {
 import { RootState, AppThunk } from "../../app/store";
 import {
   crtDelete,
-  crtDeposit,
   crtInfo,
   crtLogin,
   getCoinsList,
@@ -75,16 +74,6 @@ export const getCoinBatchAsync = createAsyncThunk(
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinData: response };
     return wrappedData;
-  }
-);
-
-export const createDepositAsync = createAsyncThunk(
-  "dashboard/createDeposit",
-  async (payload: any) => {
-    const response = await crtDeposit(payload.account, payload.amount);
-    // The value we return becomes the `fulfilled` action payload
-
-    return response.data;
   }
 );
 
@@ -182,16 +171,6 @@ export const dashboardSlice = createSlice({
         state.status = "idle";
         state.coinList = action.payload.coinList;
         // alert("the state.user is now " + state.user)
-      })
-
-      //createDeposit
-      .addCase(createDepositAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createDepositAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.message = action.payload["response"]["message"];
-        state.balance = Number(state.balance) + Number(state.amount);
       })
 
       //createLogin

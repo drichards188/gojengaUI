@@ -11,6 +11,7 @@ import {
   selectMessage,
   selectBalance,
   selectAmount,
+  getUserAsync,
 } from "./bankingSlice";
 import styles from "./Banking.module.css";
 import { Box, Container, TextField } from "@mui/material";
@@ -23,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
+import { crtGetAccount } from "./bankingAPI";
 
 export function Banking() {
   const banking = useAppSelector(selectBanking);
@@ -32,6 +34,7 @@ export function Banking() {
   const balance = useAppSelector(selectBalance);
   const serverAmount = useAppSelector(selectAmount);
   const isLoggedIn = useAppSelector(selectLoggedIn);
+  const dispatch = useAppDispatch();
 
   const [username, setUsername] = useState("");
   const [amount, setStateAmount] = useState("0");
@@ -46,6 +49,7 @@ export function Banking() {
       alert("Please login");
       navigate("/");
     }
+    dispatch(getUserAsync({ username: "kovax" }));
   });
 
   let toolbar;
