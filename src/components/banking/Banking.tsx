@@ -49,7 +49,7 @@ export function Banking() {
       alert("Please login");
       navigate("/");
     }
-    dispatch(getUserAsync({ username: "kovax" }));
+    dispatch(getUserAsync({ username: bankingUser }));
   });
 
   let toolbar;
