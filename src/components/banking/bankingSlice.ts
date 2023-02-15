@@ -9,6 +9,7 @@ import { RootState, AppThunk } from "../../app/store";
 import {
   crtDelete,
   crtDeposit,
+  crtGetAccount,
   crtInfo,
   crtTransaction,
   crtUser,
@@ -108,9 +109,17 @@ export const createDeleteAsync = createAsyncThunk(
 );
 
 export const createLoginAsync = createAsyncThunk(
-  "dashboard/pingExpress",
+  "banking/createLogin",
   async (payload: any) => {
     let response = await crtLogin(payload.username, payload.password);
+    return response.data;
+  }
+);
+
+export const getUserAsync = createAsyncThunk(
+  "banking/getLogin",
+  async (payload: any) => {
+    let response = await crtGetAccount(payload.username);
     return response.data;
   }
 );
@@ -149,8 +158,8 @@ export const bankingSlice = createSlice({
     },
     makeLogin: (state, action: PayloadAction<any>) => {
       let username = action.payload.account;
-      let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
-      state.user = uppercase;
+      // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
+      state.user = username;
     },
     makeTransaction: (state, action: PayloadAction<any>) => {
       state.destination = action.payload.destination;
@@ -240,6 +249,22 @@ export const bankingSlice = createSlice({
       })
       .addCase(createLoginAsync.rejected, (state, action) => {
         state.status = "failed";
+        // alert("createUser rejected " + action.payload)
+        // alert("the state.message is now " + state.message)
+      })
+
+      //getUserAsync
+      .addCase(getUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getUserAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.balance = action.payload.balance;
+        state.loggedIn = true;
+      })
+      .addCase(getUserAsync.rejected, (state, action) => {
+        state.status = "failed";
+        alert(`getUserAsync failed`);
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
       });

@@ -72,7 +72,7 @@ function createDeposit(
   amount: string,
   setStateAmount: any
 ) {
-  dispatch(makeDeposit({ account, amount }));
+  // dispatch(makeDeposit({ account, amount }));
   dispatch(createDepositAsync({ account, amount }));
   setStateAmount(0);
 }

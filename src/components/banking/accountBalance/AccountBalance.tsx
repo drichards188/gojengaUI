@@ -6,7 +6,7 @@ const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
   return (
     <div>
       <Box className={styles.textbox} aria-label="Set User">
-        {"Hi " + bankingUser + "!"}
+        {"Hi " + capitalized(bankingUser) + "!"}
       </Box>
       <Box className={styles.textbox} aria-label="Set User">
         {"You have $" + balance}
@@ -16,6 +16,14 @@ const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
       </Box>
     </div>
   );
+};
+
+const capitalized = (str: string) => {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 };
 
 export default AccountBalance;

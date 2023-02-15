@@ -143,27 +143,6 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 
-export async function crtDeposit(account: string, amount: number) {
-  const response = await fetch(backendURL, {
-    method: "PUT",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "ADD",
-      account: account,
-      amount: amount,
-    }),
-  });
-  const data = {
-    response: {
-      message: "deposit success",
-    },
-  };
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
-  );
-}
-
 export async function crtInfo(account: string) {
   const response = await fetch(backendURL, {
     method: "PUT",

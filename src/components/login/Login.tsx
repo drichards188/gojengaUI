@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createLoginAsync, selectToken } from "../banking/bankingSlice";
+import {
+  createLoginAsync,
+  makeLogin,
+  selectToken,
+} from "../banking/bankingSlice";
 import { sleep } from "../banking/bankingAPI";
 import { useAppSelector } from "../../app/hooks";
 
@@ -45,9 +49,10 @@ const Login = () => {
         <Button
           onClick={() => {
             dispatch(createLoginAsync({ username, password }));
-            const wait = sleep(1000);
+            const wait = sleep(3000);
             wait.then(() => {
               if (token !== "token") {
+                dispatch(makeLogin({ account: username }));
                 navigate("/dashboard");
               } else {
                 alert("please try to login again");
