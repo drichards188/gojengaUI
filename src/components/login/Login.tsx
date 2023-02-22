@@ -49,7 +49,7 @@ const Login = () => {
         <Button
           onClick={() => {
             dispatch(createLoginAsync({ username, password }));
-            const wait = sleep(3000);
+            const wait = sleep(1000);
             wait.then(() => {
               if (token !== "token") {
                 dispatch(makeLogin({ account: username }));
