@@ -8,18 +8,17 @@ import {
   createDepositAsync,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
-import { Box, TextField } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 
 export function Deposit(props: any) {
   const banking = useAppSelector(selectBanking);
   const bankingUser = useAppSelector(selectBankingUser);
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState("");
   const [amount, setStateAmount] = useState("0");
   const amountValue = Number(amount) || 0;
 
   let createDepositElem = (
-    <div className={styles.row}>
+    <Grid container className={styles.row}>
       <div>
         <TextField
           id="deposit-amount"
@@ -54,7 +53,7 @@ export function Deposit(props: any) {
       >
         Back
       </button>
-    </div>
+    </Grid>
   );
 
   return (

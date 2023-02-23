@@ -10,7 +10,7 @@ import {
   createTransactionAsync,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
-import { Box, TextField } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 
 export function Transaction(props: any) {
   const banking = useAppSelector(selectBanking);
@@ -21,7 +21,7 @@ export function Transaction(props: any) {
   const amountValue = Number(amount) || 0;
 
   return (
-    <div className={styles.row}>
+    <Grid container className={styles.row}>
       <div>
         <TextField
           id="destination"
@@ -73,7 +73,7 @@ export function Transaction(props: any) {
       >
         Back
       </button>
-    </div>
+    </Grid>
   );
 }
 
