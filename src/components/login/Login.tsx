@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   createLoginAsync,
@@ -19,6 +19,12 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token != "token") {
+      navigate("/dashboard");
+    }
+  }, [token]);
 
   return (
     <div>
@@ -49,15 +55,6 @@ const Login = () => {
         <Button
           onClick={() => {
             dispatch(createLoginAsync({ username, password }));
-            const wait = sleep(1000);
-            wait.then(() => {
-              if (token !== "token") {
-                dispatch(makeLogin({ account: username }));
-                navigate("/dashboard");
-              } else {
-                alert("please try to login again");
-              }
-            });
           }}
         >
           Login
