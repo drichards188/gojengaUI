@@ -7,9 +7,6 @@ import axios from "axios";
 
 const backendURL = "";
 
-export const sleep = (delay: number) =>
-  new Promise((resolve) => setTimeout(resolve, delay));
-
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
   return new Promise<{ data: number }>((resolve) =>
@@ -127,12 +124,17 @@ export async function crtLogin(username: string, password: string) {
     .catch(function (response) {
       //handle error
       alert("failed " + response);
+
       return response;
     });
 
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
-  );
+  return new Promise<{ data: any }>((resolve, reject) => {
+    if (response && response.message !== "Network Error") {
+      resolve({ data: response });
+    } else if (response.message === "Network Error") {
+      reject({ data: response });
+    }
+  });
 }
 
 export async function crtGetAccount(username: string) {

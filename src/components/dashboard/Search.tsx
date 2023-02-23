@@ -12,6 +12,8 @@ import List from "./List";
 import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { setToken } from "../banking/bankingSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
   const navigate = useNavigate();
   const [inputText, setInputText] = useState("");
+  const dispatch = useAppDispatch();
   let inputHandler = (e: any) => {
     //convert input text to lower case
     let lowerCase = e.target.value.toLowerCase();
@@ -107,6 +110,7 @@ export default function SearchAppBar() {
               >
                 <MenuItem
                   onClick={() => {
+                    dispatch(setToken(""));
                     navigate("/");
                   }}
                 >

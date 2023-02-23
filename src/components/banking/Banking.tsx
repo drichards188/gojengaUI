@@ -37,7 +37,6 @@ export function Banking() {
   const dispatch = useAppDispatch();
 
   const [username, setUsername] = useState("");
-  const [amount, setStateAmount] = useState("0");
   const [display, setDisplay] = useState(true);
   const [displayTransactionCreation, setTransactionCreation] = useState(false);
   const [displayDepositCreation, setDepositCreation] = useState(false);
