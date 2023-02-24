@@ -35,7 +35,7 @@ const initialState: BankingState = {
   destination: "allie",
   message: "",
   loggedIn: false,
-  token: "token",
+  token: "",
   status: "idle",
 };
 
@@ -146,6 +146,9 @@ export const bankingSlice = createSlice({
     setAmount: (state, action: PayloadAction<number>) => {
       state.amount = action.payload;
     },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+    },
     resetState: (state) => {
       return initialState;
     },
@@ -249,6 +252,7 @@ export const bankingSlice = createSlice({
       })
       .addCase(createLoginAsync.rejected, (state, action) => {
         state.status = "failed";
+        state.token = "error";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
       })
@@ -284,6 +288,7 @@ export const {
   makeDeposit,
   makeDelete,
   setUser,
+  setToken,
 } = bankingSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
