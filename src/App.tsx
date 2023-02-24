@@ -11,22 +11,14 @@ import { Dashboard } from "./components/dashboard/Dashboard";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 
-function handleExit(setDisplayBlockchain: any, dispatch: any) {
-  setDisplayBlockchain(false);
-  dispatch(resetState());
-}
-
 function App() {
   const [displayCount, setDisplayCount] = useState(false);
 
   let counter;
-  let banking;
 
   if (displayCount) {
     counter = <Counter />;
   }
-
-  //todo add a token so accessing banking or dashboard without logging in redirects you
 
   return (
     <BrowserRouter>

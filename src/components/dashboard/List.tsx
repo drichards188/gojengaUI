@@ -41,10 +41,6 @@ function List(props: any) {
           style={divStyle}
           onClick={() => {
             dispatch(addCoinToDisplayList([item.id]));
-            // let original = cardDa;
-            // original.push({"id": "mita", "last": 124, "volume": 1});
-            // original.push({"id": "hiya", "last": 124, "volume": 1});
-            // CardDataCallback(original);
           }}
           key={item.id}
         >
