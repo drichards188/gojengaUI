@@ -15,6 +15,7 @@ function Header() {
           onClick={() => {
             dispatch(setToken(""));
             dispatch(setLoggedIn(false));
+
             navigate("/");
           }}
         >

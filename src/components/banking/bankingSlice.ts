@@ -267,6 +267,7 @@ export const {
   setUser,
   setToken,
   setLoggedIn,
+
 } = bankingSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
