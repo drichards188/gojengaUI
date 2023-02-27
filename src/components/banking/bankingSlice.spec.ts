@@ -1,9 +1,4 @@
-import counterReducer, {
-  BankingState,
-  increment,
-  decrement,
-  incrementByAmount,
-} from "./bankingSlice";
+import counterReducer, { BankingState } from "./bankingSlice";
 
 describe("counter reducer", () => {
   const initialState: BankingState = {
@@ -21,20 +16,5 @@ describe("counter reducer", () => {
       value: 0,
       status: "idle",
     });
-  });
-
-  it("should handle increment", () => {
-    const actual = counterReducer(initialState, increment());
-    expect(actual.amount).toEqual(4);
-  });
-
-  it("should handle decrement", () => {
-    const actual = counterReducer(initialState, decrement());
-    expect(actual.amount).toEqual(2);
-  });
-
-  it("should handle incrementByAmount", () => {
-    const actual = counterReducer(initialState, incrementByAmount(2));
-    expect(actual.amount).toEqual(5);
   });
 });

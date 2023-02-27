@@ -1,7 +1,7 @@
 import { Link, Router, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../app/hooks";
-import { setToken } from "../components/banking/bankingSlice";
+import { setLoggedIn, setToken } from "../components/banking/bankingSlice";
 
 function Header() {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function Header() {
         <Button
           onClick={() => {
             dispatch(setToken(""));
+            dispatch(setLoggedIn(false));
             navigate("/");
           }}
         >

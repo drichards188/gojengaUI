@@ -139,13 +139,6 @@ export const dashboardSlice = createSlice({
       state.user = uppercase;
       state.password = action.payload.password;
     },
-    makeTransaction: (state, action: PayloadAction<any>) => {
-      state.destination = action.payload.destination;
-      state.amount = action.payload.amount;
-      let intBalance: number =
-        Number(state.balance) - Number(action.payload.amount);
-      state.balance = Number(intBalance.toFixed(2));
-    },
     makeDeposit: (state, action: PayloadAction<any>) => {
       state.amount = action.payload.amount;
     },
@@ -228,7 +221,6 @@ export const {
   resetState,
   resetMessage,
   createUser,
-  makeTransaction,
   makeLogin,
   makeDeposit,
   makeDelete,
