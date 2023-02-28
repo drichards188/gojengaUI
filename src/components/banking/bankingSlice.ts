@@ -48,7 +48,7 @@ const initialState: BankingState = {
 export const createUserAsync = createAsyncThunk(
   "banking/createUser",
   async (payload: any) => {
-    const response = await crtUser(payload.username, payload.amount);
+    const response = await crtUser(payload.username, payload.password);
     // The value we return becomes the `fulfilled` action payload
 
     return response.data;
@@ -194,8 +194,9 @@ export const bankingSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.user = action.payload["response"]["username"];
-        state.balance = action.payload["response"]["balance"];
+        state.user = action.payload["user"];
+        state.token = action.payload["access_token"];
+        // state.balance = action.payload["response"]["balance"];
         state.loggedIn = true;
         // alert("the state.message is now " + state.message)
       })
@@ -267,7 +268,6 @@ export const {
   setUser,
   setToken,
   setLoggedIn,
-
 } = bankingSlice.actions;
 
 // The function below is called a selector and allows us to select a value from

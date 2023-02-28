@@ -1,9 +1,14 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
-import React, { useState } from "react";
-import { createLoginAsync, createUserAsync } from "../banking/bankingSlice";
+import React, { useEffect, useState } from "react";
+import {
+  createLoginAsync,
+  createUserAsync,
+  selectToken,
+} from "../banking/bankingSlice";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -13,6 +18,15 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useAppSelector(selectToken);
+
+  useEffect(() => {
+    if (token != "" && token != "error") {
+      navigate("/dashboard");
+    } else if (token === "error") {
+      alert("there was a problem logging in. please try to login again");
+    }
+  }, [token]);
 
   return (
     <div>
@@ -42,18 +56,9 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Box>
-        <TextField
-          id="create-amount"
-          label="Initial Deposit"
-          variant="standard"
-          className={styles.textbox}
-          aria-label="Set Amount"
-          value={amountValue}
-          onChange={(e) => setStateAmount(e.target.value)}
-        />
         <Button
           onClick={() => {
-            dispatch(createUserAsync({ username, amount }));
+            dispatch(createUserAsync({ username, password }));
           }}
         >
           Signup
