@@ -29,7 +29,7 @@ export async function crtUser(account: string, password: string) {
   })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response.data));
+      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
     })
     .catch(function (response) {
