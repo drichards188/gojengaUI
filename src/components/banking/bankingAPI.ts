@@ -14,26 +14,32 @@ export function fetchCount(amount = 1) {
   );
 }
 
-export async function crtUser(account: string, amount: number) {
-  const response = await fetch(backendURL, {
+export async function crtUser(account: string, password: string) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
+
+  let response = await axios({
     method: "POST",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      Verb: "CRT",
-      Account: account,
-      Password: "54321",
-      Amount: amount,
-    }),
-  });
-  // const data = await response.json();
-  const data = {
-    response: {
-      username: account,
-      balance: amount,
+    url: `http://localhost:8000/user`,
+    data: {
+      name: account,
+      password: password,
     },
-  };
+    headers: { "Content-Type": "application/json", "Is-Test": "True" },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
   return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
+    setTimeout(() => resolve({ data: response }))
   );
 }
 
