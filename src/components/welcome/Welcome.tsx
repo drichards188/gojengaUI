@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo from "../../logo.svg";
 import "../../App.css";
 import styles from "../banking/Banking.module.css";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { paperStyle } from "../banking/Banking";
 
 export function Welcome() {
   const dispatch = useAppDispatch();

@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
 import styles from "../Banking.module.css";
 import React from "react";
+import { paperStyle } from "../Banking";
 
 const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
+  // @ts-ignore
   return (
-    <div>
+    <div style={paperStyle}>
       <Box className={styles.textbox} aria-label="Set User">
         {"Hi " + capitalized(bankingUser) + "!"}
       </Box>
