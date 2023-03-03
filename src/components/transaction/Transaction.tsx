@@ -32,6 +32,17 @@ export function Transaction(props: any) {
           aria-label="Set User"
           placeholder={"Destination Username"}
           value={destination}
+          sx={{
+            "& .MuiInputBase-root": {
+              color: "primary.main",
+            },
+            "& .MuiFormLabel-root": {
+              color: "secondary.main",
+            },
+            "& .MuiFormLabel-root.Mui-focused": {
+              color: "primary.main",
+            },
+          }}
           onChange={(e) => setDestination(e.target.value)}
         />
         <TextField
@@ -43,6 +54,17 @@ export function Transaction(props: any) {
           className={styles.textbox}
           aria-label="Pay Amount"
           value={amountValue}
+          sx={{
+            "& .MuiInputBase-root": {
+              color: "primary.main",
+            },
+            "& .MuiFormLabel-root": {
+              color: "secondary.main",
+            },
+            "& .MuiFormLabel-root.Mui-focused": {
+              color: "primary.main",
+            },
+          }}
           onChange={(e) => setStateAmount(e.target.value)}
         />
       </div>
