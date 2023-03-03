@@ -40,6 +40,18 @@ const Login = () => {
             aria-label="Set User"
             placeholder={"Username"}
             value={username}
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "primary.main",
+              },
+              "& .MuiFormLabel-root": {
+                color: "secondary.main",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "primary.main",
+              },
+            }}
+            InputLabelProps={{ color: "primary" }}
             onChange={(e) => setUsername(e.target.value)}
           />
         </Grid>
@@ -54,6 +66,17 @@ const Login = () => {
             aria-label="Set Password"
             placeholder={"Password"}
             value={password}
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "primary.main",
+              },
+              "& .MuiFormLabel-root": {
+                color: "secondary.main",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "primary.main",
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Grid>
