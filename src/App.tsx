@@ -12,14 +12,6 @@ import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 
 function App() {
-  const [displayCount, setDisplayCount] = useState(false);
-
-  let counter;
-
-  if (displayCount) {
-    counter = <Counter />;
-  }
-
   return (
     <BrowserRouter>
       <div className="App">

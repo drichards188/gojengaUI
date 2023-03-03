@@ -27,7 +27,7 @@ const Login = () => {
     <div>
       <Grid container spacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12}>
-          <h1>Login</h1>
+          <h1 style={{ color: "#BA79F7" }}>Login</h1>
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -68,7 +68,9 @@ const Login = () => {
           </Button>
         </Grid>
       </Grid>
-      <Button onClick={() => navigate("/")}>Back</Button>
+      <Button color="secondary" onClick={() => navigate("/")}>
+        Back
+      </Button>
     </div>
   );
 };

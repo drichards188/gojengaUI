@@ -29,8 +29,8 @@ function List(props: any) {
     margin: "5px",
     padding: "2px",
     cursor: "pointer",
-    backgroundColor: "#4d535c",
-    color: "#4fc3f7",
+    backgroundColor: "rgba(112, 76, 182, 0.1)",
+    color: "#BA79F7",
     boxShadow:
       "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
   };

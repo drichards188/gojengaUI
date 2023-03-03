@@ -29,11 +29,17 @@ export function Welcome() {
         justifyContent="center"
       >
         <Grid item md={6}>
-          <button className={styles.button} onClick={() => navigate("/signup")}>
+          <button
+            className={styles.primaryButton}
+            onClick={() => navigate("/signup")}
+          >
             Create Account
           </button>
 
-          <button className={styles.button} onClick={() => navigate("/login")}>
+          <button
+            className={styles.primaryButton}
+            onClick={() => navigate("/login")}
+          >
             Login
           </button>
         </Grid>
@@ -46,7 +52,7 @@ export function Welcome() {
     welcomeButton = (
       <div>
         <button
-          className={styles.button}
+          className={styles.primaryButton}
           onClick={() => {
             setDisplay(true);
             setDisplayWelcomeButton(false);
@@ -77,6 +83,7 @@ export function Welcome() {
       </Grid>
       <Grid item xs={12}>
         <Button
+          color="secondary"
           onClick={() => {
             setDisplay(false);
             setDisplayWelcomeButton(true);
