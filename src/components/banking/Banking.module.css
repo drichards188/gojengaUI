@@ -38,12 +38,26 @@
     transition: all 0.15s;
 }
 
+.primaryButton {
+    appearance: none;
+    background: none;
+    font-size: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+    outline: none;
+    border: 2px solid transparent;
+    color: #BA79F7;
+    padding-bottom: 4px;
+    cursor: pointer;
+    background-color: rgba(112, 76, 182, 0.1);
+    border-radius: 2px;
+    transition: all 0.15s;
+}
+
 .textbox {
     font-size: 32px;
-    padding: 2px;
-    width: 300px;
     text-align: center;
-    margin-right: 4px;
+    color: #BA79F7;
 }
 
 .button:hover,

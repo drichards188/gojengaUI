@@ -42,6 +42,17 @@ const SignUp = () => {
             aria-label="Set User"
             placeholder={"Username"}
             value={username}
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "primary.main",
+              },
+              "& .MuiFormLabel-root": {
+                color: "secondary.main",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "primary.main",
+              },
+            }}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
@@ -53,6 +64,17 @@ const SignUp = () => {
             aria-label="Set Password"
             placeholder={"Password"}
             value={password}
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "primary.main",
+              },
+              "& .MuiFormLabel-root": {
+                color: "secondary.main",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "primary.main",
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Box>

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo from "../../logo.svg";
 import "../../App.css";
 import styles from "../banking/Banking.module.css";
-import { Button } from "@mui/material";
+import { Button, Grid, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { paperStyle } from "../banking/Banking";
 
 export function Welcome() {
   const dispatch = useAppDispatch();
@@ -21,16 +22,28 @@ export function Welcome() {
   let Output;
   if (display) {
     Output = (
-      <div className={styles.row}>
-        <div>
-          <button className={styles.button} onClick={() => navigate("/signup")}>
+      <Grid
+        container
+        className={styles.row}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item md={6}>
+          <button
+            className={styles.primaryButton}
+            onClick={() => navigate("/signup")}
+          >
             Create Account
           </button>
-          <button className={styles.button} onClick={() => navigate("/login")}>
+
+          <button
+            className={styles.primaryButton}
+            onClick={() => navigate("/login")}
+          >
             Login
           </button>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 
@@ -39,7 +52,7 @@ export function Welcome() {
     welcomeButton = (
       <div>
         <button
-          className={styles.button}
+          className={styles.primaryButton}
           onClick={() => {
             setDisplay(true);
             setDisplayWelcomeButton(false);
@@ -52,18 +65,33 @@ export function Welcome() {
   }
 
   return (
-    <div>
-      <img src={logo} className="App-logo" alt="logo" />
-      {welcomeButton}
-      {Output}
-      <Button
-        onClick={() => {
-          setDisplay(false);
-          setDisplayWelcomeButton(true);
-        }}
-      >
-        Exit
-      </Button>
-    </div>
+    <Grid
+      container
+      className={styles.row}
+      spacing={1}
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Grid item xs={12}>
+        <img src={logo} className="App-logo" alt="logo" />
+      </Grid>
+      <Grid item xs={12}>
+        {welcomeButton}
+      </Grid>
+      <Grid item xs={8}>
+        {Output}
+      </Grid>
+      <Grid item xs={12}>
+        <Button
+          color="secondary"
+          onClick={() => {
+            setDisplay(false);
+            setDisplayWelcomeButton(true);
+          }}
+        >
+          Exit
+        </Button>
+      </Grid>
+    </Grid>
   );
 }
