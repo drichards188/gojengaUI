@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createLoginAsync, selectToken } from "../banking/bankingSlice";
+import {
+  createLoginAsync,
+  makeLogin,
+  selectToken,
+} from "../banking/bankingSlice";
 import { useAppSelector } from "../../app/hooks";
 
 const Login = () => {
@@ -17,7 +21,8 @@ const Login = () => {
 
   useEffect(() => {
     if (token != "" && token != "error") {
-      navigate("/dashboard");
+      dispatch(makeLogin(username));
+      navigate("/banking");
     } else if (token === "error") {
       alert("there was a problem logging in. please try to login again");
     }
