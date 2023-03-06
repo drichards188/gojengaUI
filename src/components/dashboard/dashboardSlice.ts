@@ -215,19 +215,8 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const {
-  setUser,
-  setAmount,
-  resetState,
-  resetMessage,
-  createUser,
-  makeLogin,
-  makeDeposit,
-  makeDelete,
-  makeInfo,
-  addCoinToDisplayList,
-  removeCoinFromDisplayList,
-} = dashboardSlice.actions;
+export const { addCoinToDisplayList, removeCoinFromDisplayList } =
+  dashboardSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
