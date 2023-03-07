@@ -33,16 +33,12 @@ export const paperStyle = {
 };
 
 export function Banking() {
-  const banking = useAppSelector(selectBanking);
   const bankingUser = useAppSelector(selectBankingUser);
-  const token = useAppSelector(selectToken);
   const serverMessage = useAppSelector(selectMessage);
   const balance = useAppSelector(selectBalance);
-  const serverAmount = useAppSelector(selectAmount);
   const isLoggedIn = useAppSelector(selectLoggedIn);
   const dispatch = useAppDispatch();
 
-  const [username, setUsername] = useState("");
   const [display, setDisplay] = useState(true);
   const [displayTransactionCreation, setTransactionCreation] = useState(false);
   const [displayDepositCreation, setDepositCreation] = useState(false);
@@ -68,7 +64,6 @@ export function Banking() {
         setTransactionCreation={setTransactionCreation}
         openInfoCreation={openInfoCreation}
         setInfoCreation={setInfoCreation}
-        username={username}
       />
     );
   }
@@ -135,8 +130,7 @@ function openDepositCreation(setDisplay: any, setDepositCreation: any) {
 function openInfoCreation(
   setDisplay: any,
   setInfoCreation: any,
-  dispatch: any,
-  username: string
+  dispatch: any
 ) {
   setDisplay(false);
   setInfoCreation(true);

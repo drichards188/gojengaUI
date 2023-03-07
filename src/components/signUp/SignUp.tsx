@@ -2,19 +2,13 @@ import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
 import React, { useEffect, useState } from "react";
-import {
-  createLoginAsync,
-  createUserAsync,
-  selectToken,
-} from "../banking/bankingSlice";
+import { createUserAsync, selectToken } from "../banking/bankingSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [amount, setStateAmount] = useState("0");
-  const amountValue = Number(amount) || 0;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,10 +1,12 @@
 import styles from "../Banking.module.css";
 import { Box, Container } from "@mui/material";
 import React from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectBankingUser } from "../bankingSlice";
 
 const BankingToolbar = (props: any) => {
   const dispatch = useAppDispatch();
+  const username = useAppSelector(selectBankingUser);
 
   return (
     <Container className={styles.row}>
@@ -38,7 +40,7 @@ const BankingToolbar = (props: any) => {
               props.setDisplay,
               props.setInfoCreation,
               dispatch,
-              props.username
+              username
             )
           }
         >
