@@ -25,7 +25,11 @@ export async function crtUser(account: string, password: string) {
       name: account,
       password: password,
     },
-    headers: { "Content-Type": "application/json", "Is-Test": "True" },
+    headers: {
+      "Content-Type": "application/json",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then(function (response) {
       //handle success
@@ -183,7 +187,11 @@ export async function crtDeposit(account: string, amount: number) {
       name: account,
       balance: amount,
     },
-    headers: { "Content-Type": "application/json", "Is-Test": "True" },
+    headers: {
+      "Content-Type": "application/json",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then(function (response) {
       //handle success

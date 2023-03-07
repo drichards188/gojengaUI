@@ -186,7 +186,6 @@ export const bankingSlice = createSlice({
       .addCase(createDepositAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.message = action.payload["response"]["message"];
-        state.balance = Number(state.balance) + Number(state.amount);
       })
 
       //createUser

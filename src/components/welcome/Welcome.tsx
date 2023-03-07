@@ -6,7 +6,6 @@ import { Button, Grid, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
-import { paperStyle } from "../banking/Banking";
 
 export function Welcome() {
   const dispatch = useAppDispatch();

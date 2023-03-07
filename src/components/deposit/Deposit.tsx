@@ -2,17 +2,16 @@ import React, { useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  selectBanking,
   selectBankingUser,
-  makeDeposit,
   createDepositAsync,
+  selectBalance,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
 
 export function Deposit(props: any) {
-  const banking = useAppSelector(selectBanking);
   const bankingUser = useAppSelector(selectBankingUser);
+  const balance = useAppSelector(selectBalance);
   const dispatch = useAppDispatch();
   const [amount, setStateAmount] = useState("0");
   const amountValue = Number(amount) || 0;
@@ -46,9 +45,14 @@ export function Deposit(props: any) {
       </div>
       <button
         className={styles.button}
-        onClick={() =>
-          createDeposit(dispatch, bankingUser, amount, setStateAmount)
-        }
+        onClick={() => {
+          const floatStr = parseFloat(amount);
+          const newAmount: number = Number(balance) + Number(floatStr);
+          dispatch(
+            createDepositAsync({ account: bankingUser, amount: newAmount })
+          );
+          // setStateAmount("0");
+        }}
       >
         Deposit
       </button>
@@ -74,15 +78,4 @@ export function Deposit(props: any) {
       </div>
     </div>
   );
-}
-
-function createDeposit(
-  dispatch: any,
-  account: string,
-  amount: string,
-  setStateAmount: any
-) {
-  // dispatch(makeDeposit({ account, amount }));
-  dispatch(createDepositAsync({ account, amount }));
-  setStateAmount(0);
 }
