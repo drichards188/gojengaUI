@@ -48,8 +48,10 @@ export function Deposit(props: any) {
         onClick={() => {
           const floatStr = parseFloat(amount);
           const newAmount: number = Number(balance) + Number(floatStr);
+          const roundedNum =
+            Math.round((newAmount + Number.EPSILON) * 100) / 100;
           dispatch(
-            createDepositAsync({ account: bankingUser, amount: newAmount })
+            createDepositAsync({ account: bankingUser, amount: roundedNum })
           );
           // setStateAmount("0");
         }}

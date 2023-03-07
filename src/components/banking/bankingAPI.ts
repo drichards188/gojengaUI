@@ -195,7 +195,7 @@ export async function crtDeposit(account: string, amount: number) {
   })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response.data));
+      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
     })
     .catch(function (response) {
