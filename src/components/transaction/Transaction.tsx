@@ -13,7 +13,6 @@ import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
 
 export function Transaction(props: any) {
-  const banking = useAppSelector(selectBanking);
   const bankingUser = useAppSelector(selectBankingUser);
   const dispatch = useAppDispatch();
   const [amount, setStateAmount] = useState("0");

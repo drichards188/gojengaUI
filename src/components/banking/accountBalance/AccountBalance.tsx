@@ -4,7 +4,6 @@ import React from "react";
 import { paperStyle } from "../Banking";
 
 const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
-  // @ts-ignore
   return (
     <div style={paperStyle}>
       <Box className={styles.textbox} aria-label="Set User">
