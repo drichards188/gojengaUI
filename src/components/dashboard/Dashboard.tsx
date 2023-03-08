@@ -1,15 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import Header from "../../etc/Header";
 import { Cards } from "./Cards";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getCoinBatchAsync,
-  getCoinDataAsync,
   getCoinListAsync,
   selectCoinData,
   selectCoinDisplayList,
 } from "./dashboardSlice";
-import SearchBar from "./SearchBar";
 import SearchAppBar from "./Search";
 
 export function Dashboard() {

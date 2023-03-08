@@ -5,10 +5,6 @@ import Card from "./Card";
 
 //trying to do object destructuring on props
 export const Cards = ({ cardData }: any) => {
-  //todo be able to search and click on a coin rendering a new cards to cards
-
-  //todo the context data is changing from 2 to 4 objects but that change is not triggering a re render. need to use
-  //consumer but then render is not a function triggers because more than one child
   return (
     <div>
       <div>
