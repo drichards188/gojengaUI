@@ -3,6 +3,8 @@ import styles from "../Banking.module.css";
 import { Box } from "@mui/material";
 import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
+import { BankComponents } from "../Banking";
+import { resetMessage } from "../bankingSlice";
 
 const AccountInfo = (props: any) => {
   const dispatch = useAppDispatch();
@@ -12,13 +14,11 @@ const AccountInfo = (props: any) => {
       <Account />
       <button
         className={styles.button}
-        onClick={() =>
-          props.closeInfoCreation(
-            props.setDisplay,
-            props.setInfoCreation,
-            dispatch
-          )
-        }
+        onClick={() => {
+          props.setDisplayComponent(BankComponents.None);
+          props.setDisplayToolbar(true);
+          dispatch(resetMessage());
+        }}
       >
         Back
       </button>

@@ -3,6 +3,7 @@ import { Box, Container } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectBankingUser } from "../bankingSlice";
+import { BankComponents } from "../Banking";
 
 const BankingToolbar = (props: any) => {
   const dispatch = useAppDispatch();
@@ -13,36 +14,28 @@ const BankingToolbar = (props: any) => {
       <Box>
         <button
           className={styles.button}
-          onClick={() =>
-            props.openDepositCreation(
-              props.setDisplay,
-              props.setDepositCreation
-            )
-          }
+          onClick={() => {
+            props.setDisplayComponent(BankComponents.Deposit);
+            props.setDisplayToolbar(false);
+          }}
         >
           Deposit
         </button>
         <button
           className={styles.button}
-          onClick={() =>
-            props.openTransactionCreation(
-              props.setDisplay,
-              props.setTransactionCreation
-            )
-          }
+          onClick={() => {
+            props.setDisplayComponent(BankComponents.Transaction);
+            props.setDisplayToolbar(false);
+          }}
         >
           Pay
         </button>
         <button
           className={styles.button}
-          onClick={() =>
-            props.openInfoCreation(
-              props.setDisplay,
-              props.setInfoCreation,
-              dispatch,
-              username
-            )
-          }
+          onClick={() => {
+            props.setDisplayComponent(BankComponents.Info);
+            props.setDisplayToolbar(false);
+          }}
         >
           Account
         </button>

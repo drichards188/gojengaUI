@@ -5,9 +5,12 @@ import {
   selectBankingUser,
   createDepositAsync,
   selectBalance,
+  resetMessage,
+  getUserAsync,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
+import { BankComponents } from "../banking/Banking";
 
 export function Deposit(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
@@ -60,13 +63,12 @@ export function Deposit(props: any) {
       </button>
       <button
         className={styles.button}
-        onClick={() =>
-          props.closeDepositCreation(
-            props.setDisplay,
-            props.setDepositCreation,
-            dispatch
-          )
-        }
+        onClick={() => {
+          props.setDisplayComponent(BankComponents.None);
+          props.setDisplayToolbar(true);
+          dispatch(getUserAsync({ username: bankingUser }));
+          dispatch(resetMessage());
+        }}
       >
         Back
       </button>
