@@ -178,6 +178,11 @@ export const bankingSlice = createSlice({
         state.message = action.payload["response"]["message"];
         // alert("the state.user is now " + state.user)
       })
+      .addCase(createTransactionAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.message = "Transaction Failed";
+        // alert("the state.user is now " + state.user)
+      })
 
       //createDeposit
       .addCase(createDepositAsync.pending, (state) => {
@@ -185,7 +190,13 @@ export const bankingSlice = createSlice({
       })
       .addCase(createDepositAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.message = action.payload["response"]["message"];
+        // state.message = action.payload["response"]["message"];
+        state.message = "Deposit Successful";
+      })
+      .addCase(createDepositAsync.rejected, (state, action) => {
+        state.status = "idle";
+        // state.message = action.payload["response"]["message"];
+        state.message = "Deposit Failed";
       })
 
       //createUser
