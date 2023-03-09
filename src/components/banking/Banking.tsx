@@ -32,6 +32,14 @@ export const paperStyle = {
     "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
 };
 
+export enum BankComponents {
+  Balance = 1,
+  Deposit = 2,
+  Transaction = 3,
+  Info = 4,
+  None = 5,
+}
+
 export function Banking() {
   const bankingUser = useAppSelector(selectBankingUser);
   const serverMessage = useAppSelector(selectMessage);
@@ -39,10 +47,12 @@ export function Banking() {
   const isLoggedIn = useAppSelector(selectLoggedIn);
   const dispatch = useAppDispatch();
 
-  const [display, setDisplay] = useState(true);
-  const [displayTransactionCreation, setTransactionCreation] = useState(false);
-  const [displayDepositCreation, setDepositCreation] = useState(false);
-  const [displayInfoCreation, setInfoCreation] = useState(false);
+  const [displayComponent, setDisplayComponent] = useState(
+    BankComponents.Balance
+  );
+  const [displayBalance, setDisplayBalance] = useState(true);
+
+  const [displayToolbar, setDisplayToolbar] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,49 +64,43 @@ export function Banking() {
   });
 
   let toolbar;
-  if (isLoggedIn && display) {
+  if (isLoggedIn && displayToolbar) {
     toolbar = (
-      <BankingToolbar
-        openDepositCreation={openDepositCreation}
-        setDisplay={setDisplay}
-        setDepositCreation={setDepositCreation}
-        openTransactionCreation={openTransactionCreation}
-        setTransactionCreation={setTransactionCreation}
-        openInfoCreation={openInfoCreation}
-        setInfoCreation={setInfoCreation}
-      />
+      <div>
+        <BankingToolbar
+          setDisplayComponent={setDisplayComponent}
+          setDisplayToolbar={setDisplayToolbar}
+        />
+      </div>
     );
   }
 
   let dialog;
-  if (displayDepositCreation) {
+  if (displayComponent === BankComponents.Deposit) {
     dialog = (
       <Deposit
-        closeDepositCreation={closeDepositCreation}
-        setDisplay={setDisplay}
-        setDepositCreation={setDepositCreation}
+        setDisplayComponent={setDisplayComponent}
+        setDisplayToolbar={setDisplayToolbar}
       />
     );
-  } else if (displayTransactionCreation) {
+  } else if (displayComponent === BankComponents.Transaction) {
     dialog = (
       <Transaction
-        closeTransactionCreation={closeTransactionCreation}
-        setDisplay={setDisplay}
-        setTransactionCreation={setTransactionCreation}
+        setDisplayComponent={setDisplayComponent}
+        setDisplayToolbar={setDisplayToolbar}
       />
     );
-  } else if (displayInfoCreation) {
+  } else if (displayComponent === BankComponents.Info) {
     dialog = (
       <AccountInfo
-        closeInfoCreation={closeInfoCreation}
-        setDisplay={setDisplay}
-        setInfoCreation={setInfoCreation}
+        setDisplayComponent={setDisplayComponent}
+        setDisplayToolbar={setDisplayToolbar}
       />
     );
   }
 
   let balanceDiv;
-  if (isLoggedIn) {
+  if (displayBalance) {
     balanceDiv = (
       <AccountBalance
         bankingUser={bankingUser}
