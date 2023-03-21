@@ -8,6 +8,7 @@ import {
   selectCoinDisplayList,
 } from "./dashboardSlice";
 import SearchAppBar from "./Search";
+import { Button, Grid } from "@mui/material";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
@@ -24,9 +25,14 @@ export function Dashboard() {
   }, [displayCoins]);
 
   return (
-    <div>
-      <SearchAppBar />
-      <Cards cardData={coinData} />
-    </div>
+    <Grid container spacing={1} alignItems="center" justifyContent="center">
+      <Grid item md={8}>
+        <SearchAppBar />
+      </Grid>
+
+      <Grid item md={8}>
+        <Cards cardData={coinData} />
+      </Grid>
+    </Grid>
   );
 }
