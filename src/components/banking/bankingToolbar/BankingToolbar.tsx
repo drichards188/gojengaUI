@@ -4,6 +4,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectBankingUser } from "../bankingSlice";
 import { BankComponents } from "../Banking";
+import CustomButton from "../../general/CustomButton";
 
 const BankingToolbar = (props: any) => {
   const dispatch = useAppDispatch();
@@ -12,33 +13,27 @@ const BankingToolbar = (props: any) => {
   return (
     <Container className={styles.row}>
       <Box>
-        <button
-          className={styles.button}
-          onClick={() => {
+        <CustomButton
+          label={"Deposit"}
+          clickFunction={() => {
             props.setDisplayComponent(BankComponents.Deposit);
             props.setDisplayToolbar(false);
           }}
-        >
-          Deposit
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => {
+        />
+        <CustomButton
+          label={"Pay"}
+          clickFunction={() => {
             props.setDisplayComponent(BankComponents.Transaction);
             props.setDisplayToolbar(false);
           }}
-        >
-          Pay
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => {
+        />
+        <CustomButton
+          label={"Account"}
+          clickFunction={() => {
             props.setDisplayComponent(BankComponents.Info);
             props.setDisplayToolbar(false);
           }}
-        >
-          Account
-        </button>
+        />
       </Box>
     </Container>
   );

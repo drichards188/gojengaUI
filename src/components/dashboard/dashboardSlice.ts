@@ -14,6 +14,7 @@ import {
   crtUser,
   fetchCount,
   getCoinBatch,
+  getUserPortfolio,
 } from "./dashboardAPI";
 
 export interface DashboardState {
@@ -35,7 +36,7 @@ export interface DashboardState {
 const initialState: DashboardState = {
   coinData: [{ id: "bitcoin", last: 1, volume: 2400 }],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
-  displayCoinList: ["bitcoin", "ethereum"],
+  displayCoinList: ["tether"],
   amount: 0,
   balance: 0,
   user: "david",
@@ -61,6 +62,16 @@ export const getCoinListAsync = createAsyncThunk(
   "dashboard/getCoinlist",
   async () => {
     const response = await getCoinsList();
+    // The value we return becomes the `fulfilled` action payload
+    let wrappedData = { coinList: response.data };
+    return wrappedData;
+  }
+);
+
+export const getPortfolio = createAsyncThunk(
+  "dashboard/getPortfolio",
+  async () => {
+    const response = await getUserPortfolio("david");
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;
@@ -172,7 +183,9 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinBatchAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.coinData = action.payload.coinData;
+        if (action.payload.coinData !== undefined) {
+          state.coinData = action.payload.coinData;
+        }
         state.loggedIn = true;
         // alert("the state.user is now " + state.user)
       })
@@ -188,8 +201,9 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinDataAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.coinData = action.payload.geckoData;
-        // alert("the state.coinData is now " + state.coinData)
+        if (action.payload.geckoData !== undefined) {
+          state.coinData = action.payload.geckoData;
+        }
       })
       .addCase(getCoinDataAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -208,6 +222,32 @@ export const dashboardSlice = createSlice({
         state.loggedIn = true;
       })
       .addCase(createInfoAsync.rejected, (state, action) => {
+        state.status = "failed";
+        // alert("createUser rejected " + action.payload)
+        // alert("the state.message is now " + state.message)
+      })
+
+      //getPortfolio
+      .addCase(getPortfolio.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getPortfolio.fulfilled, (state, action) => {
+        state.status = "idle";
+        // state.displayCoinList = action.payload.coinList;
+
+        let toBeAdded: string[] = [];
+
+        action.payload.coinList.forEach((item: string) => {
+          if (!state.displayCoinList.includes(item)) {
+            toBeAdded.push(item);
+          }
+        });
+
+        if (toBeAdded.length != 0) {
+          state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
+        }
+      })
+      .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)

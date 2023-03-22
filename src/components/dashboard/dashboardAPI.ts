@@ -29,7 +29,7 @@ export const getCoinData = async (coinKey: string) => {
     })
     .catch((error: any) => {
       if (error.response) {
-        alert(`error in getting coin: ${error.response.data}`);
+        alert(`error in getting coin: ${JSON.stringify(error.response.data)}`);
         console.error(error.response.data);
         console.error(error.response.status);
         console.error(error.response.headers);
@@ -110,6 +110,36 @@ export async function getCoinsList() {
 
   return new Promise<{ data: any }>((resolve) =>
     setTimeout(() => resolve({ data: data }), 500)
+  );
+}
+
+export async function getUserPortfolio(username: string) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
+
+  let response = await axios({
+    method: "get",
+    url: `http://localhost:8000/account/${username}`,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data.response.balance));
+      // return response.data.response;
+      return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
   );
 }
 

@@ -15,7 +15,7 @@ export function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getCoinListAsync());
+    // dispatch(getCoinListAsync());
   }, []);
 
   let Output;

@@ -1,13 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Cards } from "./Cards";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getCoinBatchAsync,
   getCoinListAsync,
+  getPortfolio,
   selectCoinData,
   selectCoinDisplayList,
 } from "./dashboardSlice";
 import SearchAppBar from "./Search";
+import { Button, Grid } from "@mui/material";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
@@ -15,18 +17,24 @@ export function Dashboard() {
   const displayCoins = useAppSelector(selectCoinDisplayList);
 
   useEffect(() => {
+    dispatch(getPortfolio());
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
       })
     );
     dispatch(getCoinListAsync());
-  }, [displayCoins]);
+  }, [JSON.stringify(displayCoins)]);
 
   return (
-    <div>
-      <SearchAppBar />
-      <Cards cardData={coinData} />
-    </div>
+    <Grid container spacing={1} alignItems="center" justifyContent="center">
+      <Grid item md={8}>
+        <SearchAppBar />
+      </Grid>
+
+      <Grid item md={8}>
+        <Cards cardData={coinData} />
+      </Grid>
+    </Grid>
   );
 }
