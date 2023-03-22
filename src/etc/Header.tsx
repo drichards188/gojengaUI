@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useAppDispatch } from "../app/hooks";
 import { setLoggedIn, setToken } from "../components/banking/bankingSlice";
 import styles from "../components/banking/Banking.module.css";
+import CustomButton from "../components/general/CustomButton";
 
 function Header() {
   const navigate = useNavigate();
@@ -12,33 +13,29 @@ function Header() {
   return (
     <div style={{ marginBottom: "5%" }}>
       <nav>
-        <button
-          className={styles.button}
-          onClick={() => {
+        <CustomButton
+          label={"Log Out"}
+          clickFunction={() => {
             dispatch(setToken(""));
             dispatch(setLoggedIn(false));
 
             navigate("/");
           }}
-        >
-          Log Out
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => {
+        />
+
+        <CustomButton
+          label={"Dashboard"}
+          clickFunction={() => {
             navigate("/dashboard");
           }}
-        >
-          Dashboard
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => {
+        />
+
+        <CustomButton
+          label={"Banking"}
+          clickFunction={() => {
             navigate("/banking");
           }}
-        >
-          Banking
-        </button>
+        />
       </nav>
     </div>
   );
