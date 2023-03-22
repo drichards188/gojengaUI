@@ -233,7 +233,19 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "idle";
-        state.displayCoinList = action.payload.coinList;
+        // state.displayCoinList = action.payload.coinList;
+
+        let toBeAdded: string[] = [];
+
+        action.payload.coinList.forEach((item: string) => {
+          if (!state.displayCoinList.includes(item)) {
+            toBeAdded.push(item);
+          }
+        });
+
+        if (toBeAdded.length != 0) {
+          state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
+        }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";

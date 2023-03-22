@@ -15,7 +15,6 @@ export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
   const displayCoins = useAppSelector(selectCoinDisplayList);
-  const [ranOnce, setRanOnce] = useState(0);
 
   useEffect(() => {
     dispatch(getPortfolio());
@@ -25,7 +24,7 @@ export function Dashboard() {
       })
     );
     dispatch(getCoinListAsync());
-  }, [ranOnce]);
+  }, [JSON.stringify(displayCoins)]);
 
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
