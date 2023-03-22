@@ -14,6 +14,7 @@ import {
   crtUser,
   fetchCount,
   getCoinBatch,
+  getUserPortfolio,
 } from "./dashboardAPI";
 
 export interface DashboardState {
@@ -61,6 +62,16 @@ export const getCoinListAsync = createAsyncThunk(
   "dashboard/getCoinlist",
   async () => {
     const response = await getCoinsList();
+    // The value we return becomes the `fulfilled` action payload
+    let wrappedData = { coinList: response.data };
+    return wrappedData;
+  }
+);
+
+export const getPortfolio = createAsyncThunk(
+  "dashboard/getCoinlist",
+  async () => {
+    const response = await getUserPortfolio("david");
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;

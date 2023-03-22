@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^12.8.1",
     "prettier": "2.7.1",
     "react-test-renderer": "^18.2.0"
   }

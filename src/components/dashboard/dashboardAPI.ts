@@ -113,6 +113,35 @@ export async function getCoinsList() {
   );
 }
 
+export async function getUserPortfolio(username: string) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
+
+  let response = await axios({
+    method: "get",
+    url: `http://localhost:8000/account/${username}`,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data.response.balance));
+      return response.data.response;
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+}
+
 export async function crtLogin(account: string, password: string) {
   const response = await fetch(backendURL, {
     method: "PUT",

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   getCoinBatchAsync,
   getCoinListAsync,
+  getPortfolio,
   selectCoinData,
   selectCoinDisplayList,
 } from "./dashboardSlice";
@@ -22,6 +23,7 @@ export function Dashboard() {
       })
     );
     dispatch(getCoinListAsync());
+    dispatch(getPortfolio());
   }, [displayCoins]);
 
   return (
