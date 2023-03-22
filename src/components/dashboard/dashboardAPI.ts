@@ -29,7 +29,7 @@ export const getCoinData = async (coinKey: string) => {
     })
     .catch((error: any) => {
       if (error.response) {
-        alert(`error in getting coin: ${error.response.data}`);
+        alert(`error in getting coin: ${JSON.stringify(error.response.data)}`);
         console.error(error.response.data);
         console.error(error.response.status);
         console.error(error.response.headers);
@@ -129,7 +129,8 @@ export async function getUserPortfolio(username: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data.response.balance));
-      return response.data.response;
+      // return response.data.response;
+      return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error

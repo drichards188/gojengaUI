@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Cards } from "./Cards";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getCoinBatchAsync,
   getCoinListAsync,
@@ -15,16 +15,17 @@ export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
   const displayCoins = useAppSelector(selectCoinDisplayList);
+  const [ranOnce, setRanOnce] = useState(0);
 
   useEffect(() => {
+    dispatch(getPortfolio());
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
       })
     );
     dispatch(getCoinListAsync());
-    dispatch(getPortfolio());
-  }, [displayCoins]);
+  }, [ranOnce]);
 
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
