@@ -59,7 +59,7 @@ export const createTransactionAsync = createAsyncThunk(
   "banking/createTransaction",
   async (payload: any) => {
     const response = await crtTransaction(
-      payload.account,
+      payload.bankingUser,
       payload.destination,
       payload.amount
     );

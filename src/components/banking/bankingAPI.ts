@@ -52,23 +52,61 @@ export async function crtTransaction(
   destination: string,
   amount: number
 ) {
-  const response = await fetch(backendURL, {
-    method: "PUT",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "TRAN",
-      account: "david",
-      destination: destination,
-      amount: amount,
-    }),
-  });
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
 
-  const data = returnTransactionData(account, destination, amount);
+  let response = await axios({
+    method: "POST",
+    url: `http://localhost:8000/account/${account}/transaction`,
+    data: {
+      sender: account,
+      receiver: destination,
+      amount: amount,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
 
   return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
+    setTimeout(() => resolve({ data: response }))
   );
 }
+
+// export async function crtTransaction(
+//   account: string,
+//   destination: string,
+//   amount: number
+// ) {
+//   const response = await fetch(backendURL, {
+//     method: "PUT",
+//     credentials: "same-origin",
+//     body: JSON.stringify({
+//       verb: "TRAN",
+//       account: "david",
+//       destination: destination,
+//       amount: amount,
+//     }),
+//   });
+//
+//   const data = returnTransactionData(account, destination, amount);
+//
+//   return new Promise<{ data: any }>((resolve) =>
+//     setTimeout(() => resolve({ data: data }), 500)
+//   );
+// }
 
 export async function crtInfo(account: string) {
   const response = await fetch(backendURL, {
@@ -181,8 +219,8 @@ export async function crtDeposit(account: string, amount: number) {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
 
   let response = await axios({
-    method: "PUT",
-    url: `http://localhost:8000/account/${account}`,
+    method: "POST",
+    url: `http://localhost:8000/account/${account}/deposit`,
     data: {
       name: account,
       balance: amount,
