@@ -9,7 +9,7 @@ export const Cards = ({ cardData }: any) => {
   return (
     <Grid container md={12} alignContent="center" justifyContent="center">
       <Grid item md={12}>
-        <p>Portfolio</p>
+        <p style={{ color: "#BA79F7" }}>Portfolio</p>
       </Grid>
       <Grid item md={12}>
         {cardData.map((coinData: any) => (

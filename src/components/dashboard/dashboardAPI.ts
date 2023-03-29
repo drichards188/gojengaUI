@@ -160,27 +160,6 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 
-export async function crtInfo(account: string) {
-  const response = await fetch(backendURL, {
-    method: "PUT",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "QUERY",
-      account: account,
-    }),
-  });
-  const data = {
-    response: {
-      username: account.charAt(0).toUpperCase() + account.slice(1),
-      balance: "129.38",
-    },
-  };
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
-  );
-}
-
 export async function crtDelete(account: string) {
   const response = await fetch(backendURL, {
     method: "DELETE",

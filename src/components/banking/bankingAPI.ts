@@ -1,11 +1,6 @@
-//todo put your gojenga or postman url here
-import {
-  returnLoginData,
-  returnTransactionData,
-} from "../../backend/backendInterface";
 import axios from "axios";
 
-const backendURL = "";
+const backendURL = "http://localhost:8000";
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
@@ -85,29 +80,6 @@ export async function crtTransaction(
   );
 }
 
-// export async function crtTransaction(
-//   account: string,
-//   destination: string,
-//   amount: number
-// ) {
-//   const response = await fetch(backendURL, {
-//     method: "PUT",
-//     credentials: "same-origin",
-//     body: JSON.stringify({
-//       verb: "TRAN",
-//       account: "david",
-//       destination: destination,
-//       amount: amount,
-//     }),
-//   });
-//
-//   const data = returnTransactionData(account, destination, amount);
-//
-//   return new Promise<{ data: any }>((resolve) =>
-//     setTimeout(() => resolve({ data: data }), 500)
-//   );
-// }
-
 export async function crtInfo(account: string) {
   const response = await fetch(backendURL, {
     method: "PUT",
@@ -177,11 +149,13 @@ export async function crtLogin(username: string, password: string) {
     });
 
   return new Promise<{ data: any }>((resolve, reject) => {
-    if (response && response.message !== "Network Error") {
-      resolve({ data: response });
-    } else if (response.message === "Network Error") {
-      reject({ data: response });
-    }
+    resolve({ data: response });
+    // if (response && response.message !== "Network Error") {
+    //
+    // } else if (response.message === "Network Error") {
+    //   throw new Error("custom error here");
+    //   reject({ data: response });
+    // }
   });
 }
 
