@@ -10,6 +10,7 @@ import CustomTextField from "../general/CustomTextField";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,19 +55,19 @@ const SignUp = () => {
             autofocus={false}
           />
         </Grid>
-
+        <Button
+          onClick={() => {
+            dispatch(createUserAsync({ username, password }));
+          }}
+        >
+          Signup
+        </Button>
         <Grid item xs={12} md={6}>
-          <Button
-            onClick={() => {
-              dispatch(createUserAsync({ username, password }));
-            }}
-          >
-            Signup
-          </Button>
-
+          {msg && <p>{msg}</p>}
           <Button onClick={() => navigate("/")}>Back</Button>
         </Grid>
       </Grid>
+      <button onClick={() => setMsg("username already taken")}>click me</button>
     </Grid>
   );
 };
