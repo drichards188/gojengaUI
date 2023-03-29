@@ -8,7 +8,6 @@ import {
 import { RootState, AppThunk } from "../../app/store";
 import {
   crtDelete,
-  crtInfo,
   crtLogin,
   getCoinsList,
   crtUser,
@@ -85,16 +84,6 @@ export const getCoinBatchAsync = createAsyncThunk(
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinData: response };
     return wrappedData;
-  }
-);
-
-export const createInfoAsync = createAsyncThunk(
-  "dashboard/createInfo",
-  async (payload: any) => {
-    const response = await crtInfo(payload.account);
-    // The value we return becomes the `fulfilled` action payload
-
-    return response.data;
   }
 );
 
@@ -206,22 +195,6 @@ export const dashboardSlice = createSlice({
         }
       })
       .addCase(getCoinDataAsync.rejected, (state, action) => {
-        state.status = "failed";
-        // alert("createUser rejected " + action.payload)
-        // alert("the state.message is now " + state.message)
-      })
-
-      //createInfo
-      .addCase(createInfoAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createInfoAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.user = action.payload["response"]["username"];
-        state.balance = action.payload["response"]["balance"];
-        state.loggedIn = true;
-      })
-      .addCase(createInfoAsync.rejected, (state, action) => {
         state.status = "failed";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)

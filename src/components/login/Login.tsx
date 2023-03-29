@@ -9,6 +9,7 @@ import {
   selectToken,
 } from "../banking/bankingSlice";
 import { useAppSelector } from "../../app/hooks";
+import CustomTextField from "../general/CustomTextField";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -36,53 +37,22 @@ const Login = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <TextField
-            id="username"
+          <CustomTextField
             label="Username"
-            variant="standard"
-            autoFocus={true}
-            className={styles.textbox}
-            aria-label="Set User"
-            placeholder={"Username"}
+            type=""
             value={username}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
-            }}
-            InputLabelProps={{ color: "primary" }}
-            onChange={(e) => setUsername(e.target.value)}
+            setter={setUsername}
+            autofocus={true}
           />
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <TextField
-            id="password"
+          <CustomTextField
             label="Password"
-            variant="standard"
             type="password"
-            className={styles.textbox}
-            aria-label="Set Password"
-            placeholder={"Password"}
             value={password}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
-            }}
-            onChange={(e) => setPassword(e.target.value)}
+            setter={setPassword}
+            autofocus={false}
           />
         </Grid>
 

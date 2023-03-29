@@ -56,7 +56,6 @@ export function Deposit(props: any) {
           dispatch(
             createDepositAsync({ account: bankingUser, amount: roundedNum })
           );
-          // setStateAmount("0");
         }}
       >
         Deposit
