@@ -1,10 +1,11 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
 import React, { useEffect, useState } from "react";
 import { createUserAsync, selectToken } from "../banking/bankingSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
+import CustomTextField from "../general/CustomTextField";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -23,65 +24,50 @@ const SignUp = () => {
   }, [token]);
 
   return (
-    <div>
-      <div>
-        <h1>Signup</h1>
-        <Box>
-          <TextField
-            id="create-username"
+    <Grid container spacing={1} alignItems="center" justifyContent="center">
+      <Grid
+        container
+        xs={12}
+        md={4}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item xs={12}>
+          <h1>Signup</h1>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <CustomTextField
             label="Username"
-            variant="standard"
-            className={styles.textbox}
-            autoFocus={true}
-            aria-label="Set User"
-            placeholder={"Username"}
+            type=""
             value={username}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
-            }}
-            onChange={(e) => setUsername(e.target.value)}
+            setter={setUsername}
+            autofocus={true}
           />
-          <TextField
-            id="create-password"
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <CustomTextField
             label="Password"
             type="password"
-            variant="standard"
-            className={styles.textbox}
-            aria-label="Set Password"
-            placeholder={"Password"}
             value={password}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
-            }}
-            onChange={(e) => setPassword(e.target.value)}
+            setter={setPassword}
+            autofocus={false}
           />
-        </Box>
-        <Button
-          onClick={() => {
-            dispatch(createUserAsync({ username, password }));
-          }}
-        >
-          Signup
-        </Button>
-      </div>
-      <Button onClick={() => navigate("/")}>Back</Button>
-    </div>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Button
+            onClick={() => {
+              dispatch(createUserAsync({ username, password }));
+            }}
+          >
+            Signup
+          </Button>
+
+          <Button onClick={() => navigate("/")}>Back</Button>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
