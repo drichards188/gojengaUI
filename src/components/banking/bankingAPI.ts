@@ -149,11 +149,13 @@ export async function crtLogin(username: string, password: string) {
     });
 
   return new Promise<{ data: any }>((resolve, reject) => {
-    if (response && response.message !== "Network Error") {
-      resolve({ data: response });
-    } else if (response.message === "Network Error") {
-      reject({ data: response });
-    }
+    resolve({ data: response });
+    // if (response && response.message !== "Network Error") {
+    //
+    // } else if (response.message === "Network Error") {
+    //   throw new Error("custom error here");
+    //   reject({ data: response });
+    // }
   });
 }
 

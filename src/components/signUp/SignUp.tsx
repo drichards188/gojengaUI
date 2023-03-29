@@ -10,7 +10,6 @@ import CustomTextField from "../general/CustomTextField";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,11 +62,9 @@ const SignUp = () => {
           Signup
         </Button>
         <Grid item xs={12} md={6}>
-          {msg && <p>{msg}</p>}
           <Button onClick={() => navigate("/")}>Back</Button>
         </Grid>
       </Grid>
-      <button onClick={() => setMsg("username already taken")}>click me</button>
     </Grid>
   );
 };

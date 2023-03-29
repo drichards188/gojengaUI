@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   createLoginAsync,
   makeLogin,
+  selectMessage,
   selectToken,
 } from "../banking/bankingSlice";
 import { useAppSelector } from "../../app/hooks";
@@ -15,6 +16,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const msg = useAppSelector(selectMessage);
   const token = useAppSelector(selectToken);
 
   const dispatch = useDispatch();
@@ -66,6 +68,7 @@ const Login = () => {
           </Button>
         </Grid>
       </Grid>
+      {msg && <p>{msg}</p>}
       <Button color="secondary" onClick={() => navigate("/")}>
         Back
       </Button>

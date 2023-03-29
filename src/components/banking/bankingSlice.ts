@@ -141,6 +141,7 @@ export const bankingSlice = createSlice({
     },
     makeLogin: (state, action: PayloadAction<any>) => {
       if (action.payload !== undefined) {
+        state.message = "";
         state.user = action.payload;
       }
       // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
@@ -239,12 +240,21 @@ export const bankingSlice = createSlice({
       })
       .addCase(createLoginAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.token = action.payload.data.access_token;
-        state.loggedIn = true;
+        if (action.payload.status !== 200) {
+          if (action.payload.message === "Network Error") {
+            state.message = action.payload.message;
+          } else {
+            state.message = action.payload.response.statusText;
+          }
+        } else {
+          state.token = action.payload.data.access_token;
+          state.loggedIn = true;
+        }
       })
       .addCase(createLoginAsync.rejected, (state, action) => {
         state.status = "failed";
         state.token = "error";
+        state.message = "Network Error";
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
       })
