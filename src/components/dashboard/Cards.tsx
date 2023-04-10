@@ -4,7 +4,6 @@ import { useState, createContext } from "react";
 import Card from "./Card";
 import { Grid } from "@mui/material";
 
-//trying to do object destructuring on props
 export const Cards = ({ cardData }: any) => {
   return (
     <Grid container md={12} alignContent="center" justifyContent="center">

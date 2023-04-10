@@ -70,7 +70,7 @@ export const getCoinListAsync = createAsyncThunk(
 export const getPortfolio = createAsyncThunk(
   "dashboard/getPortfolio",
   async () => {
-    const response = await getUserPortfolio("david");
+    const response = await getUserPortfolio("allie");
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;
@@ -210,9 +210,11 @@ export const dashboardSlice = createSlice({
 
         let toBeAdded: string[] = [];
 
-        action.payload.coinList.forEach((item: string) => {
-          if (!state.displayCoinList.includes(item)) {
-            toBeAdded.push(item);
+        let coins = action.payload.coinList.portfolio;
+
+        coins.forEach((item: { name: string; amount: number; id: string }) => {
+          if (!state.displayCoinList.includes(item.id)) {
+            toBeAdded.push(item.id);
           }
         });
 

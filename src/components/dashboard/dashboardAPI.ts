@@ -119,7 +119,7 @@ export async function getUserPortfolio(username: string) {
 
   let response = await axios({
     method: "get",
-    url: `http://localhost:8000/account/${username}`,
+    url: `http://localhost:8000/portfolio/${username}`,
     headers: {
       "Content-Type": "multipart/form-data",
       "Is-Test": "True",
@@ -129,8 +129,8 @@ export async function getUserPortfolio(username: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data.response.balance));
-      // return response.data.response;
-      return ["bitcoin", "ethereum", "ripple"];
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error
