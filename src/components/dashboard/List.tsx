@@ -3,6 +3,7 @@ import { selectCoinList, addCoinToDisplayList } from "./dashboardSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CustomButton from "../general/CustomButton";
+import { addDisplayCoin } from "./dashboardAPI";
 
 function List(props: any) {
   const coinData = useAppSelector(selectCoinList);
@@ -45,8 +46,13 @@ function List(props: any) {
       {filteredData.slice(searchMin, searchMax).map((item: any) => (
         <li
           style={divStyle}
-          onClick={() => {
+          onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
+            let resp = await addDisplayCoin({
+              name: "zala",
+              portfolio: [{ name: "og-bitcoin", amount: 2, id: "bitcoin" }],
+            });
+            alert(JSON.stringify(resp));
           }}
           key={item.id}
         >
