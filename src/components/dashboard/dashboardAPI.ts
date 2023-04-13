@@ -160,6 +160,59 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 
+// export async function addCoinToPortfolio(coin: object) {
+//   const response = await fetch('http://localhost:8000/portfolio/david', {
+//     method: "PUT",
+//     credentials: "same-origin",
+//     body: JSON.stringify({
+//       name: "david",
+//       coin: coin,
+//     }),
+//   });
+//
+//   const data = {
+//     response: {
+//       username: account.charAt(0).toUpperCase() + account.slice(1),
+//       balance: "129.38",
+//     },
+//   };
+//
+//   return new Promise<{ data: any }>((resolve) =>
+//       setTimeout(() => resolve({ data: data }), 500)
+//   );
+// }
+
+export async function addDisplayCoin(coin: object) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
+
+  let response = await axios({
+    method: "PUT",
+    url: "http://localhost:8000/portfolio/zala",
+    data: JSON.stringify(coin),
+    headers: {
+      "Content-Type": "application/json",
+      "Is-Test": "True",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data.response.balance));
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+}
+
 export async function crtDelete(account: string) {
   const response = await fetch(backendURL, {
     method: "DELETE",
