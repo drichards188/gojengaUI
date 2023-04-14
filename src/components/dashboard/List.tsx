@@ -14,9 +14,9 @@ function List(props: any) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  if (coinData == "" || null) {
-    alert("coinData is empty");
-    navigate("/");
+  if (coinData == "" || null || undefined) {
+    alert("coin list coinData is empty");
+    // navigate("/");
   }
 
   const filteredData = coinData.filter((el: any) => {
@@ -49,8 +49,9 @@ function List(props: any) {
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
             let resp = await addDisplayCoin({
-              name: "zala",
-              portfolio: [{ name: "og-bitcoin", amount: 2, id: "bitcoin" }],
+              name: "david",
+              // portfolio: [{ name: "og-bitcoin", amount: 1, id: "bitcoin" }],
+              portfolio: [{ name: item.name, amount: 1, id: item.id }],
             });
             alert(JSON.stringify(resp));
           }}
