@@ -49,7 +49,7 @@ function List(props: any) {
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
             let resp = await addDisplayCoin({
-              name: "david",
+              name: "zala",
               // portfolio: [{ name: "og-bitcoin", amount: 1, id: "bitcoin" }],
               portfolio: [{ name: item.name, amount: 1, id: item.id }],
             });
