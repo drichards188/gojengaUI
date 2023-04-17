@@ -16,6 +16,10 @@ export function fetchCount(amount = 1) {
 }
 
 export const getCoinData = async (coinKey: string) => {
+  if (coinKey === undefined) {
+    return Promise.reject("coinKey was undefined");
+  }
+
   let response = await axios
     // .get('https://api.coingecko.com/api/v3/ping')
     .get(
@@ -121,7 +125,7 @@ export async function getUserPortfolio(username: string) {
     method: "get",
     url: `http://localhost:8000/portfolio/${username}`,
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       "Is-Test": "True",
       Authorization: `Bearer ${token}`,
     },
