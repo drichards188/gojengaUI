@@ -164,28 +164,6 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 
-// export async function addCoinToPortfolio(coin: object) {
-//   const response = await fetch('http://localhost:8000/portfolio/david', {
-//     method: "PUT",
-//     credentials: "same-origin",
-//     body: JSON.stringify({
-//       name: "david",
-//       coin: coin,
-//     }),
-//   });
-//
-//   const data = {
-//     response: {
-//       username: account.charAt(0).toUpperCase() + account.slice(1),
-//       balance: "129.38",
-//     },
-//   };
-//
-//   return new Promise<{ data: any }>((resolve) =>
-//       setTimeout(() => resolve({ data: data }), 500)
-//   );
-// }
-
 export async function addDisplayCoin(coin: object) {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
