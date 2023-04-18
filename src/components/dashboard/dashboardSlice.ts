@@ -69,8 +69,8 @@ export const getCoinListAsync = createAsyncThunk(
 
 export const getPortfolio = createAsyncThunk(
   "dashboard/getPortfolio",
-  async () => {
-    const response = await getUserPortfolio("zala");
+  async (payload: any) => {
+    const response = await getUserPortfolio(payload.user);
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;
