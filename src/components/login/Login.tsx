@@ -60,6 +60,7 @@ const Login = () => {
 
         <Grid item xs={12} md={4}>
           <Button
+            data-cy="login-button"
             onClick={() => {
               dispatch(createLoginAsync({ username, password }));
             }}
