@@ -47,19 +47,24 @@ export const getCoinData = async (coinKey: string) => {
   return Promise.resolve(response);
 };
 
-export async function getCoinBatch(coinArray: Array<string>) {
+export async function getCoinBatch(coinArray: any) {
   let resp = await getWithForOf(coinArray);
   return resp;
 }
 
-const getWithForOf = async (coinArray: Array<string>) => {
+const getWithForOf = async (coinList: any) => {
   let coinData = [];
 
-  for (const coin of coinArray) {
+  for (const coin in coinList) {
     let resp = await getCoinData(coin);
     let coinPrice = resp.last;
     let coinVolume = Math.round(resp.volume) / 100;
-    coinData.push({ id: coin, last: coinPrice, volume: coinVolume });
+    coinData.push({
+      id: coin,
+      last: coinPrice,
+      volume: coinVolume,
+      userQuantity: coinList[coin].quantity,
+    });
   }
 
   return coinData;
