@@ -214,14 +214,17 @@ export const dashboardSlice = createSlice({
         let coins = action.payload.coinList.portfolio;
 
         coins.forEach((item: { name: string; amount: number; id: string }) => {
-          if (!state.displayCoinList.includes(item.id)) {
-            toBeAdded.push(item.id);
+          if (!(item.id in state.displayCoinList)) {
+            // if (!state.displayCoinList.includes(item.id)) {
+            const coinName = item.id;
+            state.displayCoinList[coinName] = { quantity: item.amount };
+            // toBeAdded.push(item.id);
           }
         });
 
-        if (toBeAdded.length != 0) {
-          state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
-        }
+        // if (toBeAdded.length != 0) {
+        //   state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
+        // }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";

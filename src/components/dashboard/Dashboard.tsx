@@ -19,7 +19,7 @@ export function Dashboard() {
   const currentUser = useAppSelector(selectBankingUser);
 
   useEffect(() => {
-    // dispatch(getPortfolio({ user: currentUser }));
+    dispatch(getPortfolio({ user: currentUser }));
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
