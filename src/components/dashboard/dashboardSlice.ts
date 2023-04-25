@@ -35,7 +35,7 @@ export interface DashboardState {
 const initialState: DashboardState = {
   coinData: [{ id: "bitcoin", last: 1, volume: 2400 }],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
-  displayCoinList: ["tether"],
+  displayCoinList: { bitcoin: { quantity: 2 }, tether: { quantity: 5 } },
   amount: 0,
   balance: 0,
   user: "david",
@@ -112,8 +112,9 @@ export const dashboardSlice = createSlice({
     addCoinToDisplayList: (state, action: PayloadAction<string[]>) => {
       for (let i = 0; i < action.payload.length; i++) {
         const elem = action.payload[i];
+        const coin = { elem: { quantity: 0 } };
         let arr = state.displayCoinList;
-        arr.push(elem);
+        arr[elem] = { quantity: 0 };
         state.displayCoinList = arr;
       }
     },
@@ -213,14 +214,17 @@ export const dashboardSlice = createSlice({
         let coins = action.payload.coinList.portfolio;
 
         coins.forEach((item: { name: string; amount: number; id: string }) => {
-          if (!state.displayCoinList.includes(item.id)) {
-            toBeAdded.push(item.id);
+          if (!(item.id in state.displayCoinList)) {
+            // if (!state.displayCoinList.includes(item.id)) {
+            const coinName = item.id;
+            state.displayCoinList[coinName] = { quantity: item.amount };
+            // toBeAdded.push(item.id);
           }
         });
 
-        if (toBeAdded.length != 0) {
-          state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
-        }
+        // if (toBeAdded.length != 0) {
+        //   state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
+        // }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";

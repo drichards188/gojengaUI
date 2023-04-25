@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { useState, createContext } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { removeCoinFromDisplayList } from "./dashboardSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  removeCoinFromDisplayList,
+  selectCoinDisplayList,
+} from "./dashboardSlice";
 import {
   Button,
   FormControl,
@@ -13,13 +16,16 @@ import {
   TextField,
 } from "@mui/material";
 import styles from "../banking/Banking.module.css";
+import { selectBankingUser } from "../banking/bankingSlice";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
 
   const dispatch = useAppDispatch();
 
-  const [tradeAmount, setTradeAmount] = useState("0");
+  const displayCoinData = useAppSelector(selectCoinDisplayList);
+
+  const [tradeAmount, setTradeAmount] = useState(displayCoinData[id].quantity);
 
   last = last.toFixed(4);
   volume = volume.toFixed(2);
