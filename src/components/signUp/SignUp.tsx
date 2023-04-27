@@ -56,7 +56,7 @@ const SignUp = () => {
         </Grid>
         <Button
           onClick={() => {
-            dispatch(createUserAsync({ username, password }));
+            dispatch(createUserAsync({ username, password, token }));
           }}
         >
           Signup

@@ -70,7 +70,7 @@ export const getCoinListAsync = createAsyncThunk(
 export const getPortfolio = createAsyncThunk(
   "dashboard/getPortfolio",
   async (payload: any) => {
-    const response = await getUserPortfolio(payload.user);
+    const response = await getUserPortfolio(payload.user, payload.jwt);
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;
@@ -245,11 +245,6 @@ export const selectCoinData = (state: RootState) => state.dashboard.coinData;
 export const selectCoinDisplayList = (state: RootState) =>
   state.dashboard.displayCoinList;
 export const selectCoinList = (state: RootState) => state.dashboard.coinList;
-export const selectLoggedIn = (state: RootState) => state.dashboard.loggedIn;
-export const selectToken = (state: RootState) => state.dashboard.token;
-export const selectMessage = (state: RootState) => state.dashboard.message;
-export const selectBalance = (state: RootState) => state.dashboard.balance;
-export const selectAmount = (state: RootState) => state.dashboard.amount;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

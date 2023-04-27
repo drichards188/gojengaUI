@@ -9,6 +9,7 @@ import {
   makeTransaction,
   createTransactionAsync,
   resetMessage,
+  selectToken,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
@@ -16,6 +17,8 @@ import { BankComponents } from "../banking/Banking";
 
 export function Transaction(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
+  const token = useAppSelector(selectToken);
+
   const dispatch = useAppDispatch();
   const [amount, setStateAmount] = useState("0");
   const [destination, setDestination] = useState("");
@@ -23,7 +26,9 @@ export function Transaction(props: any) {
 
   function createTransaction() {
     dispatch(makeTransaction({ destination, amount }));
-    dispatch(createTransactionAsync({ bankingUser, destination, amount }));
+    dispatch(
+      createTransactionAsync({ bankingUser, destination, amount, token })
+    );
     setDestination("");
     setStateAmount("");
   }

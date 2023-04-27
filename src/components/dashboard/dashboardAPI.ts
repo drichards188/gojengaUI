@@ -122,10 +122,7 @@ export async function getCoinsList() {
   );
 }
 
-export async function getUserPortfolio(username: string) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
+export async function getUserPortfolio(username: string, token: string) {
   let response = await axios({
     method: "get",
     url: `http://localhost:8000/portfolio/${username}`,
@@ -169,10 +166,8 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 
-export async function addDisplayCoin(coin: object) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
+export async function addDisplayCoin(coin: object, token: string) {
+  // todo remove hardcoded reference to zala
   let response = await axios({
     method: "PUT",
     url: "http://localhost:8000/portfolio/zala",

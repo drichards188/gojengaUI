@@ -48,7 +48,11 @@ const initialState: BankingState = {
 export const createUserAsync = createAsyncThunk(
   "banking/createUser",
   async (payload: any) => {
-    const response = await crtUser(payload.username, payload.password);
+    const response = await crtUser(
+      payload.username,
+      payload.password,
+      payload.jwt
+    );
     // The value we return becomes the `fulfilled` action payload
 
     return response.data;
@@ -61,7 +65,8 @@ export const createTransactionAsync = createAsyncThunk(
     const response = await crtTransaction(
       payload.bankingUser,
       payload.destination,
-      payload.amount
+      payload.amount,
+      payload.jwt
     );
     // The value we return becomes the `fulfilled` action payload
 
@@ -72,7 +77,11 @@ export const createTransactionAsync = createAsyncThunk(
 export const createDepositAsync = createAsyncThunk(
   "banking/createDeposit",
   async (payload: any) => {
-    const response = await crtDeposit(payload.account, payload.amount);
+    const response = await crtDeposit(
+      payload.account,
+      payload.amount,
+      payload.jwt
+    );
     // The value we return becomes the `fulfilled` action payload
 
     return response.data;
@@ -110,7 +119,7 @@ export const createLoginAsync = createAsyncThunk(
 export const getUserAsync = createAsyncThunk(
   "banking/getLogin",
   async (payload: any) => {
-    let response = await crtGetAccount(payload.username);
+    let response = await crtGetAccount(payload.username, payload.jwt);
     return response.data;
   }
 );
