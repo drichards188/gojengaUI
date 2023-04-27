@@ -7,6 +7,7 @@ import {
   selectBalance,
   resetMessage,
   getUserAsync,
+  selectToken,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
@@ -15,6 +16,8 @@ import { BankComponents } from "../banking/Banking";
 export function Deposit(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
   const balance = useAppSelector(selectBalance);
+  const jwtToken = useAppSelector(selectToken);
+
   const dispatch = useAppDispatch();
   const [amount, setStateAmount] = useState("0");
   const amountValue = Number(amount) || 0;
@@ -54,7 +57,11 @@ export function Deposit(props: any) {
           const roundedNum =
             Math.round((newAmount + Number.EPSILON) * 100) / 100;
           dispatch(
-            createDepositAsync({ account: bankingUser, amount: roundedNum })
+            createDepositAsync({
+              account: bankingUser,
+              amount: roundedNum,
+              jwt: jwtToken,
+            })
           );
         }}
       >

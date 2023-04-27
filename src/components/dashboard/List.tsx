@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CustomButton from "../general/CustomButton";
 import { addDisplayCoin } from "./dashboardAPI";
-import { selectBankingUser } from "../banking/bankingSlice";
+import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 
 function List(props: any) {
   const coinData = useAppSelector(selectCoinList);
@@ -15,6 +15,7 @@ function List(props: any) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectBankingUser);
+  const token = useAppSelector(selectToken);
 
   if (coinData == "" || null || undefined) {
     alert("coin list coinData is empty");
@@ -50,10 +51,13 @@ function List(props: any) {
           style={divStyle}
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
-            let resp = await addDisplayCoin({
-              name: currentUser,
-              portfolio: [{ name: item.name, amount: 1, id: item.id }],
-            });
+            let resp = await addDisplayCoin(
+              {
+                name: currentUser,
+                portfolio: [{ name: item.name, amount: 1, id: item.id }],
+              },
+              token
+            );
             alert(JSON.stringify(resp));
           }}
           key={item.id}

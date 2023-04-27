@@ -45,6 +45,7 @@ export function Banking() {
   const serverMessage = useAppSelector(selectMessage);
   const balance = useAppSelector(selectBalance);
   const isLoggedIn = useAppSelector(selectLoggedIn);
+  const jwtToken = useAppSelector(selectToken);
   const dispatch = useAppDispatch();
 
   const [displayComponent, setDisplayComponent] = useState(
@@ -60,7 +61,7 @@ export function Banking() {
       alert("Please login");
       navigate("/");
     }
-    dispatch(getUserAsync({ username: bankingUser }));
+    dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
   });
 
   let toolbar;

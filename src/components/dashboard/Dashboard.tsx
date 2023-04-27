@@ -10,16 +10,17 @@ import {
 } from "./dashboardSlice";
 import SearchAppBar from "./Search";
 import { Button, Grid } from "@mui/material";
-import { selectBankingUser } from "../banking/bankingSlice";
+import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
+  const token = useAppSelector(selectToken);
   const displayCoins = useAppSelector(selectCoinDisplayList);
   const currentUser = useAppSelector(selectBankingUser);
 
   useEffect(() => {
-    dispatch(getPortfolio({ user: currentUser }));
+    dispatch(getPortfolio({ user: currentUser, jwt: token }));
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,

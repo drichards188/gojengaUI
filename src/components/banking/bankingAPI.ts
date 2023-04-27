@@ -9,10 +9,11 @@ export function fetchCount(amount = 1) {
   );
 }
 
-export async function crtUser(account: string, password: string) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
+export async function crtUser(
+  account: string,
+  password: string,
+  token: string
+) {
   let response = await axios({
     method: "POST",
     url: `http://localhost:8000/user`,
@@ -45,11 +46,9 @@ export async function crtUser(account: string, password: string) {
 export async function crtTransaction(
   account: string,
   destination: string,
-  amount: number
+  amount: number,
+  token: string
 ) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
   let response = await axios({
     method: "POST",
     url: `http://localhost:8000/account/${account}/transaction`,
@@ -159,10 +158,7 @@ export async function crtLogin(username: string, password: string) {
   });
 }
 
-export async function crtGetAccount(username: string) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
+export async function crtGetAccount(username: string, token: string) {
   let response = await axios({
     method: "get",
     url: `http://localhost:8000/account/${username}`,
@@ -188,10 +184,11 @@ export async function crtGetAccount(username: string) {
   );
 }
 
-export async function crtDeposit(account: string, amount: number) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWxhIiwiZXhwIjoxNjc0NzUyNTAzfQ.aMsKp7pp2v2cXT7aUkJuB2P7exufrBeihEiQARMRWFg";
-
+export async function crtDeposit(
+  account: string,
+  amount: number,
+  token: string
+) {
   let response = await axios({
     method: "POST",
     url: `http://localhost:8000/account/${account}/deposit`,
