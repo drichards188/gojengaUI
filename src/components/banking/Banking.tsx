@@ -57,7 +57,7 @@ export function Banking() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!bankingUser) {
+    if (!bankingUser || jwtToken === "") {
       alert("Please login");
       navigate("/");
     }

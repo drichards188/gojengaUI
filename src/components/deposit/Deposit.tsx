@@ -52,14 +52,11 @@ export function Deposit(props: any) {
       <button
         className={styles.button}
         onClick={() => {
-          const floatStr = parseFloat(amount);
-          const newAmount: number = Number(balance) + Number(floatStr);
-          const roundedNum =
-            Math.round((newAmount + Number.EPSILON) * 100) / 100;
+          const floatDepositAmount = parseFloat(amount);
           dispatch(
             createDepositAsync({
               account: bankingUser,
-              amount: roundedNum,
+              amount: floatDepositAmount,
               jwt: jwtToken,
             })
           );
