@@ -1,7 +1,11 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectCoinList, addCoinToDisplayList } from "./dashboardSlice";
+import {
+  selectCoinList,
+  addCoinToDisplayList,
+  getCoinListAsync,
+} from "./dashboardSlice";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../general/CustomButton";
 import { addDisplayCoin } from "./dashboardAPI";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
@@ -16,6 +20,11 @@ function List(props: any) {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectBankingUser);
   const token = useAppSelector(selectToken);
+
+  useEffect(() => {
+    setSearchMin(0);
+    setSearchMax(10);
+  }, [props.input]);
 
   if (coinData == "" || null || undefined) {
     alert("coin list coinData is empty");

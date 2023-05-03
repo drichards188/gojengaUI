@@ -7,10 +7,12 @@ import {
   getPortfolio,
   selectCoinData,
   selectCoinDisplayList,
+  selectCoinList,
 } from "./dashboardSlice";
 import SearchAppBar from "./Search";
 import { Button, Grid } from "@mui/material";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
+import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
@@ -18,16 +20,30 @@ export function Dashboard() {
   const token = useAppSelector(selectToken);
   const displayCoins = useAppSelector(selectCoinDisplayList);
   const currentUser = useAppSelector(selectBankingUser);
+  const jwtToken = useAppSelector(selectToken);
+  const bankingUser = useAppSelector(selectBankingUser);
+  const coinSearchList = useAppSelector(selectCoinList);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!bankingUser || jwtToken === "") {
+      alert("Please login");
+      navigate("/");
+    }
     dispatch(getPortfolio({ user: currentUser, jwt: token }));
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
       })
     );
-    dispatch(getCoinListAsync());
   }, [JSON.stringify(displayCoins)]);
+
+  useEffect(() => {
+    if (coinSearchList.length == 1) {
+      alert(coinSearchList.length);
+      dispatch(getCoinListAsync());
+    }
+  }, [coinSearchList]);
 
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
