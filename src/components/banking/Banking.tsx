@@ -60,6 +60,11 @@ export function Banking() {
     if (!bankingUser || jwtToken === "") {
       alert("Please login");
       navigate("/");
+    } else {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ username: bankingUser, jwt: jwtToken })
+      );
     }
     dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
   });
@@ -115,6 +120,14 @@ export function Banking() {
     <div>
       <Header />
       {balanceDiv}
+      <button
+        onClick={() => {
+          const storageUsername = localStorage.getItem("user");
+          alert(`username from storage is ${storageUsername}`);
+        }}
+      >
+        Storage Username
+      </button>
       <div className={styles.row}>{dialog}</div>
       {toolbar}
       <Footer />
