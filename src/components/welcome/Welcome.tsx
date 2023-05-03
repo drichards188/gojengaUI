@@ -6,6 +6,7 @@ import { Button, Grid, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { setToken, setUser } from "../banking/bankingSlice";
 
 export function Welcome() {
   const dispatch = useAppDispatch();
@@ -46,6 +47,19 @@ export function Welcome() {
     );
   }
 
+  const checkAutoLogin = () => {
+    const storageResult: string | null = localStorage.getItem("user");
+    // todo check if jwt is still valid
+    if (storageResult != null) {
+      const userObject = JSON.parse(storageResult);
+      dispatch(setToken(userObject.jwt));
+      dispatch(setUser({ account: userObject.username }));
+      return true;
+    }
+
+    return false;
+  };
+
   let welcomeButton;
   if (displayWelcomeButton) {
     welcomeButton = (
@@ -53,8 +67,13 @@ export function Welcome() {
         <button
           className={styles.primaryButton}
           onClick={() => {
-            setDisplay(true);
-            setDisplayWelcomeButton(false);
+            const loginCheck = checkAutoLogin();
+            if (loginCheck) {
+              navigate("/banking");
+            } else {
+              setDisplay(true);
+              setDisplayWelcomeButton(false);
+            }
           }}
         >
           Welcome
