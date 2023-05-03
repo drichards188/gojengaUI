@@ -16,9 +16,9 @@ function Header() {
         <CustomButton
           label={"Log Out"}
           clickFunction={() => {
+            localStorage.removeItem("user");
             dispatch(setToken(""));
             dispatch(setLoggedIn(false));
-
             navigate("/");
           }}
         />

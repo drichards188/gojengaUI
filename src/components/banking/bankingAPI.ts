@@ -175,6 +175,9 @@ export async function crtGetAccount(username: string, token: string) {
     })
     .catch(function (response) {
       //handle error
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      }
       alert("failed " + response);
       return response;
     });

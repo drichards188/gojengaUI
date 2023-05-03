@@ -40,7 +40,6 @@ export function Dashboard() {
 
   useEffect(() => {
     if (coinSearchList.length == 1) {
-      alert(coinSearchList.length);
       dispatch(getCoinListAsync());
     }
   }, [coinSearchList]);

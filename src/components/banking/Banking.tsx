@@ -120,14 +120,6 @@ export function Banking() {
     <div>
       <Header />
       {balanceDiv}
-      <button
-        onClick={() => {
-          const storageUsername = localStorage.getItem("user");
-          alert(`username from storage is ${storageUsername}`);
-        }}
-      >
-        Storage Username
-      </button>
       <div className={styles.row}>{dialog}</div>
       {toolbar}
       <Footer />

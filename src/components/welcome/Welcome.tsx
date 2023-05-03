@@ -49,7 +49,7 @@ export function Welcome() {
 
   const checkAutoLogin = () => {
     const storageResult: string | null = localStorage.getItem("user");
-    // todo check if jwt is still valid
+    // todo check if jwt is still valid. maybe send a request to be refreshed which will fail if invalid
     if (storageResult != null) {
       const userObject = JSON.parse(storageResult);
       dispatch(setToken(userObject.jwt));
