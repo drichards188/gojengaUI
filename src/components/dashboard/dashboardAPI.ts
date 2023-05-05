@@ -139,6 +139,12 @@ export async function getUserPortfolio(username: string, token: string) {
       // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      }
+      if (response.response.status === 403) {
+        alert("refresh token now");
+      }
       //handle error
       alert("failed " + response);
       return response;

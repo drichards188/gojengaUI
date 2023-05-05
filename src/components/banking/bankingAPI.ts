@@ -178,6 +178,9 @@ export async function crtGetAccount(username: string, token: string) {
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       }
+      if (response.response.status === 403) {
+        alert("refresh token now");
+      }
       alert("failed " + response);
       return response;
     });
