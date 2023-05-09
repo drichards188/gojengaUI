@@ -25,7 +25,7 @@ const setup = (store: { dispatch: any }) => {
     },
     async (err) => {
       const originalConfig = err.config;
-
+      // todo detect a 403 response
       if (originalConfig.url !== "/auth/signin" && err.response) {
         // Access Token was expired
         if (err.response.status === 401 && !originalConfig._retry) {
