@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./api";
 import TokenService from "./services/token.service";
 import { setToken } from "./components/banking/bankingSlice";
 

@@ -7,6 +7,7 @@ import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../banking/bankingSlice";
+import { register } from "../dashboard/dashboardAPI";
 
 export function Welcome() {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ export function Welcome() {
 
   useEffect(() => {
     // dispatch(getCoinListAsync());
+    register("twizzle", "12347721").then((r) => alert("register ran"));
   }, []);
 
   let Output;
