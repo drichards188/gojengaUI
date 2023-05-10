@@ -6,7 +6,7 @@ import { Button, Grid, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
-import { setToken, setUser } from "../banking/bankingSlice";
+import { setRefreshToken, setToken, setUser } from "../banking/bankingSlice";
 import { register } from "../dashboard/dashboardAPI";
 
 export function Welcome() {
@@ -54,6 +54,7 @@ export function Welcome() {
     // todo check if jwt is still valid. maybe send a request to be refreshed which will fail if invalid
     if (storageResult != null) {
       const userObject = JSON.parse(storageResult);
+      dispatch(setRefreshToken(userObject.refreshToken));
       dispatch(setToken(userObject.jwt));
       dispatch(setUser({ account: userObject.username }));
       return true;

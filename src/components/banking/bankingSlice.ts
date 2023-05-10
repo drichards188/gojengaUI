@@ -314,6 +314,8 @@ export const selectBanking = (state: RootState) => state.banking.amount;
 export const selectBankingUser = (state: RootState) => state.banking.user;
 export const selectLoggedIn = (state: RootState) => state.banking.loggedIn;
 export const selectToken = (state: RootState) => state.banking.token;
+export const selectRefreshToken = (state: RootState) =>
+  state.banking.refreshToken;
 export const selectMessage = (state: RootState) => state.banking.message;
 export const selectBalance = (state: RootState) => state.banking.balance;
 export const selectAmount = (state: RootState) => state.banking.amount;
