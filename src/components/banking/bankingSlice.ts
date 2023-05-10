@@ -37,6 +37,7 @@ const initialState: BankingState = {
   message: "",
   loggedIn: false,
   token: "",
+  refreshToken: "",
   status: "idle",
 };
 
@@ -135,6 +136,9 @@ export const bankingSlice = createSlice({
     },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
+    },
+    setRefreshToken: (state, action: PayloadAction<string>) => {
+      state.refreshToken = action.payload;
     },
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.loggedIn = action.payload;
@@ -258,6 +262,7 @@ export const bankingSlice = createSlice({
           }
         } else {
           state.token = action.payload.data.access_token;
+          state.refreshToken = action.payload.data.refresh_token;
           state.loggedIn = true;
         }
       })
@@ -298,6 +303,7 @@ export const {
   makeDelete,
   setUser,
   setToken,
+  setRefreshToken,
   setLoggedIn,
 } = bankingSlice.actions;
 

@@ -138,7 +138,7 @@ export async function crtLogin(username: string, password: string) {
   })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data));
+      alert("success " + JSON.stringify(response.data));
       return response;
     })
     .catch(function (response) {

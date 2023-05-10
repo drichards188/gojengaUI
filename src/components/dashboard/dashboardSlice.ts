@@ -28,7 +28,6 @@ export interface DashboardState {
   destination: string;
   message: string;
   loggedIn: boolean;
-  token: string;
   status: "idle" | "loading" | "failed";
 }
 
@@ -43,7 +42,6 @@ const initialState: DashboardState = {
   destination: "allie",
   message: "",
   loggedIn: false,
-  token: "token",
   status: "idle",
 };
 

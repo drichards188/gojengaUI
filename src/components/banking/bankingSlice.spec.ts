@@ -9,6 +9,7 @@ describe("counter reducer", () => {
     message: "",
     loggedIn: false,
     token: "token",
+    refreshToken: "token",
     status: "idle",
   };
   it("should handle initial state", () => {
