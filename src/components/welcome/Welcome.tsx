@@ -54,12 +54,14 @@ export function Welcome() {
     // todo check if jwt is still valid. maybe send a request to be refreshed which will fail if invalid
     if (storageResult != null) {
       const userObject = JSON.parse(storageResult);
+      alert(`userObject is ${userObject}`);
+      alert(`token is ${userObject.jwt}`);
       dispatch(setRefreshToken(userObject.refreshToken));
       dispatch(setToken(userObject.jwt));
       dispatch(setUser({ account: userObject.username }));
       return true;
     }
-
+    alert(`autologin threw false`);
     return false;
   };
 
@@ -71,9 +73,11 @@ export function Welcome() {
           className={styles.primaryButton}
           onClick={() => {
             const loginCheck = checkAutoLogin();
+            alert(`login autocheck is ${loginCheck}`);
             if (loginCheck) {
               navigate("/banking");
             } else {
+              alert(`running else in logincheck`);
               setDisplay(true);
               setDisplayWelcomeButton(false);
             }

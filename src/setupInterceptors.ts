@@ -37,7 +37,7 @@ const setup = (store: { dispatch: any }) => {
               token: token,
             });
             // todo this approach may not work. decoding an expired token results in an error
-            const { accessToken } = rs.data;
+            const accessToken = rs.data.token;
 
             dispatch(setToken(accessToken));
             TokenService.updateLocalAccessToken(accessToken);

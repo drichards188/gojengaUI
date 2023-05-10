@@ -3,8 +3,7 @@ class TokenService {
     const user = localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
-      // alert(`token is ${userObj.jwt}`);
-      const token = userObj.jwt;
+      const token = userObj.refreshToken;
       return token;
     }
   }
@@ -13,7 +12,7 @@ class TokenService {
     const user = localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
-      return userObj?.accessToken;
+      return userObj?.jwt;
     }
   }
 
@@ -21,7 +20,8 @@ class TokenService {
     const user = localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      userObj.jwt = token;
+      localStorage.setItem("user", JSON.stringify(userObj));
     }
   }
 

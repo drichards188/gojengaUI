@@ -153,6 +153,32 @@ export async function crtLogin(username: string, password: string) {
   });
 }
 
+export const trigger503 = async (token: string) => {
+  let response = await api
+    .get(`/testintercept/zala`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+};
+
 export const refreshToken = async (token: string) => {
   let response = await api
     .get(`/refresh`, {
@@ -217,28 +243,62 @@ export async function crtGetAccount(username: string, token: string) {
   );
 }
 
-export async function crtDeposit(
+// export async function crtDeposit(
+//   account: string,
+//   amount: number,
+//   token: string
+// ) {
+//   let response = await axios({
+//     method: "POST",
+//     url: `http://localhost:8000/account/${account}/deposit`,
+//     data: {
+//       name: account,
+//       balance: amount,
+//     },
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Is-Test": "True",
+//       Authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then(function (response) {
+//       //handle success
+//       // alert("success " + JSON.stringify(response.data));
+//       return response.data.response;
+//     })
+//     .catch(function (response) {
+//       //handle error
+//       alert("failed " + response);
+//       return response;
+//     });
+//
+//   return new Promise<{ data: any }>((resolve) =>
+//     setTimeout(() => resolve({ data: response }))
+//   );
+// }
+
+export const crtDeposit = async (
   account: string,
   amount: number,
   token: string
-) {
-  let response = await axios({
-    method: "POST",
-    url: `http://localhost:8000/account/${account}/deposit`,
-    data: {
-      name: account,
-      balance: amount,
-    },
-    headers: {
-      "Content-Type": "application/json",
-      "Is-Test": "True",
-      Authorization: `Bearer ${token}`,
-    },
-  })
+) => {
+  let response = await api
+    .post(`/account/${account}/deposit`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        name: account,
+        balance: amount,
+      },
+    })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data));
+      alert("success " + JSON.stringify(response.data));
       return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error
@@ -249,4 +309,4 @@ export async function crtDeposit(
   return new Promise<{ data: any }>((resolve) =>
     setTimeout(() => resolve({ data: response }))
   );
-}
+};
