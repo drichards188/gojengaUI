@@ -18,7 +18,7 @@ export function Welcome() {
 
   useEffect(() => {
     // dispatch(getCoinListAsync());
-    register("twizzle", "12347721").then((r) => alert("register ran"));
+    // register("twizzle", "12347721").then((r) => console.log("register ran"));
   }, []);
 
   let Output;

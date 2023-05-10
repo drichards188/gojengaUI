@@ -25,6 +25,7 @@ export interface BankingState {
   message: string;
   loggedIn: boolean;
   token: string;
+  refreshToken: string;
   status: "idle" | "loading" | "failed";
 }
 

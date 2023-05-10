@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../../api";
 
 const backendURL = "http://localhost:8000";
 
@@ -149,14 +150,40 @@ export async function crtLogin(username: string, password: string) {
 
   return new Promise<{ data: any }>((resolve, reject) => {
     resolve({ data: response });
-    // if (response && response.message !== "Network Error") {
-    //
-    // } else if (response.message === "Network Error") {
-    //   throw new Error("custom error here");
-    //   reject({ data: response });
-    // }
   });
 }
+
+export const refreshToken = async (token: string) => {
+  let response = await api
+    .get(`/refresh`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      }
+      if (response.response.status === 403) {
+        alert("refresh token now");
+      }
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+};
 
 export async function crtGetAccount(username: string, token: string) {
   let response = await axios({

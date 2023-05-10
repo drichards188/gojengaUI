@@ -3,7 +3,9 @@ class TokenService {
     const user = localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
-      return userObj?.refreshToken;
+      // alert(`token is ${userObj.jwt}`);
+      const token = userObj.jwt;
+      return token;
     }
   }
 

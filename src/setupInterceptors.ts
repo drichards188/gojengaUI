@@ -26,16 +26,17 @@ const setup = (store: { dispatch: any }) => {
     async (err) => {
       const originalConfig = err.config;
       // todo detect a 403 response
-      if (originalConfig.url !== "/auth/signin" && err.response) {
+      if (originalConfig.url !== "/login" && err.response) {
         // Access Token was expired
-        if (err.response.status === 401 && !originalConfig._retry) {
+        if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 
           try {
-            const rs = await axiosInstance.post("/auth/refreshtoken", {
-              refreshToken: TokenService.getLocalRefreshToken(),
+            const token = TokenService.getLocalRefreshToken();
+            const rs = await axiosInstance.put("/refresh", {
+              token: token,
             });
-
+            // todo this approach may not work. decoding an expired token results in an error
             const { accessToken } = rs.data;
 
             dispatch(setToken(accessToken));
