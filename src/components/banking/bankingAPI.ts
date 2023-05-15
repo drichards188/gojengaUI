@@ -179,6 +179,34 @@ export const trigger403 = async (token: string) => {
   );
 };
 
+export const triggerPost = async (token: string) => {
+  let response = await api
+    .post(`/testdeposit/zala`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+      name: "zala",
+      balance: 1.32,
+    })
+    .then(function (response) {
+      //handle success
+      alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+};
+
 export async function crtGetAccount(username: string, token: string) {
   let response = await api
     .get(`http://localhost:8000/account/${username}`, {
@@ -253,10 +281,8 @@ export const crtDeposit = async (
         "Is-Test": "True",
         Authorization: `Bearer ${token}`,
       },
-      data: {
-        name: account,
-        balance: amount,
-      },
+      name: account,
+      balance: amount,
     })
     .then(function (response) {
       //handle success
