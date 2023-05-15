@@ -153,7 +153,7 @@ export async function crtLogin(username: string, password: string) {
   });
 }
 
-export const trigger503 = async (token: string) => {
+export const trigger403 = async (token: string) => {
   let response = await api
     .get(`/testintercept/zala`, {
       headers: {
@@ -179,48 +179,15 @@ export const trigger503 = async (token: string) => {
   );
 };
 
-export const refreshToken = async (token: string) => {
+export async function crtGetAccount(username: string, token: string) {
   let response = await api
-    .get(`/refresh`, {
+    .get(`http://localhost:8000/account/${username}`, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "Is-Test": "True",
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(function (response) {
-      //handle success
-      alert("success " + JSON.stringify(response.data));
-      return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
-    })
-    .catch(function (response) {
-      if (response.response.status === 401) {
-        localStorage.removeItem("user");
-      }
-      if (response.response.status === 403) {
-        alert("refresh token now");
-      }
-      //handle error
-      alert("failed " + response);
-      return response;
-    });
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
-  );
-};
-
-export async function crtGetAccount(username: string, token: string) {
-  let response = await axios({
-    method: "get",
-    url: `http://localhost:8000/account/${username}`,
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "Is-Test": "True",
-      Authorization: `Bearer ${token}`,
-    },
-  })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data.response.balance));
@@ -230,9 +197,6 @@ export async function crtGetAccount(username: string, token: string) {
       //handle error
       if (response.response.status === 401) {
         localStorage.removeItem("user");
-      }
-      if (response.response.status === 403) {
-        alert("refresh token now");
       }
       alert("failed " + response);
       return response;
@@ -302,7 +266,7 @@ export const crtDeposit = async (
     })
     .catch(function (response) {
       //handle error
-      alert("failed " + response);
+      // alert("failed " + response);
       return response;
     });
 

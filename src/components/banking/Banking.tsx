@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
-import { crtGetAccount, trigger503 } from "./bankingAPI";
+import { crtGetAccount, trigger403 } from "./bankingAPI";
 export const paperStyle = {
   borderRadius: "10px",
   backgroundColor: "#363940",
@@ -126,7 +126,7 @@ export function Banking() {
     <div>
       <Header />
       {balanceDiv}
-      <button onClick={() => trigger503(refreshJwtToken)}>Trigger 503</button>
+      <button onClick={() => trigger403(refreshJwtToken)}>Trigger 403</button>
       <div className={styles.row}>{dialog}</div>
       {toolbar}
       <Footer />

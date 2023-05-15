@@ -100,10 +100,6 @@ export const dashboardSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
-      state.user = action.payload;
-      alert("setUser state is " + state.user);
-    },
     setAmount: (state, action: PayloadAction<number>) => {
       state.amount = action.payload;
     },

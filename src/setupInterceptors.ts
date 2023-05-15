@@ -9,7 +9,7 @@ const setup = (store: { dispatch: any }) => {
       if (token) {
         // config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
         // @ts-ignore
-        config.headers["x-access-token"] = token; // for Node.js Express back-end
+        config.headers["Authorization"] = `Bearer ${token}`; // for Node.js Express back-end
       }
       return config;
     },
@@ -28,6 +28,7 @@ const setup = (store: { dispatch: any }) => {
       // todo detect a 403 response
       if (originalConfig.url !== "/login" && err.response) {
         // Access Token was expired
+        // request data isn't being sent on the retry. thus token is valid request is bad
         if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 
@@ -46,6 +47,10 @@ const setup = (store: { dispatch: any }) => {
           } catch (_error) {
             return Promise.reject(_error);
           }
+        }
+        if (err.response.status === 422) {
+          alert("unprocessible entity");
+          return Promise.reject("error unprocessible entity");
         }
       }
 
