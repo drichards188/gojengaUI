@@ -207,40 +207,6 @@ export async function crtGetAccount(username: string, token: string) {
   );
 }
 
-// export async function crtDeposit(
-//   account: string,
-//   amount: number,
-//   token: string
-// ) {
-//   let response = await axios({
-//     method: "POST",
-//     url: `http://localhost:8000/account/${account}/deposit`,
-//     data: {
-//       name: account,
-//       balance: amount,
-//     },
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Is-Test": "True",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-//     .then(function (response) {
-//       //handle success
-//       // alert("success " + JSON.stringify(response.data));
-//       return response.data.response;
-//     })
-//     .catch(function (response) {
-//       //handle error
-//       alert("failed " + response);
-//       return response;
-//     });
-//
-//   return new Promise<{ data: any }>((resolve) =>
-//     setTimeout(() => resolve({ data: response }))
-//   );
-// }
-
 export const crtDeposit = async (
   account: string,
   amount: number,
