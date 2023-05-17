@@ -10,6 +10,8 @@ const setup = (store: { dispatch: any }) => {
         // config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
         // @ts-ignore
         config.headers["Authorization"] = `Bearer ${token}`; // for Node.js Express back-end
+        // @ts-ignore
+        config.headers["Is-Test"] = "True";
       }
       return config;
     },
