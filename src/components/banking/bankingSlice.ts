@@ -25,6 +25,7 @@ export interface BankingState {
   message: string;
   loggedIn: boolean;
   token: string;
+  refreshToken: string;
   status: "idle" | "loading" | "failed";
 }
 
@@ -36,6 +37,7 @@ const initialState: BankingState = {
   message: "",
   loggedIn: false,
   token: "",
+  refreshToken: "",
   status: "idle",
 };
 
@@ -135,6 +137,9 @@ export const bankingSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    setRefreshToken: (state, action: PayloadAction<string>) => {
+      state.refreshToken = action.payload;
+    },
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.loggedIn = action.payload;
     },
@@ -167,8 +172,8 @@ export const bankingSlice = createSlice({
     },
     setUser: (state, action: PayloadAction<any>) => {
       let username = action.payload.account;
-      let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
-      state.user = uppercase;
+      // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
+      state.user = username;
     },
     makeDelete: (state, action: PayloadAction<any>) => {
       state.user = action.payload.username;
@@ -257,6 +262,7 @@ export const bankingSlice = createSlice({
           }
         } else {
           state.token = action.payload.data.access_token;
+          state.refreshToken = action.payload.data.refresh_token;
           state.loggedIn = true;
         }
       })
@@ -297,6 +303,7 @@ export const {
   makeDelete,
   setUser,
   setToken,
+  setRefreshToken,
   setLoggedIn,
 } = bankingSlice.actions;
 
@@ -307,6 +314,8 @@ export const selectBanking = (state: RootState) => state.banking.amount;
 export const selectBankingUser = (state: RootState) => state.banking.user;
 export const selectLoggedIn = (state: RootState) => state.banking.loggedIn;
 export const selectToken = (state: RootState) => state.banking.token;
+export const selectRefreshToken = (state: RootState) =>
+  state.banking.refreshToken;
 export const selectMessage = (state: RootState) => state.banking.message;
 export const selectBalance = (state: RootState) => state.banking.balance;
 export const selectAmount = (state: RootState) => state.banking.amount;

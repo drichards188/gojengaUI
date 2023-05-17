@@ -1,7 +1,11 @@
 import { Link, Router, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../app/hooks";
-import { setLoggedIn, setToken } from "../components/banking/bankingSlice";
+import {
+  setLoggedIn,
+  setToken,
+  setRefreshToken,
+} from "../components/banking/bankingSlice";
 import styles from "../components/banking/Banking.module.css";
 import CustomButton from "../components/general/CustomButton";
 
@@ -16,9 +20,10 @@ function Header() {
         <CustomButton
           label={"Log Out"}
           clickFunction={() => {
+            localStorage.removeItem("user");
             dispatch(setToken(""));
+            dispatch(setRefreshToken(""));
             dispatch(setLoggedIn(false));
-
             navigate("/");
           }}
         />

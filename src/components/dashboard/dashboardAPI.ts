@@ -3,6 +3,7 @@ import {
   returnTransactionData,
 } from "../../backend/backendInterface";
 import axios from "axios";
+import api from "../../api";
 
 const backendURL =
   "https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto";
@@ -139,6 +140,12 @@ export async function getUserPortfolio(username: string, token: string) {
       // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      }
+      if (response.response.status === 403) {
+        alert("refresh token now");
+      }
       //handle error
       alert("failed " + response);
       return response;
@@ -148,6 +155,38 @@ export async function getUserPortfolio(username: string, token: string) {
     setTimeout(() => resolve({ data: response }))
   );
 }
+
+export const register = async (username: string, token: string) => {
+  let response = await api
+    .get(`/testintercept/${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
+    })
+    .catch(function (response) {
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      }
+      if (response.response.status === 403) {
+        alert("refresh token now");
+      }
+      //handle error
+      alert("failed " + response);
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+};
 
 export async function crtLogin(account: string, password: string) {
   const response = await fetch(backendURL, {

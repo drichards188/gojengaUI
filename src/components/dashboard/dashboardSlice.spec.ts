@@ -12,7 +12,6 @@ describe("dashboard reducer", () => {
     destination: "allie",
     message: "",
     loggedIn: false,
-    token: "token",
     status: "idle",
   };
   it("should handle initial state", () => {

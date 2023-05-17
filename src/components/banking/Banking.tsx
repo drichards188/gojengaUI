@@ -12,6 +12,7 @@ import {
   selectBalance,
   selectAmount,
   getUserAsync,
+  selectRefreshToken,
 } from "./bankingSlice";
 import styles from "./Banking.module.css";
 import { Box, Container, Paper, TextField } from "@mui/material";
@@ -46,6 +47,7 @@ export function Banking() {
   const balance = useAppSelector(selectBalance);
   const isLoggedIn = useAppSelector(selectLoggedIn);
   const jwtToken = useAppSelector(selectToken);
+  const refreshJwtToken = useAppSelector(selectRefreshToken);
   const dispatch = useAppDispatch();
 
   const [displayComponent, setDisplayComponent] = useState(
@@ -60,6 +62,15 @@ export function Banking() {
     if (!bankingUser || jwtToken === "") {
       alert("Please login");
       navigate("/");
+    } else {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          username: bankingUser,
+          jwt: jwtToken,
+          refreshToken: refreshJwtToken,
+        })
+      );
     }
     dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
   });
