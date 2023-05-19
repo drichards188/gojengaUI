@@ -7,7 +7,6 @@ import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { setRefreshToken, setToken, setUser } from "../banking/bankingSlice";
-import { register } from "../dashboard/dashboardAPI";
 
 export function Welcome() {
   const dispatch = useAppDispatch();
@@ -15,11 +14,6 @@ export function Welcome() {
   const [displayWelcomeButton, setDisplayWelcomeButton] = useState(true);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // dispatch(getCoinListAsync());
-    // register("twizzle", "12347721").then((r) => console.log("register ran"));
-  }, []);
 
   let Output;
   if (display) {
@@ -51,7 +45,6 @@ export function Welcome() {
 
   const checkAutoLogin = () => {
     const storageResult: string | null = localStorage.getItem("user");
-    // todo check if jwt is still valid. maybe send a request to be refreshed which will fail if invalid
     if (storageResult != null) {
       const userObject = JSON.parse(storageResult);
       dispatch(setRefreshToken(userObject.refreshToken));

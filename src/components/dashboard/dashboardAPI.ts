@@ -124,15 +124,14 @@ export async function getCoinsList() {
 }
 
 export async function getUserPortfolio(username: string, token: string) {
-  let response = await axios({
-    method: "get",
-    url: `http://localhost:8000/portfolio/${username}`,
-    headers: {
-      "Content-Type": "application/json",
-      "Is-Test": "True",
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  let response = await axios
+    .get(`http://localhost:8000/portfolio/${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data.response.balance));
@@ -156,38 +155,6 @@ export async function getUserPortfolio(username: string, token: string) {
   );
 }
 
-export const register = async (username: string, token: string) => {
-  let response = await api
-    .get(`/testintercept/${username}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Is-Test": "True",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(function (response) {
-      //handle success
-      alert("success " + JSON.stringify(response.data));
-      return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
-    })
-    .catch(function (response) {
-      if (response.response.status === 401) {
-        localStorage.removeItem("user");
-      }
-      if (response.response.status === 403) {
-        alert("refresh token now");
-      }
-      //handle error
-      alert("failed " + response);
-      return response;
-    });
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
-  );
-};
-
 export async function crtLogin(account: string, password: string) {
   const response = await fetch(backendURL, {
     method: "PUT",
@@ -204,7 +171,7 @@ export async function crtLogin(account: string, password: string) {
     setTimeout(() => resolve({ data: data }), 500)
   );
 }
-
+// todo move axios calls to the axios instance calls
 export async function addDisplayCoin(coin: object, token: string) {
   // todo remove hardcoded reference to zala
   let response = await axios({
