@@ -29,6 +29,7 @@ const setup = (store: { dispatch: any }) => {
       if (originalConfig.url !== "/login" && err.response) {
         // Access Token was expired
         // request data isn't being sent on the retry. thus token is valid request is bad
+
         if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 

@@ -142,9 +142,7 @@ export async function getUserPortfolio(username: string, token: string) {
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       }
-      if (response.response.status === 403) {
-        alert("refresh token now");
-      }
+
       //handle error
       alert("failed " + response);
       return response;
@@ -201,6 +199,7 @@ export async function addDisplayCoin(coin: object, token: string) {
   );
 }
 
+// todo convert fetch to axios instance call
 export async function crtDelete(account: string) {
   const response = await fetch(backendURL, {
     method: "DELETE",

@@ -27,7 +27,7 @@ export function Dashboard() {
 
   useEffect(() => {
     if (!bankingUser || jwtToken === "") {
-      alert("Please login");
+      // alert("Please login");
       navigate("/");
     }
     dispatch(getPortfolio({ user: currentUser, jwt: token }));

@@ -10,39 +10,58 @@ export function fetchCount(amount = 1) {
   );
 }
 
-export async function crtUser(
-  account: string,
-  password: string,
-  token: string
-) {
-  let response = await axios({
-    method: "POST",
-    url: `http://localhost:8000/user`,
-    data: {
+export const crtUser = async (account: string, password: string) => {
+  let response = await api
+    .post(`/user`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
       name: account,
       password: password,
-    },
-    headers: {
-      "Content-Type": "application/json",
-      "Is-Test": "True",
-      Authorization: `Bearer ${token}`,
-    },
-  })
+    })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
       return response.data.response;
+      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error
-      alert("failed " + response);
+      // alert("failed " + response);
       return response;
     });
 
   return new Promise<{ data: any }>((resolve) =>
     setTimeout(() => resolve({ data: response }))
   );
-}
+};
+
+// export async function crtUser(account: string, password: string) {
+//   // todo why is Is-Test not being picked up by server? this call is not hitting interceptor
+//   let response = await api
+//     .post(`/user`, {
+//       name: account,
+//       password: password,
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Is-Test": "True",
+//       },
+//     })
+//     .then(function (response) {
+//       //handle success
+//       alert("success " + JSON.stringify(response.data));
+//       return response.data.response;
+//     })
+//     .catch(function (response) {
+//       //handle error
+//       alert("failed " + response);
+//       return response;
+//     });
+//
+//   return new Promise<{ data: any }>((resolve) =>
+//     setTimeout(() => resolve({ data: response }))
+//   );
+// }
 
 export async function crtTransaction(
   account: string,
@@ -50,20 +69,17 @@ export async function crtTransaction(
   amount: number,
   token: string
 ) {
-  let response = await axios({
-    method: "POST",
-    url: `http://localhost:8000/account/${account}/transaction`,
-    data: {
+  let response = await api
+    .post(`http://localhost:8000/account/${account}/transaction`, {
       sender: account,
       receiver: destination,
       amount: amount,
-    },
-    headers: {
-      "Content-Type": "application/json",
-      "Is-Test": "True",
-      Authorization: `Bearer ${token}`,
-    },
-  })
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
@@ -80,6 +96,7 @@ export async function crtTransaction(
   );
 }
 
+// todo convert fetch call to axios instance call
 export async function crtInfo(account: string) {
   const response = await fetch(backendURL, {
     method: "PUT",
@@ -101,6 +118,7 @@ export async function crtInfo(account: string) {
   );
 }
 
+// todo convert fetch call to axios instance call
 export async function crtDelete(account: string) {
   const response = await fetch(backendURL, {
     method: "DELETE",
@@ -152,32 +170,6 @@ export async function crtLogin(username: string, password: string) {
     resolve({ data: response });
   });
 }
-
-export const trigger403 = async (token: string) => {
-  let response = await api
-    .get(`/testintercept/zala`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Is-Test": "True",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(function (response) {
-      //handle success
-      alert("success " + JSON.stringify(response.data));
-      return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
-    })
-    .catch(function (response) {
-      //handle error
-      alert("failed " + response);
-      return response;
-    });
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
-  );
-};
 
 export async function crtGetAccount(username: string, token: string) {
   let response = await api
