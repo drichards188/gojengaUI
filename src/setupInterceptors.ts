@@ -7,7 +7,6 @@ const setup = (store: { dispatch: any }) => {
     (config) => {
       const token = TokenService.getLocalAccessToken();
       if (token) {
-        // config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
         // @ts-ignore
         config.headers["Authorization"] = `Bearer ${token}`; // for Node.js Express back-end
         // @ts-ignore
@@ -27,10 +26,10 @@ const setup = (store: { dispatch: any }) => {
     },
     async (err) => {
       const originalConfig = err.config;
-      // todo detect a 403 response
       if (originalConfig.url !== "/login" && err.response) {
         // Access Token was expired
         // request data isn't being sent on the retry. thus token is valid request is bad
+
         if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 
@@ -39,7 +38,6 @@ const setup = (store: { dispatch: any }) => {
             const rs = await axiosInstance.put("/refresh", {
               token: token,
             });
-            // todo this approach may not work. decoding an expired token results in an error
             const accessToken = rs.data.token;
 
             dispatch(setToken(accessToken));

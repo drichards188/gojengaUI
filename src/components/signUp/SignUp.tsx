@@ -15,14 +15,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const token = useAppSelector(selectToken);
 
-  useEffect(() => {
-    if (token != "" && token != "error") {
-      navigate("/dashboard");
-    } else if (token === "error") {
-      alert("there was a problem logging in. please try to login again");
-    }
-  }, [token]);
-
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
       <Grid
@@ -56,7 +48,10 @@ const SignUp = () => {
         </Grid>
         <Button
           onClick={() => {
+            // todo on the completion of creating a user navigate to banking page
             dispatch(createUserAsync({ username, password, token }));
+
+            navigate("/login");
           }}
         >
           Signup

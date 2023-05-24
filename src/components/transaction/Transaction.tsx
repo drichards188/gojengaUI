@@ -27,7 +27,7 @@ export function Transaction(props: any) {
   function createTransaction() {
     dispatch(makeTransaction({ destination, amount }));
     dispatch(
-      createTransactionAsync({ bankingUser, destination, amount, token })
+      createTransactionAsync({ bankingUser, destination, amount, jwt: token })
     );
     setDestination("");
     setStateAmount("");

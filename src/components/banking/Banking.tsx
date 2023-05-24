@@ -60,7 +60,7 @@ export function Banking() {
 
   useEffect(() => {
     if (!bankingUser || jwtToken === "") {
-      alert("Please login");
+      // alert("Please login");
       navigate("/");
     } else {
       localStorage.setItem(
