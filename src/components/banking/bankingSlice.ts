@@ -282,6 +282,7 @@ export const bankingSlice = createSlice({
       .addCase(getUserAsync.rejected, (state, action) => {
         state.status = "failed";
         alert(`getUserAsync failed`);
+        return initialState;
         // alert("createUser rejected " + action.payload)
         // alert("the state.message is now " + state.message)
       });
