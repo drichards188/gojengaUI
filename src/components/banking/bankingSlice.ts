@@ -216,11 +216,13 @@ export const bankingSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.user = action.payload["user"];
-        // state.token = action.payload["access_token"];
-        // state.balance = action.payload["response"]["balance"];
-        state.loggedIn = true;
-        // alert("the state.message is now " + state.message)
+        if ("message" in action.payload) {
+          state.message = action.payload["message"];
+        } else {
+          state.user = action.payload["user"];
+          state.loggedIn = true;
+          // alert("the state.message is now " + state.message)
+        }
       })
       .addCase(createUserAsync.rejected, (state, action) => {
         state.status = "failed";

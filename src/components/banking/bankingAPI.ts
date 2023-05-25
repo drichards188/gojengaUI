@@ -21,13 +21,12 @@ export const crtUser = async (account: string, password: string) => {
     })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data));
+      alert("success " + JSON.stringify(response.data));
       return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error
-      // alert("failed " + response);
+      alert("failed " + response);
       return response;
     });
 
