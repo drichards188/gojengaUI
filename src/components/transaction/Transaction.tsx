@@ -8,7 +8,7 @@ import {
   selectBankingUser,
   makeTransaction,
   createTransactionAsync,
-  resetMessage,
+  setMessage,
   selectToken,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
@@ -89,7 +89,7 @@ export function Transaction(props: any) {
         onClick={() => {
           props.setDisplayComponent(BankComponents.None);
           props.setDisplayToolbar(true);
-          dispatch(resetMessage());
+          dispatch(setMessage(""));
         }}
       >
         Back

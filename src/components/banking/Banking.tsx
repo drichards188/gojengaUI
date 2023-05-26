@@ -6,7 +6,6 @@ import {
   selectBanking,
   selectBankingUser,
   selectLoggedIn,
-  resetMessage,
   selectToken,
   selectMessage,
   selectBalance,

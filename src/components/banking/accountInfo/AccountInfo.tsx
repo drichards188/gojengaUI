@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { BankComponents } from "../Banking";
-import { resetMessage } from "../bankingSlice";
+import { setMessage } from "../bankingSlice";
 
 const AccountInfo = (props: any) => {
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ const AccountInfo = (props: any) => {
         onClick={() => {
           props.setDisplayComponent(BankComponents.None);
           props.setDisplayToolbar(true);
-          dispatch(resetMessage());
+          dispatch(setMessage(""));
         }}
       >
         Back

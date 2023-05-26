@@ -5,7 +5,7 @@ import {
   selectBankingUser,
   createDepositAsync,
   selectBalance,
-  resetMessage,
+  setMessage,
   getUserAsync,
   selectToken,
 } from "../banking/bankingSlice";
@@ -70,7 +70,7 @@ export function Deposit(props: any) {
           props.setDisplayComponent(BankComponents.None);
           props.setDisplayToolbar(true);
           dispatch(getUserAsync({ username: bankingUser }));
-          dispatch(resetMessage());
+          dispatch(setMessage(""));
         }}
       >
         Back
