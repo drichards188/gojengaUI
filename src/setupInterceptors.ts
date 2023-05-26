@@ -10,7 +10,7 @@ const setup = (store: { dispatch: any }) => {
         // @ts-ignore
         config.headers["Authorization"] = `Bearer ${token}`; // for Node.js Express back-end
         // @ts-ignore
-        config.headers["Is-Test"] = "True";
+        config.headers["Is-Test"] = process.env.REACT_APP_IS_TEST;
       }
       return config;
     },

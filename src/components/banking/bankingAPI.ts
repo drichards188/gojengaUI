@@ -21,13 +21,12 @@ export const crtUser = async (account: string, password: string) => {
     })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data));
+      alert("success " + JSON.stringify(response.data));
       return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error
-      // alert("failed " + response);
+      alert("failed " + response);
       return response;
     });
 
@@ -35,33 +34,6 @@ export const crtUser = async (account: string, password: string) => {
     setTimeout(() => resolve({ data: response }))
   );
 };
-
-// export async function crtUser(account: string, password: string) {
-//   // todo why is Is-Test not being picked up by server? this call is not hitting interceptor
-//   let response = await api
-//     .post(`/user`, {
-//       name: account,
-//       password: password,
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Is-Test": "True",
-//       },
-//     })
-//     .then(function (response) {
-//       //handle success
-//       alert("success " + JSON.stringify(response.data));
-//       return response.data.response;
-//     })
-//     .catch(function (response) {
-//       //handle error
-//       alert("failed " + response);
-//       return response;
-//     });
-//
-//   return new Promise<{ data: any }>((resolve) =>
-//     setTimeout(() => resolve({ data: response }))
-//   );
-// }
 
 export async function crtTransaction(
   account: string,
@@ -215,9 +187,8 @@ export const crtDeposit = async (
     })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response.data));
+      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
-      // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
       //handle error

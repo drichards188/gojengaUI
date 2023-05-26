@@ -26,6 +26,7 @@ import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
 import { crtGetAccount } from "./bankingAPI";
+
 export const paperStyle = {
   borderRadius: "10px",
   backgroundColor: "#363940",
