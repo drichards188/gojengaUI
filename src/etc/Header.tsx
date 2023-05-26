@@ -5,6 +5,7 @@ import {
   setLoggedIn,
   setToken,
   setRefreshToken,
+  resetState,
 } from "../components/banking/bankingSlice";
 import styles from "../components/banking/Banking.module.css";
 import CustomButton from "../components/general/CustomButton";
@@ -23,7 +24,6 @@ function Header() {
             localStorage.removeItem("user");
             dispatch(setToken(""));
             dispatch(setRefreshToken(""));
-            dispatch(setLoggedIn(false));
             navigate("/");
           }}
         />

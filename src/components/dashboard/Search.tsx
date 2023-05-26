@@ -110,6 +110,7 @@ export default function SearchAppBar() {
               >
                 <MenuItem
                   onClick={() => {
+                    localStorage.removeItem("user");
                     dispatch(setToken(""));
                     dispatch(setRefreshToken(""));
                     navigate("/");
