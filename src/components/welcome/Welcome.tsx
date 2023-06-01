@@ -6,7 +6,12 @@ import { Box, Button, Grid, Paper } from "@mui/material";
 import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
-import { setRefreshToken, setToken, setUser } from "../banking/bankingSlice";
+import {
+  setMessage,
+  setRefreshToken,
+  setToken,
+  setUser,
+} from "../banking/bankingSlice";
 
 export function Welcome() {
   const dispatch = useAppDispatch();
@@ -64,8 +69,10 @@ export function Welcome() {
           onClick={() => {
             const loginCheck = checkAutoLogin();
             if (loginCheck) {
+              dispatch(setMessage(""));
               navigate("/banking");
             } else {
+              dispatch(setMessage(""));
               setDisplay(true);
               setDisplayWelcomeButton(false);
             }
