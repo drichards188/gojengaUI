@@ -12,7 +12,7 @@ import List from "./List";
 import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { setRefreshToken, setToken } from "../banking/bankingSlice";
+import { setMessage, setRefreshToken, setToken } from "../banking/bankingSlice";
 import { useAppDispatch } from "../../app/hooks";
 
 const Search = styled("div")(({ theme }) => ({
@@ -110,9 +110,11 @@ export default function SearchAppBar() {
               >
                 <MenuItem
                   onClick={() => {
+                    localStorage.removeItem("user");
                     dispatch(setToken(""));
                     dispatch(setRefreshToken(""));
-                    navigate("/");
+                    dispatch(setMessage("Unauthorized"));
+                    navigate("/login");
                   }}
                 >
                   Log Out

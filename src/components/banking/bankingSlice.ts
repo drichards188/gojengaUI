@@ -142,8 +142,8 @@ export const bankingSlice = createSlice({
     resetState: (state) => {
       return initialState;
     },
-    resetMessage: (state) => {
-      state.message = "";
+    setMessage: (state, action: PayloadAction<string>) => {
+      state.message = action.payload;
     },
     createUser: (state, action: PayloadAction<any>) => {
       state.user = action.payload.username;
@@ -294,7 +294,7 @@ export const bankingSlice = createSlice({
 export const {
   setAmount,
   resetState,
-  resetMessage,
+  setMessage,
   createUser,
   makeTransaction,
   makeLogin,
