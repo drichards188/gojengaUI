@@ -1,7 +1,5 @@
 import axios from "axios";
 import api from "../../api";
-import { useAppDispatch } from "../../app/hooks";
-import { setMessage, setRefreshToken, setToken } from "./bankingSlice";
 
 const backendURL = "http://localhost:8000";
 
