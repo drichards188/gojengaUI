@@ -32,11 +32,8 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
-  // coinData: [{ id: "bitcoin", last: 1, volume: 2400 }],
   coinData: [],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
-  // coinList: [],
-  // displayCoinList: { bitcoin: { quantity: 2 } },
   displayCoinList: {},
   amount: 0,
   balance: 0,

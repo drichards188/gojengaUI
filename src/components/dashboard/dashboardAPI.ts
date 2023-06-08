@@ -170,11 +170,14 @@ export async function crtLogin(account: string, password: string) {
   );
 }
 // todo move axios calls to the axios instance calls
-export async function addDisplayCoin(coin: object, token: string) {
-  // todo remove hardcoded reference to zala
+// todo looking at a coin shouldn't add it to portfolio. only owning the coin should
+export async function addDisplayCoin(
+  coin: { username: string; portfolio: object[] },
+  token: string
+) {
   let response = await axios({
     method: "PUT",
-    url: "http://localhost:8000/portfolio/zala",
+    url: "http://localhost:8000/portfolio/" + coin.username,
     data: JSON.stringify(coin),
     headers: {
       "Content-Type": "application/json",

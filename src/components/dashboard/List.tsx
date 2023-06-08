@@ -60,10 +60,11 @@ function List(props: any) {
           style={divStyle}
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
+            // todo alter default amount to the amount actually owned
             let resp = await addDisplayCoin(
               {
-                name: currentUser,
-                portfolio: [{ name: item.name, amount: 1, id: item.id }],
+                username: currentUser,
+                portfolio: [{ name: item.name, amount: 0, id: item.id }],
               },
               token
             );

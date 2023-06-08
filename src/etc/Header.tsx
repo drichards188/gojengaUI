@@ -25,7 +25,6 @@ function Header() {
             localStorage.removeItem("user");
             dispatch(setToken(""));
             dispatch(setRefreshToken(""));
-            dispatch(setMessage("Unauthorized"));
             navigate("/login");
           }}
         />
