@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CustomButton from "../general/CustomButton";
-import { addDisplayCoin } from "./dashboardAPI";
+import { updatePortfolio } from "./dashboardAPI";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 
 function List(props: any) {
@@ -60,15 +60,7 @@ function List(props: any) {
           style={divStyle}
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
-            // todo alter default amount to the amount actually owned
-            let resp = await addDisplayCoin(
-              {
-                username: currentUser,
-                portfolio: [{ name: item.name, amount: 0, id: item.id }],
-              },
-              token
-            );
-            alert(JSON.stringify(resp));
+            // todo add coin to display. don't push to portfolio
           }}
           key={item.id}
         >

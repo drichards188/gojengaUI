@@ -16,7 +16,8 @@ import {
   TextField,
 } from "@mui/material";
 import styles from "../banking/Banking.module.css";
-import { selectBankingUser } from "../banking/bankingSlice";
+import { selectBankingUser, selectToken } from "../banking/bankingSlice";
+import { updatePortfolio } from "./dashboardAPI";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
@@ -26,6 +27,9 @@ const Card = (props: any) => {
   const displayCoinData = useAppSelector(selectCoinDisplayList);
 
   const [tradeAmount, setTradeAmount] = useState(displayCoinData[id].quantity);
+
+  const currentUser = useAppSelector(selectBankingUser);
+  const token = useAppSelector(selectToken);
 
   last = last.toFixed(4);
   volume = volume.toFixed(2);
@@ -110,11 +114,23 @@ const Card = (props: any) => {
         </Grid>
 
         <Grid item md={4}>
-          <Button onClick={() => alertTradeAmount(tradeAmount)}>Buy</Button>
+          <Button
+            onClick={() =>
+              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+            }
+          >
+            Buy
+          </Button>
         </Grid>
 
         <Grid item md={4}>
-          <Button onClick={() => alertTradeAmount(tradeAmount)}>Sell</Button>
+          <Button
+            onClick={() =>
+              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+            }
+          >
+            Sell
+          </Button>
         </Grid>
       </Grid>
     </Grid>
@@ -123,6 +139,24 @@ const Card = (props: any) => {
 
 function alertTradeAmount(tradeAmount: string) {
   alert(tradeAmount);
+}
+
+async function triggerPortfolioUpdate(
+  currentUser: string,
+  coinName: string,
+  coinId: string,
+  quantity: number,
+  token: string
+) {
+  quantity = parseInt(String(quantity));
+  let resp = await updatePortfolio(
+    {
+      username: currentUser,
+      portfolio: [{ name: coinName, quantity: quantity, id: coinId }],
+    },
+    token
+  );
+  alert(JSON.stringify(resp));
 }
 
 export default Card;

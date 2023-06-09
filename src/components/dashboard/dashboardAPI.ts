@@ -169,9 +169,9 @@ export async function crtLogin(account: string, password: string) {
     setTimeout(() => resolve({ data: data }), 500)
   );
 }
+
 // todo move axios calls to the axios instance calls
-// todo looking at a coin shouldn't add it to portfolio. only owning the coin should
-export async function addDisplayCoin(
+export async function updatePortfolio(
   coin: { username: string; portfolio: object[] },
   token: string
 ) {
