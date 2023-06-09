@@ -152,7 +152,7 @@ async function triggerPortfolioUpdate(
   let resp = await updatePortfolio(
     {
       username: currentUser,
-      portfolio: [{ name: coinName, quantity: quantity, id: coinId }],
+      portfolio: [{ name: coinName, amount: quantity, id: coinId }],
     },
     token
   );
