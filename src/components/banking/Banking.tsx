@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
-import { crtGetAccount } from "./bankingAPI";
+import { crtGetAccount, getAccessToken, getRefreshToken } from "./bankingAPI";
 
 export const paperStyle = {
   borderRadius: "10px",
@@ -46,9 +46,11 @@ export function Banking() {
   const serverMessage = useAppSelector(selectMessage);
   const balance = useAppSelector(selectBalance);
   const isLoggedIn = useAppSelector(selectLoggedIn);
-  const jwtToken = useAppSelector(selectToken);
-  const refreshJwtToken = useAppSelector(selectRefreshToken);
+  const jwtToken = getAccessToken();
+  const refreshJwtToken = getRefreshToken();
   const dispatch = useAppDispatch();
+
+  const storedUser: string | null = localStorage.getItem("user");
 
   const [displayComponent, setDisplayComponent] = useState(
     BankComponents.Balance
@@ -59,7 +61,7 @@ export function Banking() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!bankingUser || jwtToken === "") {
+    if (!storedUser) {
       // alert("Please login");
       navigate("/");
     } else {

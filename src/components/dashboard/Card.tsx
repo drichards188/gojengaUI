@@ -18,6 +18,7 @@ import {
 import styles from "../banking/Banking.module.css";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 import { updatePortfolio } from "./dashboardAPI";
+import { getAccessToken } from "../banking/bankingAPI";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
@@ -29,7 +30,7 @@ const Card = (props: any) => {
   const [tradeAmount, setTradeAmount] = useState(displayCoinData[id].quantity);
 
   const currentUser = useAppSelector(selectBankingUser);
-  const token = useAppSelector(selectToken);
+  const token = getAccessToken();
 
   last = last.toFixed(4);
   volume = volume.toFixed(2);
