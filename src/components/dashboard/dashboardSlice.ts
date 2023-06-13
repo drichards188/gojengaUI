@@ -1,18 +1,10 @@
-import {
-  createAsyncThunk,
-  createReducer,
-  createSlice,
-  PayloadAction,
-  unwrapResult,
-} from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import {
   crtDelete,
-  crtLogin,
-  getCoinsList,
   crtUser,
-  fetchCount,
   getCoinBatch,
+  getCoinsList,
   getUserPortfolio,
 } from "./dashboardAPI";
 
@@ -115,10 +107,9 @@ export const dashboardSlice = createSlice({
         state.displayCoinList = arr;
       }
     },
-    removeCoinFromDisplayList: (state, action: PayloadAction<string[]>) => {
-      state.displayCoinList = state.displayCoinList.filter(
-        (x: any) => x !== action.payload
-      );
+    removeCoinFromDisplayList: (state, action: PayloadAction<string>) => {
+      const key: string = action.payload;
+      delete state.displayCoinList[key];
     },
     resetMessage: (state) => {
       state.message = "";
@@ -157,10 +148,18 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinListAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.coinList = action.payload.coinList;
+        if (
+          action.payload.coinList !== undefined &&
+          action.payload.coinList.length > 0
+        ) {
+          state.coinList = action.payload.coinList;
+        } // alert("the state.user is now " + state.user)
+      })
+      .addCase(getCoinListAsync.rejected, (state, action) => {
+        state.status = "failed";
+        // alert("login rejected " + action.payload)
         // alert("the state.user is now " + state.user)
       })
-
       //createLogin
       .addCase(getCoinBatchAsync.pending, (state) => {
         state.status = "loading";

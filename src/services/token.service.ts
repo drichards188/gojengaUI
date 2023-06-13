@@ -25,9 +25,12 @@ class TokenService {
     }
   }
 
-  // getUser() {
-  //   return JSON.parse(localStorage.getItem("user"));
-  // }
+  getUser() {
+    const user = localStorage.getItem("user");
+    if (user) {
+      return JSON.parse(user).username;
+    }
+  }
   //
   // setUser(user) {
   //   console.log(JSON.stringify(user));

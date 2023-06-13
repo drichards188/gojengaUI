@@ -14,13 +14,14 @@ import { Button, Grid } from "@mui/material";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../banking/bankingAPI";
+import TokenService from "../../services/token.service";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
   const token = getAccessToken();
   const displayCoins = useAppSelector(selectCoinDisplayList);
-  const currentUser = useAppSelector(selectBankingUser);
+  const currentUser = TokenService.getUser();
   const jwtToken = useAppSelector(selectToken);
   const bankingUser = useAppSelector(selectBankingUser);
   const coinSearchList = useAppSelector(selectCoinList);

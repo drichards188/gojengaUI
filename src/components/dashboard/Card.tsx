@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useState, createContext } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -27,13 +27,21 @@ const Card = (props: any) => {
 
   const displayCoinData = useAppSelector(selectCoinDisplayList);
 
-  const [tradeAmount, setTradeAmount] = useState(displayCoinData[id].quantity);
+  // when deleting a coin this card still wants the quantity
+  const [tradeAmount, setTradeAmount] = useState(0);
 
   const currentUser = useAppSelector(selectBankingUser);
   const token = getAccessToken();
 
   last = last.toFixed(4);
   volume = volume.toFixed(2);
+
+  useEffect(() => {
+    if (id in displayCoinData) {
+      const newTradeAmount = displayCoinData[id].quantity;
+      setTradeAmount(newTradeAmount);
+    }
+  }, [displayCoinData]);
 
   const divStyle = {
     display: "inline-block",
@@ -110,7 +118,10 @@ const Card = (props: any) => {
                 color: "primary.main",
               },
             }}
-            onChange={(e) => setTradeAmount(e.target.value)}
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              setTradeAmount(value);
+            }}
           />
         </Grid>
 
