@@ -32,9 +32,9 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
-  coinData: [{ id: "bitcoin", last: 1, volume: 2400 }],
+  coinData: [],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
-  displayCoinList: { bitcoin: { quantity: 2 }, tether: { quantity: 5 } },
+  displayCoinList: {},
   amount: 0,
   balance: 0,
   user: "david",
@@ -100,6 +100,9 @@ export const dashboardSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
+    resetDashboardState: (state) => {
+      return initialState;
+    },
     setAmount: (state, action: PayloadAction<number>) => {
       state.amount = action.payload;
     },
@@ -116,9 +119,6 @@ export const dashboardSlice = createSlice({
       state.displayCoinList = state.displayCoinList.filter(
         (x: any) => x !== action.payload
       );
-    },
-    resetState: (state) => {
-      return initialState;
     },
     resetMessage: (state) => {
       state.message = "";
@@ -201,24 +201,24 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "idle";
-        // state.displayCoinList = action.payload.coinList;
 
         let toBeAdded: string[] = [];
 
-        let coins = action.payload.coinList.portfolio;
+        if ("portfolio" in action.payload.coinList) {
+          let coins = action.payload.coinList.portfolio;
 
-        coins.forEach((item: { name: string; amount: number; id: string }) => {
-          if (!(item.id in state.displayCoinList)) {
-            // if (!state.displayCoinList.includes(item.id)) {
-            const coinName = item.id;
-            state.displayCoinList[coinName] = { quantity: item.amount };
-            // toBeAdded.push(item.id);
-          }
-        });
-
-        // if (toBeAdded.length != 0) {
-        //   state.displayCoinList = [...state.displayCoinList, ...toBeAdded];
-        // }
+          coins.forEach(
+            (item: { name: string; amount: number; id: string }) => {
+              if (!(item.id in state.displayCoinList)) {
+                // if (!state.displayCoinList.includes(item.id)) {
+                // todo figure out how to add coins to the display list while removing the placeholder
+                const coinName = item.id;
+                state.displayCoinList[coinName] = { quantity: item.amount };
+                // toBeAdded.push(item.id);
+              }
+            }
+          );
+        }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";
@@ -228,8 +228,11 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const { addCoinToDisplayList, removeCoinFromDisplayList } =
-  dashboardSlice.actions;
+export const {
+  resetDashboardState,
+  addCoinToDisplayList,
+  removeCoinFromDisplayList,
+} = dashboardSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

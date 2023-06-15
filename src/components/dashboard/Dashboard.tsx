@@ -13,11 +13,12 @@ import SearchAppBar from "./Search";
 import { Button, Grid } from "@mui/material";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 import { useNavigate } from "react-router-dom";
+import { getAccessToken } from "../banking/bankingAPI";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
-  const token = useAppSelector(selectToken);
+  const token = getAccessToken();
   const displayCoins = useAppSelector(selectCoinDisplayList);
   const currentUser = useAppSelector(selectBankingUser);
   const jwtToken = useAppSelector(selectToken);
@@ -25,8 +26,10 @@ export function Dashboard() {
   const coinSearchList = useAppSelector(selectCoinList);
   const navigate = useNavigate();
 
+  const storedUser: string | null = localStorage.getItem("user");
+
   useEffect(() => {
-    if (!bankingUser || jwtToken === "") {
+    if (!storedUser) {
       // alert("Please login");
       navigate("/");
     }

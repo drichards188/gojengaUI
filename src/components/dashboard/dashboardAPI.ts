@@ -169,12 +169,15 @@ export async function crtLogin(account: string, password: string) {
     setTimeout(() => resolve({ data: data }), 500)
   );
 }
+
 // todo move axios calls to the axios instance calls
-export async function addDisplayCoin(coin: object, token: string) {
-  // todo remove hardcoded reference to zala
+export async function updatePortfolio(
+  coin: { username: string; portfolio: object[] },
+  token: string
+) {
   let response = await axios({
     method: "PUT",
-    url: "http://localhost:8000/portfolio/zala",
+    url: "http://localhost:8000/portfolio/" + coin.username,
     data: JSON.stringify(coin),
     headers: {
       "Content-Type": "application/json",

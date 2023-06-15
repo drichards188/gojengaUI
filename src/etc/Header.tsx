@@ -5,11 +5,12 @@ import {
   setLoggedIn,
   setToken,
   setRefreshToken,
-  resetState,
   setMessage,
+  resetBankState,
 } from "../components/banking/bankingSlice";
 import styles from "../components/banking/Banking.module.css";
 import CustomButton from "../components/general/CustomButton";
+import { resetDashboardState } from "../components/dashboard/dashboardSlice";
 
 function Header() {
   const navigate = useNavigate();
@@ -25,7 +26,9 @@ function Header() {
             localStorage.removeItem("user");
             dispatch(setToken(""));
             dispatch(setRefreshToken(""));
-            dispatch(setMessage("Unauthorized"));
+
+            dispatch(resetBankState());
+            dispatch(resetDashboardState());
             navigate("/login");
           }}
         />

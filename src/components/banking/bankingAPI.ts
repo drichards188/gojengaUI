@@ -1,7 +1,5 @@
 import axios from "axios";
 import api from "../../api";
-import { useAppDispatch } from "../../app/hooks";
-import { setMessage, setRefreshToken, setToken } from "./bankingSlice";
 
 const backendURL = "http://localhost:8000";
 
@@ -113,6 +111,16 @@ export async function crtDelete(account: string) {
   );
 }
 
+export function getAccessToken() {
+  let user = JSON.parse(localStorage.getItem("user") || "{}");
+  return user.jwt;
+}
+
+export function getRefreshToken() {
+  let user = JSON.parse(localStorage.getItem("user") || "{}");
+  return user.refreshToken;
+}
+
 export async function crtLogin(username: string, password: string) {
   let formData = new FormData();
   formData.append("username", username);
@@ -131,6 +139,16 @@ export async function crtLogin(username: string, password: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
+      if ("access_token" in response.data && "refresh_token" in response.data) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: username,
+            jwt: response.data.access_token,
+            refreshToken: response.data.refresh_token,
+          })
+        );
+      }
       return response;
     })
     .catch(function (response) {
