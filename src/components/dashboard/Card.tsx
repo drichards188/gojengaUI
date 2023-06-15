@@ -117,7 +117,14 @@ const Card = (props: any) => {
         <Grid item md={4}>
           <Button
             onClick={() =>
-              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+              triggerPortfolioUpdate(
+                "buy",
+                currentUser,
+                id,
+                id,
+                tradeAmount,
+                token
+              )
             }
           >
             Buy
@@ -127,7 +134,14 @@ const Card = (props: any) => {
         <Grid item md={4}>
           <Button
             onClick={() =>
-              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+              triggerPortfolioUpdate(
+                "sell",
+                currentUser,
+                id,
+                id,
+                tradeAmount,
+                token
+              )
             }
           >
             Sell
@@ -143,6 +157,7 @@ function alertTradeAmount(tradeAmount: string) {
 }
 
 async function triggerPortfolioUpdate(
+  updateType: string,
   currentUser: string,
   coinName: string,
   coinId: string,
@@ -155,6 +170,7 @@ async function triggerPortfolioUpdate(
       username: currentUser,
       portfolio: [{ name: coinName, amount: quantity, id: coinId }],
     },
+    updateType,
     token
   );
   alert(JSON.stringify(resp));
