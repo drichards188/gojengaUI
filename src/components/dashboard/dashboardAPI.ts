@@ -179,6 +179,7 @@ export async function crtLogin(account: string, password: string) {
 // todo move axios calls to the axios instance calls
 export async function updatePortfolio(
   coin: { username: string; portfolio: object[] },
+
   updateType: string,
   token: string
 ) {

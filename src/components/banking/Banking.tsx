@@ -62,6 +62,7 @@ export function Banking() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     if (storedUser) {
       const user = JSON.parse(storedUser);
       setUsername(user.username);

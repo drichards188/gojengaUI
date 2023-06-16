@@ -1,18 +1,10 @@
-import {
-  createAsyncThunk,
-  createReducer,
-  createSlice,
-  PayloadAction,
-  unwrapResult,
-} from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import {
   crtDelete,
-  crtLogin,
-  getCoinsList,
   crtUser,
-  fetchCount,
   getCoinBatch,
+  getCoinsList,
   getUserPortfolio,
 } from "./dashboardAPI";
 
@@ -115,6 +107,7 @@ export const dashboardSlice = createSlice({
         state.displayCoinList = arr;
       }
     },
+
     removeCoinFromDisplayList: (state, action: PayloadAction<string[]>) => {
       state.displayCoinList = state.displayCoinList.filter(
         (x: any) => x !== action.payload
@@ -157,6 +150,7 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinListAsync.fulfilled, (state, action) => {
         state.status = "idle";
+
         if (action.payload.coinList) {
           state.coinList = action.payload.coinList;
         }
@@ -167,7 +161,6 @@ export const dashboardSlice = createSlice({
         state.message = "List Failed";
         // alert("the state.user is now " + state.user)
       })
-
       //createLogin
       .addCase(getCoinBatchAsync.pending, (state) => {
         state.status = "loading";
