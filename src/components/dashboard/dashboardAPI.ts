@@ -124,6 +124,12 @@ export async function getCoinsList() {
 }
 
 export async function getUserPortfolio(username: string, token: string) {
+  const storedUser: string | null = localStorage.getItem("user");
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    username = user.username;
+  }
+
   let response = await axios
     .get(`http://localhost:8000/portfolio/${username}`, {
       headers: {

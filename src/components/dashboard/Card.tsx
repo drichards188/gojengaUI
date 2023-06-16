@@ -152,10 +152,6 @@ const Card = (props: any) => {
   );
 };
 
-function alertTradeAmount(tradeAmount: string) {
-  alert(tradeAmount);
-}
-
 async function triggerPortfolioUpdate(
   updateType: string,
   currentUser: string,

@@ -20,20 +20,22 @@ export function Dashboard() {
   const coinData = useAppSelector(selectCoinData);
   const token = getAccessToken();
   const displayCoins = useAppSelector(selectCoinDisplayList);
-  const currentUser = useAppSelector(selectBankingUser);
-  const jwtToken = useAppSelector(selectToken);
-  const bankingUser = useAppSelector(selectBankingUser);
+  const [username, setUsername] = useState("placeholderUsername");
+  const storedUser: string | null = localStorage.getItem("user");
+
   const coinSearchList = useAppSelector(selectCoinList);
   const navigate = useNavigate();
 
-  const storedUser: string | null = localStorage.getItem("user");
-
   useEffect(() => {
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUsername(user.username);
+    }
     if (!storedUser) {
       // alert("Please login");
       navigate("/");
     }
-    dispatch(getPortfolio({ user: currentUser, jwt: token }));
+    dispatch(getPortfolio({ user: username, jwt: token }));
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
