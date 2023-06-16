@@ -31,8 +31,8 @@ export function Dashboard() {
       const user = JSON.parse(storedUser);
       setUsername(user.username);
     }
+
     if (!storedUser) {
-      // alert("Please login");
       navigate("/");
     }
     dispatch(getPortfolio({ user: username, jwt: token }));
