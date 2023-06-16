@@ -124,6 +124,12 @@ export async function getCoinsList() {
 }
 
 export async function getUserPortfolio(username: string, token: string) {
+  const storedUser: string | null = localStorage.getItem("user");
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    username = user.username;
+  }
+
   let response = await axios
     .get(`http://localhost:8000/portfolio/${username}`, {
       headers: {
@@ -173,6 +179,8 @@ export async function crtLogin(account: string, password: string) {
 // todo move axios calls to the axios instance calls
 export async function updatePortfolio(
   coin: { username: string; portfolio: object[] },
+
+  updateType: string,
   token: string
 ) {
   let response = await axios({
@@ -182,6 +190,7 @@ export async function updatePortfolio(
     headers: {
       "Content-Type": "application/json",
       "Is-Test": "True",
+      "Update-Type": updateType,
       Authorization: `Bearer ${token}`,
     },
   })

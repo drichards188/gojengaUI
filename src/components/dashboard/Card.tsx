@@ -33,6 +33,9 @@ const Card = (props: any) => {
   const currentUser = useAppSelector(selectBankingUser);
   const token = getAccessToken();
 
+  const currentUser = useAppSelector(selectBankingUser);
+  const token = getAccessToken();
+
   last = last.toFixed(4);
   volume = volume.toFixed(2);
 
@@ -128,7 +131,15 @@ const Card = (props: any) => {
         <Grid item md={4}>
           <Button
             onClick={() =>
-              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+
+              triggerPortfolioUpdate(
+                "buy",
+                currentUser,
+                id,
+                id,
+                tradeAmount,
+                token
+              )
             }
           >
             Buy
@@ -138,7 +149,15 @@ const Card = (props: any) => {
         <Grid item md={4}>
           <Button
             onClick={() =>
-              triggerPortfolioUpdate(currentUser, id, id, tradeAmount, token)
+
+              triggerPortfolioUpdate(
+                "sell",
+                currentUser,
+                id,
+                id,
+                tradeAmount,
+                token
+              )
             }
           >
             Sell
@@ -149,8 +168,24 @@ const Card = (props: any) => {
   );
 };
 
-function alertTradeAmount(tradeAmount: string) {
-  alert(tradeAmount);
+async function triggerPortfolioUpdate(
+  updateType: string,
+  currentUser: string,
+  coinName: string,
+  coinId: string,
+  quantity: number,
+  token: string
+) {
+  quantity = parseInt(String(quantity));
+  let resp = await updatePortfolio(
+    {
+      username: currentUser,
+      portfolio: [{ name: coinName, amount: quantity, id: coinId }],
+    },
+    updateType,
+    token
+  );
+  alert(JSON.stringify(resp));
 }
 
 async function triggerPortfolioUpdate(
