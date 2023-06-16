@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
 
-
 export function Dashboard() {
   const dispatch = useAppDispatch();
   const coinData = useAppSelector(selectCoinData);
@@ -32,16 +31,10 @@ export function Dashboard() {
   const storedUser: string | null = localStorage.getItem("user");
 
   useEffect(() => {
-
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setUsername(user.username);
-    }
-
     if (!storedUser) {
       navigate("/");
     }
-    dispatch(getPortfolio({ user: username, jwt: token }));
+    dispatch(getPortfolio({ user: currentUser, jwt: token }));
     dispatch(
       getCoinBatchAsync({
         coinArray: displayCoins,
