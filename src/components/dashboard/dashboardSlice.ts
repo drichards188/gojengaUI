@@ -157,7 +157,14 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinListAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.coinList = action.payload.coinList;
+        if (action.payload.coinList) {
+          state.coinList = action.payload.coinList;
+        }
+        // alert("the state.user is now " + state.user)
+      })
+      .addCase(getCoinListAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.message = "List Failed";
         // alert("the state.user is now " + state.user)
       })
 
