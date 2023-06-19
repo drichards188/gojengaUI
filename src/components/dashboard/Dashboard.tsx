@@ -5,6 +5,7 @@ import {
   getCoinBatchAsync,
   getCoinListAsync,
   getPortfolio,
+  populateCoinList,
   selectCoinData,
   selectCoinDisplayList,
   selectCoinList,
@@ -44,7 +45,12 @@ export function Dashboard() {
 
   useEffect(() => {
     if (coinSearchList.length == 1) {
-      dispatch(getCoinListAsync());
+      const coinList = localStorage.getItem("coinList");
+      if (coinList) {
+        dispatch(populateCoinList(JSON.parse(coinList)));
+      } else {
+        dispatch(getCoinListAsync());
+      }
     }
   }, [coinSearchList]);
 

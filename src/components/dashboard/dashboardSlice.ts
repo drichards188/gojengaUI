@@ -53,6 +53,7 @@ export const getCoinListAsync = createAsyncThunk(
     const response = await getCoinsList();
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
+    localStorage.setItem("coinList", JSON.stringify({ list: response.data }));
     return wrappedData;
   }
 );
@@ -138,6 +139,11 @@ export const dashboardSlice = createSlice({
     makeDelete: (state, action: PayloadAction<any>) => {
       state.user = action.payload.username;
       state.amount = action.payload.amount;
+    },
+    populateCoinList: (state, action: PayloadAction<any>) => {
+      if (action.payload.list) {
+        state.coinList = action.payload.list;
+      }
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -232,6 +238,7 @@ export const {
   resetDashboardState,
   addCoinToDisplayList,
   removeCoinFromDisplayList,
+  populateCoinList,
 } = dashboardSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
