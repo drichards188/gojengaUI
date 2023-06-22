@@ -111,6 +111,7 @@ export default function SearchAppBar() {
                 <MenuItem
                   onClick={() => {
                     localStorage.removeItem("user");
+                    localStorage.removeItem("coinList");
                     dispatch(setToken(""));
                     dispatch(setRefreshToken(""));
                     dispatch(setMessage("Unauthorized"));

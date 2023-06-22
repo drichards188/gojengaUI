@@ -24,6 +24,7 @@ function Header() {
           label={"Log Out"}
           clickFunction={() => {
             localStorage.removeItem("user");
+            localStorage.removeItem("coinList");
             dispatch(setToken(""));
             dispatch(setRefreshToken(""));
 

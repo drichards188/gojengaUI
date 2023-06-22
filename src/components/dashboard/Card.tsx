@@ -27,7 +27,6 @@ const Card = (props: any) => {
 
   const displayCoinData = useAppSelector(selectCoinDisplayList);
 
-  // when deleting a coin this card still wants the quantity
   const [tradeAmount, setTradeAmount] = useState(0);
 
   const currentUser = useAppSelector(selectBankingUser);

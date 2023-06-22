@@ -50,7 +50,6 @@ export function Banking() {
   const refreshJwtToken = getRefreshToken();
   const dispatch = useAppDispatch();
 
-  const [username, setUsername] = useState("");
   const storedUser: string | null = localStorage.getItem("user");
 
   const [displayComponent, setDisplayComponent] = useState(
@@ -62,12 +61,6 @@ export function Banking() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setUsername(user.username);
-    }
-
     if (!storedUser) {
       // alert("Please login");
       navigate("/");
