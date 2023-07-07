@@ -33,6 +33,7 @@ const setup = (store: { dispatch: any }) => {
         if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 
+          // if this request to refresh is 500 then refresh token is expired
           try {
             const token = TokenService.getLocalRefreshToken();
             const rs = await axiosInstance.put("/refresh", {
@@ -45,6 +46,9 @@ const setup = (store: { dispatch: any }) => {
 
             return axiosInstance(originalConfig);
           } catch (_error) {
+            if (_error.response.status === 500) {
+              localStorage.removeItem("user");
+            }
             return Promise.reject(_error);
           }
         }

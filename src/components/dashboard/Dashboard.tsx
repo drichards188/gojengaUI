@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Cards } from "./Cards";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getCoinBatchAsync,
   getCoinListAsync,
@@ -11,8 +11,7 @@ import {
   selectCoinList,
 } from "./dashboardSlice";
 import SearchAppBar from "./Search";
-import { Button, Grid } from "@mui/material";
-import { selectBankingUser, selectToken } from "../banking/bankingSlice";
+import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
@@ -23,8 +22,6 @@ export function Dashboard() {
   const token = getAccessToken();
   const displayCoins = useAppSelector(selectCoinDisplayList);
   const currentUser = TokenService.getUser();
-  const jwtToken = useAppSelector(selectToken);
-  const bankingUser = useAppSelector(selectBankingUser);
 
   const coinSearchList = useAppSelector(selectCoinList);
   const navigate = useNavigate();
@@ -44,7 +41,7 @@ export function Dashboard() {
   }, [JSON.stringify(displayCoins)]);
 
   useEffect(() => {
-    if (coinSearchList.length == 1) {
+    if (coinSearchList.length === 1) {
       const coinList = localStorage.getItem("coinList");
       if (coinList) {
         dispatch(populateCoinList(JSON.parse(coinList)));

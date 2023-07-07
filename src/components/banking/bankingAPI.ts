@@ -1,5 +1,8 @@
 import axios from "axios";
 import api from "../../api";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { setMessage } from "./bankingSlice";
 
 const backendURL = "http://localhost:8000";
 
@@ -179,10 +182,14 @@ export async function crtGetAccount(username: string, token: string) {
     })
     .catch(function (response) {
       //handle error
+      // how to detect expired refresh token but trigger logout on UI?
       if (response.response.status === 401) {
         localStorage.removeItem("user");
+      } else if (response.response.status === 500) {
+        alert("refresh token expired");
       }
       alert("failed " + response);
+
       return response;
     });
 

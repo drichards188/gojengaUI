@@ -16,6 +16,7 @@ import {
   fetchCount,
 } from "./bankingAPI";
 import { crtLogin } from "./bankingAPI";
+import { useNavigate } from "react-router-dom";
 
 export interface BankingState {
   amount: number;
@@ -117,8 +118,12 @@ export const createLoginAsync = createAsyncThunk(
 export const getUserAsync = createAsyncThunk(
   "banking/getLogin",
   async (payload: any) => {
-    let response = await crtGetAccount(payload.username, payload.jwt);
-    return response.data;
+    try {
+      let response = await crtGetAccount(payload.username, payload.jwt);
+      return response.data;
+    } catch (e) {
+      alert("getUserAsync failed");
+    }
   }
 );
 
@@ -283,6 +288,7 @@ export const bankingSlice = createSlice({
       })
       .addCase(getUserAsync.rejected, (state, action) => {
         state.status = "failed";
+        state.message = "getUserAsync Error";
         alert(`getUserAsync failed`);
         return initialState;
         // alert("createUser rejected " + action.payload)

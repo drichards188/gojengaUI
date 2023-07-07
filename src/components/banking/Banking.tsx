@@ -63,7 +63,7 @@ export function Banking() {
   useEffect(() => {
     if (!storedUser) {
       // alert("Please login");
-      navigate("/");
+      navigate("/login");
     } else {
       localStorage.setItem(
         "user",
