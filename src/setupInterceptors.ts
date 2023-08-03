@@ -27,16 +27,12 @@ const setup = (store: { dispatch: any }) => {
     async (err) => {
       const originalConfig = err.config;
       if (originalConfig.url !== "/login" && err.response) {
-        // Access Token was expired
-        // request data isn't being sent on the retry. thus token is valid request is bad
-
         if (err.response.status === 403 && !originalConfig._retry) {
           originalConfig._retry = true;
 
-          // if this request to refresh is 500 then refresh token is expired
           try {
             const token = TokenService.getLocalRefreshToken();
-            const rs = await axiosInstance.put("/refresh", {
+            const rs = await axiosInstance.put("/auth/refresh", {
               token: token,
             });
             const accessToken = rs.data.token;
