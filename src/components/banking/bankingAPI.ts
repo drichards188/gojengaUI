@@ -1,10 +1,6 @@
 import axios from "axios";
 import api from "../../api";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import { setMessage } from "./bankingSlice";
-
-const backendURL = "http://localhost:8000";
+import { backendURL } from "../../api";
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
@@ -45,7 +41,7 @@ export async function crtTransaction(
   token: string
 ) {
   let response = await api
-    .post(`http://localhost:8000/account/${account}/transaction`, {
+    .post(`${backendURL}/account/${account}/transaction`, {
       sender: account,
       receiver: destination,
       amount: amount,
@@ -135,7 +131,7 @@ export async function crtLogin(username: string, password: string) {
 
   let response = await axios({
     method: "post",
-    url: "http://localhost:8000/login",
+    url: `${backendURL}/auth/login`,
     data: formData,
     headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
   })
@@ -168,7 +164,7 @@ export async function crtLogin(username: string, password: string) {
 
 export async function crtGetAccount(username: string, token: string) {
   let response = await api
-    .get(`http://localhost:8000/account/${username}`, {
+    .get(`${backendURL}/account/${username}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",

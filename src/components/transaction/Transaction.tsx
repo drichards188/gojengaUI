@@ -2,9 +2,6 @@ import React, { useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  createUser,
-  createUserAsync,
-  selectBanking,
   selectBankingUser,
   makeTransaction,
   createTransactionAsync,

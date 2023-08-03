@@ -4,10 +4,7 @@ import {
 } from "../../backend/backendInterface";
 import axios from "axios";
 import api from "../../api";
-
-const backendURL =
-  "https://05529446-d0c3-47c2-b99e-d6e00b2e8220.mock.pstmn.io/crypto";
-// const backendURL = 'http://localhost:8070/crypto'
+import { backendURL } from "../../api";
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
@@ -132,7 +129,7 @@ export async function getUserPortfolio(username: string, token: string) {
   }
 
   let response = await axios
-    .get(`http://localhost:8000/portfolio/${username}`, {
+    .get(`${backendURL}/portfolio/${username}`, {
       headers: {
         "Content-Type": "application/json",
         "Is-Test": "True",
@@ -186,7 +183,7 @@ export async function updatePortfolio(
 ) {
   let response = await axios({
     method: "PUT",
-    url: "http://localhost:8000/portfolio/" + coin.username,
+    url: `${backendURL}/portfolio/` + coin.username,
     data: JSON.stringify(coin),
     headers: {
       "Content-Type": "application/json",

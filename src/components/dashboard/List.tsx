@@ -60,7 +60,6 @@ function List(props: any) {
           style={divStyle}
           onClick={async () => {
             dispatch(addCoinToDisplayList([item.id]));
-            // todo add coin to display. don't push to portfolio
           }}
           key={item.id}
         >
