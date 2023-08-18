@@ -284,6 +284,7 @@ export const bankingSlice = createSlice({
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.balance = action.payload.balance;
+
         state.loggedIn = true;
       })
       .addCase(getUserAsync.rejected, (state, action) => {

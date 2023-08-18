@@ -118,7 +118,7 @@ export function Banking() {
     balanceDiv = (
       <AccountBalance
         bankingUser={bankingUser}
-        balance={balance}
+        balance={balance.toFixed(2)}
         serverMessage={serverMessage}
       />
     );
