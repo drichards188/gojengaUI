@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, CircularProgress, Grid, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../banking/Banking.module.css";
 import React, { useEffect, useState } from "react";
@@ -7,7 +7,9 @@ import {
   createLoginAsync,
   makeLogin,
   selectMessage,
+  selectStatus,
   selectToken,
+  setStatus,
 } from "../banking/bankingSlice";
 import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
@@ -15,12 +17,27 @@ import CustomTextField from "../general/CustomTextField";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const msg = useAppSelector(selectMessage);
   const token = useAppSelector(selectToken);
+  const state = useAppSelector(selectStatus);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let loadingCircle: JSX.Element = <></>;
+  // detect if request is loading
+  useEffect(() => {
+    // alert(`state is ${state}`);
+    if (state === "loading") {
+      // alert(`state read as ${state}`);
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      loadingCircle = <></>;
+    }
+  }, [state]);
 
   useEffect(() => {
     if (token != "" && token != "error") {
@@ -31,12 +48,21 @@ const Login = () => {
     }
   }, [token]);
 
+  if (isLoading) {
+    loadingCircle = <CircularProgress />;
+  }
+
   return (
     <div>
+      {loadingCircle}
       <Grid container spacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12}>
           <h1 style={{ color: "#BA79F7" }}>Login</h1>
         </Grid>
+
+        <Button onClick={() => dispatch(setStatus("loading"))}>
+          test loading
+        </Button>
 
         <Grid item xs={12} md={4}>
           <CustomTextField
