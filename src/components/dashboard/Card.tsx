@@ -32,8 +32,13 @@ const Card = (props: any) => {
   const currentUser = useAppSelector(selectBankingUser);
   const token = getAccessToken();
 
-  last = last.toFixed(4);
+  // last = last.toFixed(4);
   volume = volume.toFixed(2);
+
+  let USDollar = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   useEffect(() => {
     if (id in displayCoinData) {
@@ -44,10 +49,12 @@ const Card = (props: any) => {
 
   const divStyle = {
     display: "inline-block",
-    marginRight: "25px",
-    padding: "10px",
+    margin: "2%",
+    // padding: "1%",
+    width: "100%",
     backgroundColor: "#363940",
     color: "#BA79F7",
+    fontSize: ".8em",
     boxShadow:
       "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
   };
@@ -67,25 +74,30 @@ const Card = (props: any) => {
       container
       spacing={1}
       style={divStyle}
-      md={2}
+      sm={4}
+      md={4}
+      lg={2}
       justifyContent="center"
       alignItems="center"
     >
       <Grid item md={2}>
-        <p
+        <a
           style={closeCardStyle}
           onClick={() => {
             dispatch(removeCoinFromDisplayList(id));
           }}
         >
           X
-        </p>
+        </a>
       </Grid>
 
       <Grid item md={12}>
         <p>{id}</p>
-        <p>${last}</p>
-        <p>{volume}</p>
+        <p>{USDollar.format(last)}</p>
+        <p>
+          Volume <br />
+          {volume}
+        </p>
       </Grid>
 
       <Grid
@@ -95,7 +107,7 @@ const Card = (props: any) => {
         justifyContent="center"
         md={12}
       >
-        <Grid item md={12}>
+        <Grid item md={10}>
           <TextField
             id="deposit-amount"
             label="Trade Amount"

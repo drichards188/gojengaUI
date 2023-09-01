@@ -68,7 +68,7 @@ function List(props: any) {
       ))}
       {props.input && (
         <CustomButton
-          label={"Less"}
+          label={"<"}
           clickFunction={() => {
             if (searchMin >= 10) {
               setSearchMin(searchMin - 10);
@@ -80,7 +80,7 @@ function List(props: any) {
 
       {props.input && (
         <CustomButton
-          label={"More"}
+          label={">"}
           clickFunction={() => {
             if (searchMax + 10 <= coinData.length) {
               setSearchMin(searchMin + 10);
