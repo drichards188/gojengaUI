@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
-
-import { Welcome } from "../welcome/Welcome";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  selectBanking,
   selectBankingUser,
   selectLoggedIn,
-  selectToken,
   selectMessage,
   selectBalance,
-  selectAmount,
   getUserAsync,
-  selectRefreshToken,
+  selectStatus,
 } from "./bankingSlice";
 import styles from "./Banking.module.css";
-import { Box, Container, Paper, TextField } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Deposit } from "../deposit/Deposit";
 import { Transaction } from "../transaction/Transaction";
-import { Account } from "../account/Account";
 import Header from "../../etc/Header";
 import Footer from "../../etc/Footer";
 import { useNavigate } from "react-router-dom";
 import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
-import { crtGetAccount, getAccessToken, getRefreshToken } from "./bankingAPI";
+import { getAccessToken, getRefreshToken } from "./bankingAPI";
 
 export const paperStyle = {
   borderRadius: "10px",
@@ -46,6 +40,7 @@ export function Banking() {
   const serverMessage = useAppSelector(selectMessage);
   const balance = useAppSelector(selectBalance);
   const isLoggedIn = useAppSelector(selectLoggedIn);
+  const state = useAppSelector(selectStatus);
   const jwtToken = getAccessToken();
   const refreshJwtToken = getRefreshToken();
   const dispatch = useAppDispatch();
@@ -56,9 +51,26 @@ export function Banking() {
     BankComponents.Balance
   );
   const [displayBalance, setDisplayBalance] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [displayToolbar, setDisplayToolbar] = useState(true);
   const navigate = useNavigate();
+
+  let loadingCircle: JSX.Element = <></>;
+  // detect if request is loading
+  useEffect(() => {
+    // alert(`state is ${state}`);
+    if (state === "loading") {
+      // alert(`state read as ${state}`);
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      loadingCircle = <></>;
+    }
+  }, [state]);
+
+  if (isLoading) {
+    loadingCircle = <CircularProgress />;
+  }
 
   useEffect(() => {
     if (!storedUser) {
@@ -73,9 +85,11 @@ export function Banking() {
           refreshToken: refreshJwtToken,
         })
       );
+      // the getUserAsync is called in an infinite loop
+      // alert("getUserAsync called");
+      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
     }
-    dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
-  });
+  }, [storedUser]);
 
   let toolbar;
   if (isLoggedIn && displayToolbar) {
@@ -127,6 +141,7 @@ export function Banking() {
   return (
     <div>
       <Header />
+      {loadingCircle}
       {balanceDiv}
       <div className={styles.row}>{dialog}</div>
       {toolbar}
