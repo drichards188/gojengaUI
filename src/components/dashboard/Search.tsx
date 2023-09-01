@@ -155,6 +155,14 @@ export default function SearchAppBar() {
               onChange={inputHandler}
             />
           </Search>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setInputText("");
+            }}
+          >
+            X
+          </a>
         </Toolbar>
       </AppBar>
       <List input={inputText} />
