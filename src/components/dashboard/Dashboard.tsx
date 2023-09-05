@@ -76,11 +76,11 @@ export function Dashboard() {
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
       {loadingCircle}
-      <Grid item md={8}>
+      <Grid item md={10}>
         <SearchAppBar />
       </Grid>
 
-      <Grid item md={8}>
+      <Grid item md={10}>
         <Cards cardData={coinData} />
       </Grid>
     </Grid>

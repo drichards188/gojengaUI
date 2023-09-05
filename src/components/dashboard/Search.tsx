@@ -152,9 +152,18 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={inputText}
               onChange={inputHandler}
             />
           </Search>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setInputText("");
+            }}
+          >
+            X
+          </a>
         </Toolbar>
       </AppBar>
       <List input={inputText} />
