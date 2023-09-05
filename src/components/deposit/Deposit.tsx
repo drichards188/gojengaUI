@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
@@ -10,8 +10,23 @@ import {
   selectToken,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
-import { Box, Grid, TextField } from "@mui/material";
+// @ts-ignore
+import NumberFormat from "react-number-format";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+
+let USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 export function Deposit(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
@@ -21,7 +36,16 @@ export function Deposit(props: any) {
   const dispatch = useAppDispatch();
   const [amount, setStateAmount] = useState("0");
   const amountValue = Number(amount) || 0;
+  const formattedAmount: string = USDollar.format(amountValue);
 
+  const formatAmount = (amount: any) => {
+    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
+
+    const numberValue: number = parseFloat(cleanedString);
+    setStateAmount(String(numberValue));
+  };
+
+  // @ts-ignore
   let createDepositElem = (
     <Grid container className={styles.row}>
       <div>
@@ -29,12 +53,14 @@ export function Deposit(props: any) {
           id="deposit-amount"
           label="Deposit Amount"
           variant="standard"
-          type="number"
           inputMode="numeric"
           autoFocus={true}
           className={styles.textbox}
           aria-label="Deposit Amount"
-          value={amountValue}
+          value={formattedAmount}
+          // InputProps={{
+          //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here
+          // }}
           sx={{
             "& .MuiInputBase-root": {
               color: "primary.main",
@@ -46,9 +72,20 @@ export function Deposit(props: any) {
               color: "primary.main",
             },
           }}
-          onChange={(e) => setStateAmount(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+            formatAmount(e.target.value)
+          }
         />
       </div>
+
+      {/*<NumberFormat*/}
+      {/*  customInput={TextField}*/}
+      {/*  onValueChange={(values: any) => setStateAmount(values.value)}*/}
+      {/*  value={amountValue}*/}
+      {/*  // you can define additional custom props that are all forwarded to the customInput e. g.*/}
+      {/*  variant="outlined"*/}
+      {/*/>*/}
+
       <button
         className={styles.button}
         onClick={() => {
