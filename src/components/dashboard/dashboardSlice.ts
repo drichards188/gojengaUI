@@ -110,9 +110,8 @@ export const dashboardSlice = createSlice({
     },
 
     removeCoinFromDisplayList: (state, action: PayloadAction<string[]>) => {
-      state.displayCoinList = state.displayCoinList.filter(
-        (x: any) => x !== action.payload
-      );
+      const key: string = String(action.payload);
+      delete state.displayCoinList[key];
     },
     resetMessage: (state) => {
       state.message = "";

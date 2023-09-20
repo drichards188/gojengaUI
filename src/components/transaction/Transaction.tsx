@@ -12,14 +12,20 @@ import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
 
+let USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 export function Transaction(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
   const token = useAppSelector(selectToken);
 
   const dispatch = useAppDispatch();
-  const [amount, setStateAmount] = useState("0");
   const [destination, setDestination] = useState("");
+  const [amount, setStateAmount] = useState("0");
   const amountValue = Number(amount) || 0;
+  const formattedAmount: string = USDollar.format(amountValue);
 
   function createTransaction() {
     dispatch(makeTransaction({ destination, amount }));
@@ -29,6 +35,13 @@ export function Transaction(props: any) {
     setDestination("");
     setStateAmount("");
   }
+
+  const formatAmount = (amount: any) => {
+    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
+
+    const numberValue: number = parseFloat(cleanedString);
+    setStateAmount(String(numberValue));
+  };
 
   return (
     <Grid container className={styles.row}>
@@ -59,11 +72,10 @@ export function Transaction(props: any) {
           id="payment-amount"
           label="Payment Amount"
           variant="standard"
-          type="number"
           inputMode="numeric"
           className={styles.textbox}
           aria-label="Pay Amount"
-          value={amountValue}
+          value={formattedAmount}
           sx={{
             "& .MuiInputBase-root": {
               color: "primary.main",
@@ -75,7 +87,7 @@ export function Transaction(props: any) {
               color: "primary.main",
             },
           }}
-          onChange={(e) => setStateAmount(e.target.value)}
+          onChange={(e) => formatAmount(e.target.value)}
         />
       </div>
       <button className={styles.button} onClick={() => createTransaction()}>
