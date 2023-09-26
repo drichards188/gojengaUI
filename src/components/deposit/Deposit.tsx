@@ -22,6 +22,7 @@ import {
   TextField,
 } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+import CurrencyInput from "../general/CurrencyInput";
 
 let USDollar = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -76,6 +77,8 @@ export function Deposit(props: any) {
             formatAmount(e.target.value)
           }
         />
+
+        <CurrencyInput placeholder="$0.00" type="text" />
       </div>
 
       {/*<NumberFormat*/}

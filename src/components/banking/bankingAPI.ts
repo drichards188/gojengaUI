@@ -182,7 +182,8 @@ export async function crtGetAccount(username: string, token: string) {
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
-        alert("refresh token expired");
+        // alert("refresh token expired");
+        console.log("--> refresh token expired");
       }
       alert("failed " + response);
 

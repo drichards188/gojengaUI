@@ -44,13 +44,16 @@ const setup = (store: { dispatch: any }) => {
           } catch (_error) {
             if (_error.response.status === 500) {
               localStorage.removeItem("user");
+              console.log(
+                "--> refresh token expired. removed user object from local storage"
+              );
             }
             return Promise.reject(_error);
           }
         }
         if (err.response.status === 422) {
-          alert("unprocessible entity");
-          return Promise.reject("error unprocessible entity");
+          alert("unprocessable entity");
+          return Promise.reject("error unprocessable entity");
         }
       }
 
