@@ -43,34 +43,6 @@ export function Deposit(props: any) {
   let createDepositElem = (
     <Grid container className={styles.row}>
       <div>
-        {/*<TextField*/}
-        {/*  id="deposit-amount"*/}
-        {/*  label="Deposit Amount"*/}
-        {/*  variant="standard"*/}
-        {/*  inputMode="numeric"*/}
-        {/*  autoFocus={true}*/}
-        {/*  className={styles.textbox}*/}
-        {/*  aria-label="Deposit Amount"*/}
-        {/*  value={formattedAmount}*/}
-        {/*  // InputProps={{*/}
-        {/*  //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here*/}
-        {/*  // }}*/}
-        {/*  sx={{*/}
-        {/*    "& .MuiInputBase-root": {*/}
-        {/*      color: "primary.main",*/}
-        {/*    },*/}
-        {/*    "& .MuiFormLabel-root": {*/}
-        {/*      color: "secondary.main",*/}
-        {/*    },*/}
-        {/*    "& .MuiFormLabel-root.Mui-focused": {*/}
-        {/*      color: "primary.main",*/}
-        {/*    },*/}
-        {/*  }}*/}
-        {/*  onChange={(e: { target: { value: React.SetStateAction<string> } }) =>*/}
-        {/*    formatAmount(e.target.value)*/}
-        {/*  }*/}
-        {/*/>*/}
-
         <NumericFormat
           prefix={"$"}
           defaultValue={0}
@@ -85,14 +57,6 @@ export function Deposit(props: any) {
           valueCallback={setNumberValue}
         />
       </div>
-
-      {/*<NumberFormat*/}
-      {/*  customInput={TextField}*/}
-      {/*  onValueChange={(values: any) => setStateAmount(values.value)}*/}
-      {/*  value={amountValue}*/}
-      {/*  // you can define additional custom props that are all forwarded to the customInput e. g.*/}
-      {/*  variant="outlined"*/}
-      {/*/>*/}
 
       <button
         className={styles.button}

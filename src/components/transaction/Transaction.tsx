@@ -11,6 +11,8 @@ import {
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+import CurrencyInput from "../general/CurrencyInput";
+import { NumericFormat } from "react-number-format";
 
 let USDollar = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -68,26 +70,19 @@ export function Transaction(props: any) {
           }}
           onChange={(e) => setDestination(e.target.value)}
         />
-        <TextField
-          id="payment-amount"
-          label="Payment Amount"
-          variant="standard"
-          inputMode="numeric"
-          className={styles.textbox}
-          aria-label="Pay Amount"
-          value={formattedAmount}
-          sx={{
-            "& .MuiInputBase-root": {
-              color: "primary.main",
-            },
-            "& .MuiFormLabel-root": {
-              color: "secondary.main",
-            },
-            "& .MuiFormLabel-root.Mui-focused": {
-              color: "primary.main",
-            },
+
+        <NumericFormat
+          prefix={"$"}
+          defaultValue={0}
+          thousandSeparator={true}
+          value={amount}
+          allowNegative={false}
+          decimalScale={2}
+          customInput={CurrencyInput}
+          onValueChange={(v: any) => {
+            setStateAmount(v.value);
           }}
-          onChange={(e) => formatAmount(e.target.value)}
+          valueCallback={setStateAmount}
         />
       </div>
       <button className={styles.button} onClick={() => createTransaction()}>
