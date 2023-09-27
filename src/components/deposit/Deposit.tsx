@@ -11,7 +11,6 @@ import {
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 // @ts-ignore
-import NumberFormat from "react-number-format";
 import {
   Box,
   FormControl,
@@ -22,6 +21,7 @@ import {
   TextField,
 } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+import { NumericFormat } from "react-number-format";
 import CurrencyInput from "../general/CurrencyInput";
 
 let USDollar = new Intl.NumberFormat("en-US", {
@@ -35,50 +35,55 @@ export function Deposit(props: any) {
   const jwtToken = useAppSelector(selectToken);
 
   const dispatch = useAppDispatch();
-  const [amount, setStateAmount] = useState("0");
+  const [amount, setStateAmount] = useState(0);
+  const [numberValue, setNumberValue] = useState(0);
   const amountValue = Number(amount) || 0;
-  const formattedAmount: string = USDollar.format(amountValue);
-
-  const formatAmount = (amount: any) => {
-    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
-
-    const numberValue: number = parseFloat(cleanedString);
-    setStateAmount(String(numberValue));
-  };
 
   // @ts-ignore
   let createDepositElem = (
     <Grid container className={styles.row}>
       <div>
-        <TextField
-          id="deposit-amount"
-          label="Deposit Amount"
-          variant="standard"
-          inputMode="numeric"
-          autoFocus={true}
-          className={styles.textbox}
-          aria-label="Deposit Amount"
-          value={formattedAmount}
-          // InputProps={{
-          //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here
-          // }}
-          sx={{
-            "& .MuiInputBase-root": {
-              color: "primary.main",
-            },
-            "& .MuiFormLabel-root": {
-              color: "secondary.main",
-            },
-            "& .MuiFormLabel-root.Mui-focused": {
-              color: "primary.main",
-            },
-          }}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-            formatAmount(e.target.value)
-          }
-        />
+        {/*<TextField*/}
+        {/*  id="deposit-amount"*/}
+        {/*  label="Deposit Amount"*/}
+        {/*  variant="standard"*/}
+        {/*  inputMode="numeric"*/}
+        {/*  autoFocus={true}*/}
+        {/*  className={styles.textbox}*/}
+        {/*  aria-label="Deposit Amount"*/}
+        {/*  value={formattedAmount}*/}
+        {/*  // InputProps={{*/}
+        {/*  //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here*/}
+        {/*  // }}*/}
+        {/*  sx={{*/}
+        {/*    "& .MuiInputBase-root": {*/}
+        {/*      color: "primary.main",*/}
+        {/*    },*/}
+        {/*    "& .MuiFormLabel-root": {*/}
+        {/*      color: "secondary.main",*/}
+        {/*    },*/}
+        {/*    "& .MuiFormLabel-root.Mui-focused": {*/}
+        {/*      color: "primary.main",*/}
+        {/*    },*/}
+        {/*  }}*/}
+        {/*  onChange={(e: { target: { value: React.SetStateAction<string> } }) =>*/}
+        {/*    formatAmount(e.target.value)*/}
+        {/*  }*/}
+        {/*/>*/}
 
-        <CurrencyInput placeholder="$0.00" type="text" />
+        <NumericFormat
+          prefix={"$"}
+          defaultValue={0}
+          thousandSeparator={true}
+          value={numberValue}
+          allowNegative={false}
+          decimalScale={2}
+          customInput={CurrencyInput}
+          onValueChange={(v: any) => {
+            setNumberValue(v.value);
+          }}
+          valueCallback={setNumberValue}
+        />
       </div>
 
       {/*<NumberFormat*/}
@@ -92,11 +97,10 @@ export function Deposit(props: any) {
       <button
         className={styles.button}
         onClick={() => {
-          const floatDepositAmount = parseFloat(amount);
           dispatch(
             createDepositAsync({
               account: bankingUser,
-              amount: floatDepositAmount,
+              amount: numberValue,
               jwt: jwtToken,
             })
           );
