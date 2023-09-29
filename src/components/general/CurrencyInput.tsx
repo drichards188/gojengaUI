@@ -21,9 +21,6 @@ const CurrencyInput = (props: any) => {
       onChange={(e: { target: { value: React.SetStateAction<string> } }) => {
         props.valueCallback(e.target.value);
       }}
-      // InputProps={{
-      //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here
-      // }}
       sx={{
         "& .MuiInputBase-root": {
           color: "primary.main",

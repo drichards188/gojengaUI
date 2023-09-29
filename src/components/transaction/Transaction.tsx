@@ -26,6 +26,8 @@ export function Transaction(props: any) {
   const dispatch = useAppDispatch();
   const [destination, setDestination] = useState("");
   const [amount, setStateAmount] = useState("0");
+  const [numberValue, setNumberValue] = useState("");
+
   const amountValue = Number(amount) || 0;
   const formattedAmount: string = USDollar.format(amountValue);
 
@@ -38,12 +40,16 @@ export function Transaction(props: any) {
     setStateAmount("");
   }
 
-  const formatAmount = (amount: any) => {
-    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
+  function setValue(value: string) {
+    // alert(`value: ${value}`);
+    value = value.replace(/[$,]/g, "");
+    // alert(`removed symbols ${value}`);
+    // Remove leading zeroes
+    value = value.replace(/^0+/, "");
+    // alert(`removed leading zeroes ${value}`);
 
-    const numberValue: number = parseFloat(cleanedString);
-    setStateAmount(String(numberValue));
-  };
+    setNumberValue(value);
+  }
 
   return (
     <Grid container className={styles.row}>
@@ -73,16 +79,14 @@ export function Transaction(props: any) {
 
         <NumericFormat
           prefix={"$"}
-          defaultValue={0}
           thousandSeparator={true}
-          value={amount}
+          value={numberValue}
           allowNegative={false}
+          allowLeadingZeros={false}
+          valueIsNumericString={true}
           decimalScale={2}
           customInput={CurrencyInput}
-          onValueChange={(v: any) => {
-            setStateAmount(v.value);
-          }}
-          valueCallback={setStateAmount}
+          valueCallback={setValue}
         />
       </div>
       <button className={styles.button} onClick={() => createTransaction()}>

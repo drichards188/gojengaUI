@@ -35,26 +35,32 @@ export function Deposit(props: any) {
   const jwtToken = useAppSelector(selectToken);
 
   const dispatch = useAppDispatch();
-  const [amount, setStateAmount] = useState(0);
-  const [numberValue, setNumberValue] = useState(0);
-  const amountValue = Number(amount) || 0;
+  const [numberValue, setNumberValue] = useState("");
 
-  // @ts-ignore
+  function setValue(value: string) {
+    // alert(`value: ${value}`);
+    value = value.replace(/[$,]/g, "");
+    // alert(`removed symbols ${value}`);
+    // Remove leading zeroes
+    value = value.replace(/^0+/, "");
+    // alert(`removed leading zeroes ${value}`);
+
+    setNumberValue(value);
+  }
+
   let createDepositElem = (
     <Grid container className={styles.row}>
       <div>
         <NumericFormat
           prefix={"$"}
-          defaultValue={0}
           thousandSeparator={true}
           value={numberValue}
           allowNegative={false}
+          allowLeadingZeros={false}
+          valueIsNumericString={true}
           decimalScale={2}
           customInput={CurrencyInput}
-          onValueChange={(v: any) => {
-            setNumberValue(v.value);
-          }}
-          valueCallback={setNumberValue}
+          valueCallback={setValue}
         />
       </div>
 
