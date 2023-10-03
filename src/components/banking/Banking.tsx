@@ -7,6 +7,7 @@ import {
   selectBalance,
   getUserAsync,
   selectStatus,
+  selectUpdate,
 } from "./bankingSlice";
 import styles from "./Banking.module.css";
 import { Box, CircularProgress } from "@mui/material";
@@ -39,6 +40,7 @@ export function Banking() {
   const bankingUser = useAppSelector(selectBankingUser);
   const serverMessage = useAppSelector(selectMessage);
   const balance = useAppSelector(selectBalance);
+  const hasUpdate = useAppSelector(selectUpdate);
   const isLoggedIn = useAppSelector(selectLoggedIn);
   const state = useAppSelector(selectStatus);
   const jwtToken = getAccessToken();
@@ -67,6 +69,13 @@ export function Banking() {
       loadingCircle = <></>;
     }
   }, [state]);
+
+  // if user has been updated refresh user data
+  useEffect(() => {
+    if (hasUpdate) {
+      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
+    }
+  }, [hasUpdate]);
 
   if (isLoading) {
     loadingCircle = <CircularProgress />;

@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
@@ -8,6 +8,7 @@ import {
   setMessage,
   getUserAsync,
   selectToken,
+  selectUpdate,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 // @ts-ignore
@@ -33,9 +34,15 @@ export function Deposit(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
   const balance = useAppSelector(selectBalance);
   const jwtToken = useAppSelector(selectToken);
-
+  const hasUpdate = useAppSelector(selectUpdate);
   const dispatch = useAppDispatch();
   const [numberValue, setNumberValue] = useState("");
+
+  useEffect(() => {
+    if (hasUpdate) {
+      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
+    }
+  }, [hasUpdate]);
 
   function setValue(value: string) {
     // alert(`value: ${value}`);

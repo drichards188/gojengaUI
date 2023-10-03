@@ -27,6 +27,7 @@ export interface BankingState {
   loggedIn: boolean;
   token: string;
   refreshToken: string;
+  hasUpdate: boolean;
   status: "idle" | "loading" | "failed";
 }
 
@@ -39,6 +40,7 @@ const initialState: BankingState = {
   loggedIn: false,
   token: "",
   refreshToken: "",
+  hasUpdate: false,
   status: "idle",
 };
 
@@ -197,7 +199,11 @@ export const bankingSlice = createSlice({
       })
       .addCase(createTransactionAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.message = action.payload["response"]["message"];
+        state.hasUpdate = true;
+
+        // todo message throws error because there is no message is respnse
+        // state.message = action.payload["response"]["message"];
+
         // alert("the state.user is now " + state.user)
       })
       .addCase(createTransactionAsync.rejected, (state, action) => {
@@ -212,6 +218,7 @@ export const bankingSlice = createSlice({
       })
       .addCase(createDepositAsync.fulfilled, (state, action) => {
         state.status = "idle";
+        state.hasUpdate = true;
         // state.message = action.payload["response"]["message"];
         state.message = "Deposit Successful";
       })
@@ -290,7 +297,7 @@ export const bankingSlice = createSlice({
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.balance = action.payload.balance;
-
+        state.hasUpdate = false;
         state.loggedIn = true;
       })
       .addCase(getUserAsync.rejected, (state, action) => {
@@ -333,5 +340,6 @@ export const selectMessage = (state: RootState) => state.banking.message;
 export const selectBalance = (state: RootState) => state.banking.balance;
 export const selectAmount = (state: RootState) => state.banking.amount;
 export const selectStatus = (state: RootState) => state.banking.status;
+export const selectUpdate = (state: RootState) => state.banking.hasUpdate;
 
 export default bankingSlice.reducer;
