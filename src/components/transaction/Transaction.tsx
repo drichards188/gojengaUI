@@ -28,13 +28,17 @@ export function Transaction(props: any) {
   const [amount, setStateAmount] = useState("0");
   const [numberValue, setNumberValue] = useState("");
 
-  const amountValue = Number(amount) || 0;
-  const formattedAmount: string = USDollar.format(amountValue);
+  const amountValue = Number(numberValue) || 0;
 
   function createTransaction() {
-    dispatch(makeTransaction({ destination, amount }));
+    // dispatch(makeTransaction({ destination, amountValue }));
     dispatch(
-      createTransactionAsync({ bankingUser, destination, amount, jwt: token })
+      createTransactionAsync({
+        bankingUser,
+        destination,
+        amountValue,
+        jwt: token,
+      })
     );
     setDestination("");
     setStateAmount("");
@@ -87,6 +91,7 @@ export function Transaction(props: any) {
           decimalScale={2}
           customInput={CurrencyInput}
           valueCallback={setValue}
+          autofocus={false}
         />
       </div>
       <button className={styles.button} onClick={() => createTransaction()}>

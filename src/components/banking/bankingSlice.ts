@@ -64,7 +64,7 @@ export const createTransactionAsync = createAsyncThunk(
     const response = await crtTransaction(
       payload.bankingUser,
       payload.destination,
-      payload.amount,
+      payload.amountValue,
       payload.jwt
     );
     // The value we return becomes the `fulfilled` action payload

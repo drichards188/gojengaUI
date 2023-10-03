@@ -61,6 +61,7 @@ export function Deposit(props: any) {
           decimalScale={2}
           customInput={CurrencyInput}
           valueCallback={setValue}
+          autofocus={true}
         />
       </div>
 

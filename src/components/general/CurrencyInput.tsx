@@ -14,7 +14,7 @@ const CurrencyInput = (props: any) => {
       type={props.type}
       variant="standard"
       inputMode={props.inputMode}
-      autoFocus={true}
+      autoFocus={props.autofocus}
       className={styles.textbox}
       aria-label="Deposit Amount"
       value={props.value}
