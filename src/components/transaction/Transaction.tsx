@@ -31,7 +31,6 @@ export function Transaction(props: any) {
   const amountValue = Number(numberValue) || 0;
 
   function createTransaction() {
-    // dispatch(makeTransaction({ destination, amountValue }));
     dispatch(
       createTransactionAsync({
         bankingUser,
@@ -45,13 +44,8 @@ export function Transaction(props: any) {
   }
 
   function setValue(value: string) {
-    // alert(`value: ${value}`);
     value = value.replace(/[$,]/g, "");
-    // alert(`removed symbols ${value}`);
-    // Remove leading zeroes
     value = value.replace(/^0+/, "");
-    // alert(`removed leading zeroes ${value}`);
-
     setNumberValue(value);
   }
 

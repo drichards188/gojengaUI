@@ -203,6 +203,7 @@ export const bankingSlice = createSlice({
 
         // todo message throws error because there is no message is respnse
         // state.message = action.payload["response"]["message"];
+        state.message = "Transaction Successful";
 
         // alert("the state.user is now " + state.user)
       })
