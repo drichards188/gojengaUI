@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
@@ -8,10 +8,10 @@ import {
   setMessage,
   getUserAsync,
   selectToken,
+  selectUpdate,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 // @ts-ignore
-import NumberFormat from "react-number-format";
 import {
   Box,
   FormControl,
@@ -22,6 +22,8 @@ import {
   TextField,
 } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+import { NumericFormat } from "react-number-format";
+import CurrencyInput from "../general/CurrencyInput";
 
 let USDollar = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -32,68 +34,51 @@ export function Deposit(props: any) {
   const bankingUser = useAppSelector(selectBankingUser);
   const balance = useAppSelector(selectBalance);
   const jwtToken = useAppSelector(selectToken);
-
+  const hasUpdate = useAppSelector(selectUpdate);
   const dispatch = useAppDispatch();
-  const [amount, setStateAmount] = useState("0");
-  const amountValue = Number(amount) || 0;
-  const formattedAmount: string = USDollar.format(amountValue);
+  const [numberValue, setNumberValue] = useState("");
 
-  const formatAmount = (amount: any) => {
-    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
+  useEffect(() => {
+    if (hasUpdate) {
+      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
+    }
+  }, [hasUpdate]);
 
-    const numberValue: number = parseFloat(cleanedString);
-    setStateAmount(String(numberValue));
-  };
+  function setValue(value: string) {
+    // alert(`value: ${value}`);
+    value = value.replace(/[$,]/g, "");
+    // alert(`removed symbols ${value}`);
+    // Remove leading zeroes
+    value = value.replace(/^0+/, "");
+    // alert(`removed leading zeroes ${value}`);
 
-  // @ts-ignore
+    setNumberValue(value);
+  }
+
   let createDepositElem = (
     <Grid container className={styles.row}>
       <div>
-        <TextField
-          id="deposit-amount"
-          label="Deposit Amount"
-          variant="standard"
-          inputMode="numeric"
-          autoFocus={true}
-          className={styles.textbox}
-          aria-label="Deposit Amount"
-          value={formattedAmount}
-          // InputProps={{
-          //   startAdornment: <span>$</span>, // you could also use the InputAdornment component from MUI here
-          // }}
-          sx={{
-            "& .MuiInputBase-root": {
-              color: "primary.main",
-            },
-            "& .MuiFormLabel-root": {
-              color: "secondary.main",
-            },
-            "& .MuiFormLabel-root.Mui-focused": {
-              color: "primary.main",
-            },
-          }}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-            formatAmount(e.target.value)
-          }
+        <NumericFormat
+          prefix={"$"}
+          thousandSeparator={true}
+          value={numberValue}
+          allowNegative={false}
+          allowLeadingZeros={false}
+          valueIsNumericString={true}
+          decimalScale={2}
+          customInput={CurrencyInput}
+          valueCallback={setValue}
+          autofocus={true}
         />
       </div>
-
-      {/*<NumberFormat*/}
-      {/*  customInput={TextField}*/}
-      {/*  onValueChange={(values: any) => setStateAmount(values.value)}*/}
-      {/*  value={amountValue}*/}
-      {/*  // you can define additional custom props that are all forwarded to the customInput e. g.*/}
-      {/*  variant="outlined"*/}
-      {/*/>*/}
 
       <button
         className={styles.button}
         onClick={() => {
-          const floatDepositAmount = parseFloat(amount);
           dispatch(
             createDepositAsync({
               account: bankingUser,
-              amount: floatDepositAmount,
+              amount: numberValue,
               jwt: jwtToken,
             })
           );

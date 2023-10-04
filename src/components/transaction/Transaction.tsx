@@ -11,6 +11,8 @@ import {
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
 import { BankComponents } from "../banking/Banking";
+import CurrencyInput from "../general/CurrencyInput";
+import { NumericFormat } from "react-number-format";
 
 let USDollar = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -24,24 +26,28 @@ export function Transaction(props: any) {
   const dispatch = useAppDispatch();
   const [destination, setDestination] = useState("");
   const [amount, setStateAmount] = useState("0");
-  const amountValue = Number(amount) || 0;
-  const formattedAmount: string = USDollar.format(amountValue);
+  const [numberValue, setNumberValue] = useState("");
+
+  const amountValue = Number(numberValue) || 0;
 
   function createTransaction() {
-    dispatch(makeTransaction({ destination, amount }));
     dispatch(
-      createTransactionAsync({ bankingUser, destination, amount, jwt: token })
+      createTransactionAsync({
+        bankingUser,
+        destination,
+        amountValue,
+        jwt: token,
+      })
     );
     setDestination("");
     setStateAmount("");
   }
 
-  const formatAmount = (amount: any) => {
-    const cleanedString: string = amount.replace(/[^0-9.]/g, "");
-
-    const numberValue: number = parseFloat(cleanedString);
-    setStateAmount(String(numberValue));
-  };
+  function setValue(value: string) {
+    value = value.replace(/[$,]/g, "");
+    value = value.replace(/^0+/, "");
+    setNumberValue(value);
+  }
 
   return (
     <Grid container className={styles.row}>
@@ -68,26 +74,18 @@ export function Transaction(props: any) {
           }}
           onChange={(e) => setDestination(e.target.value)}
         />
-        <TextField
-          id="payment-amount"
-          label="Payment Amount"
-          variant="standard"
-          inputMode="numeric"
-          className={styles.textbox}
-          aria-label="Pay Amount"
-          value={formattedAmount}
-          sx={{
-            "& .MuiInputBase-root": {
-              color: "primary.main",
-            },
-            "& .MuiFormLabel-root": {
-              color: "secondary.main",
-            },
-            "& .MuiFormLabel-root.Mui-focused": {
-              color: "primary.main",
-            },
-          }}
-          onChange={(e) => formatAmount(e.target.value)}
+
+        <NumericFormat
+          prefix={"$"}
+          thousandSeparator={true}
+          value={numberValue}
+          allowNegative={false}
+          allowLeadingZeros={false}
+          valueIsNumericString={true}
+          decimalScale={2}
+          customInput={CurrencyInput}
+          valueCallback={setValue}
+          autofocus={false}
         />
       </div>
       <button className={styles.button} onClick={() => createTransaction()}>
