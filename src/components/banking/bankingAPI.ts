@@ -58,6 +58,11 @@ export async function crtTransaction(
     })
     .catch(function (response) {
       //handle error
+      const errorMessage = response.response.data.message;
+      if (errorMessage === "recipient not found") {
+        alert("invalid recipient username");
+        return response;
+      }
       alert("failed " + response);
       return response;
     });
