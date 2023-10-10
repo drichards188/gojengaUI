@@ -98,7 +98,7 @@ export function Banking() {
       // alert("getUserAsync called");
       dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
     }
-  }, [storedUser]);
+  }, [storedUser, hasUpdate]);
 
   let toolbar;
   if (isLoggedIn && displayToolbar) {
