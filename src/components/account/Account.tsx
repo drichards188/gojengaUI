@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import {
-  selectBanking,
-  selectBankingUser,
-  createDeleteAsync,
-} from "../banking/bankingSlice";
+import { selectBankingUser, createDeleteAsync } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../banking/bankingAPI";
@@ -22,8 +18,8 @@ export function Account() {
         className={styles.button}
         onClick={() => {
           dispatch(createDeleteAsync({ account: bankingUser, token }));
-          localStorage.removeItem("user");
-          navigate("/login");
+          // localStorage.removeItem("user");
+          // navigate("/login");
         }}
       >
         Delete Account

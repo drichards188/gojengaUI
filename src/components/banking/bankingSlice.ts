@@ -297,8 +297,9 @@ export const bankingSlice = createSlice({
         state.status = "idle";
         state.user = action.payload.username;
         state.amount = action.payload.amount;
+        state.token = "";
         state.message = "User Deleted";
-        state.hasUpdate = true;
+        state.loggedIn = false;
       })
       .addCase(createDeleteAsync.rejected, (state, action) => {
         state.status = "failed";
