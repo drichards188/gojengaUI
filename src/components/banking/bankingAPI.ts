@@ -20,7 +20,7 @@ export const crtUser = async (account: string, password: string) => {
     })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response.data));
+      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
     })
     .catch(function (response) {
@@ -94,24 +94,33 @@ export async function crtInfo(account: string) {
   );
 }
 
-// todo convert fetch call to axios instance call
-export async function crtDelete(account: string) {
-  const response = await fetch(backendURL, {
-    method: "DELETE",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "DLT",
-      account: account,
-    }),
-  });
-  const data = {
-    response: {
-      message: "login success",
-    },
-  };
+export async function crtDelete(account: string, token: string) {
+  let response = await api
+    .delete(`${backendURL}/account/${account}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data));
+      return response.data.response;
+    })
+    .catch(function (response) {
+      //handle error
+      const errorMessage = response.response.data.message;
+      if (errorMessage === "recipient not found") {
+        alert("invalid recipient username");
+        return response;
+      }
+      alert("failed " + response);
+      return response;
+    });
 
   return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
+    setTimeout(() => resolve({ data: response }))
   );
 }
 

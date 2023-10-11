@@ -1,52 +1,47 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {
-    selectBanking,
-    selectBankingUser,
-    makeDelete,
-    createDeleteAsync,
-
-} from '../banking/bankingSlice';
-import styles from '../banking/Banking.module.css';
-import {Box, TextField} from "@mui/material";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { selectBankingUser, createDeleteAsync } from "../banking/bankingSlice";
+import styles from "../banking/Banking.module.css";
+import { useNavigate } from "react-router-dom";
+import { getAccessToken } from "../banking/bankingAPI";
 
 export function Account() {
-    const amount = useAppSelector(selectBanking);
-    const bankingUser = useAppSelector(selectBankingUser)
-    const dispatch = useAppDispatch();
+  const bankingUser = useAppSelector(selectBankingUser);
+  const dispatch = useAppDispatch();
+  const token = getAccessToken();
+  const navigate = useNavigate();
 
-    let createInfoElem =
-        <div className={styles.row}>
-            <button
-                className={styles.button}
-                onClick={() => createDelete(dispatch, bankingUser)}
-            >
-                Delete Account
-            </button>
+  let createInfoElem = (
+    <div className={styles.row}>
+      <button
+        className={styles.button}
+        onClick={() => {
+          dispatch(createDeleteAsync({ account: bankingUser, token }));
+          // localStorage.removeItem("user");
+          // navigate("/login");
+        }}
+      >
+        Delete Account
+      </button>
+    </div>
+  );
 
-        </div>;
-
-    return (
-        <div>
-            <div className={styles.row} id="welcomeDiv">
-                {createInfoElem}
-            </div>
-        </div>
-    );
-}
-
-function createDelete(dispatch: any, account: string) {
-    dispatch(makeDelete({account}))
-    dispatch(createDeleteAsync({account}))
+  return (
+    <div>
+      <div className={styles.row} id="welcomeDiv">
+        {createInfoElem}
+      </div>
+    </div>
+  );
 }
 
 function openDeleteCreation(setDisplay: any, setDeleteCreation: any) {
-    setDisplay(false)
-    setDeleteCreation(true)
+  setDisplay(false);
+  setDeleteCreation(true);
 }
 
 function closeDeleteCreation(setDisplay: any, setDeleteCreation: any) {
-    setDisplay(true)
-    setDeleteCreation(false)
+  setDisplay(true);
+  setDeleteCreation(false);
 }

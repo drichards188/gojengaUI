@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectBankingUser,
@@ -48,7 +48,6 @@ export function Banking() {
   const dispatch = useAppDispatch();
 
   const storedUser: string | null = localStorage.getItem("user");
-
   const [displayComponent, setDisplayComponent] = useState(
     BankComponents.Balance
   );
@@ -70,22 +69,16 @@ export function Banking() {
     }
   }, [state]);
 
-  // if user has been updated refresh user data
-  useEffect(() => {
-    if (hasUpdate) {
-      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
-    }
-  }, [hasUpdate]);
-
   if (isLoading) {
     loadingCircle = <CircularProgress />;
   }
 
   useEffect(() => {
-    if (!storedUser) {
+    if (!storedUser || !isLoggedIn) {
       // alert("Please login");
+      localStorage.removeItem("user");
       navigate("/login");
-    } else {
+    } else if (isLoggedIn) {
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -94,11 +87,16 @@ export function Banking() {
           refreshToken: refreshJwtToken,
         })
       );
-      // the getUserAsync is called in an infinite loop
-      // alert("getUserAsync called");
       dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
     }
-  }, [storedUser]);
+  }, [storedUser, isLoggedIn]);
+
+  // if user has been updated refresh user data
+  useEffect(() => {
+    if (hasUpdate) {
+      dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
+    }
+  }, [hasUpdate]);
 
   let toolbar;
   if (isLoggedIn && displayToolbar) {

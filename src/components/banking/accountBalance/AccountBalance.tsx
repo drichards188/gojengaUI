@@ -20,6 +20,9 @@ const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
 };
 
 const capitalized = (str: string) => {
+  if (str === null || str === undefined) {
+    str = "0.00";
+  }
   return str
     .toLowerCase()
     .split(" ")

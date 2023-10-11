@@ -72,30 +72,13 @@ const SignUp = () => {
         </Grid>
         <Button
           onClick={() => {
-            // todo on the completion of creating a user navigate to banking page
             dispatch(createUserAsync({ username, password, token }));
-
             navigate("/login");
           }}
         >
           Signup
         </Button>
-        <button
-          onClick={() => {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:8000/user/health");
-            xhr.onload = function () {
-              if (xhr.status === 200) {
-                alert(JSON.stringify(xhr.responseText));
-              } else {
-                alert("Request failed.  Returned status of " + xhr.status);
-              }
-            };
-            xhr.send();
-          }}
-        >
-          user health
-        </button>
+
         <Grid item xs={12} md={6}>
           <Button onClick={() => navigate("/")}>Back</Button>
         </Grid>

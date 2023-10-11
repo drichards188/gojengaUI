@@ -102,9 +102,9 @@ export const createInfoAsync = createAsyncThunk(
 export const createDeleteAsync = createAsyncThunk(
   "banking/createDelete",
   async (payload: any) => {
-    const response = await crtDelete(payload.account);
+    const response = await crtDelete(payload.account, payload.jwt);
     // The value we return becomes the `fulfilled` action payload
-
+    localStorage.removeItem("user");
     return response.data;
   }
 );
@@ -178,10 +178,6 @@ export const bankingSlice = createSlice({
       // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
       state.user = username;
     },
-    makeDelete: (state, action: PayloadAction<any>) => {
-      state.user = action.payload.username;
-      state.amount = action.payload.amount;
-    },
     setStatus: (
       state,
       action: PayloadAction<"idle" | "loading" | "failed">
@@ -239,6 +235,7 @@ export const bankingSlice = createSlice({
           state.message = action.payload["message"];
         } else {
           state.user = action.payload["user"];
+          state.message = "User Created, please login";
           state.loggedIn = true;
           // alert("the state.message is now " + state.message)
         }
@@ -291,6 +288,25 @@ export const bankingSlice = createSlice({
         // alert("the state.message is now " + state.message)
       })
 
+      //createDeleteAsync
+      .addCase(createDeleteAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(createDeleteAsync.fulfilled, (state, action) => {
+        // todo cause page to refresh after delete
+        state.status = "idle";
+        state.user = action.payload.username;
+        state.amount = action.payload.amount;
+        state.token = "";
+        state.message = "User Deleted";
+        state.loggedIn = false;
+      })
+      .addCase(createDeleteAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = "getUserAsync Error";
+        alert(`createDeleteAsync failed`);
+      })
+
       //getUserAsync
       .addCase(getUserAsync.pending, (state) => {
         state.status = "loading";
@@ -320,7 +336,6 @@ export const {
   makeTransaction,
   makeLogin,
   makeDeposit,
-  makeDelete,
   setUser,
   setToken,
   setRefreshToken,
