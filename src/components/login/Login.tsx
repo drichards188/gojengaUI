@@ -47,7 +47,7 @@ const Login = () => {
       dispatch(makeLogin(username));
       navigate("/banking");
     } else if (token === "error") {
-      alert("there was a problem logging in. please try to login again");
+      // alert("there was a problem logging in. please try to login again");
     }
   }, [token]);
 
