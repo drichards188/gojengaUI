@@ -114,7 +114,7 @@ export default function SearchAppBar() {
                     localStorage.removeItem("coinList");
                     dispatch(setToken(""));
                     dispatch(setRefreshToken(""));
-                    dispatch(setMessage("Unauthorized"));
+                    dispatch(setMessage("Invalid username or password"));
                     navigate("/login");
                   }}
                 >

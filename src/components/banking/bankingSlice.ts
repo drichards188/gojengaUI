@@ -113,6 +113,9 @@ export const createLoginAsync = createAsyncThunk(
   "banking/createLogin",
   async (payload: any) => {
     let response = await crtLogin(payload.username, payload.password);
+    if (response.data.response.statusText === "Unauthorized") {
+      return Promise.reject("Wrong Username or Password");
+    }
     return response.data;
   }
 );
@@ -283,9 +286,11 @@ export const bankingSlice = createSlice({
       .addCase(createLoginAsync.rejected, (state, action) => {
         state.status = "failed";
         state.token = "error";
-        state.message = "Network Error";
-        // alert("createUser rejected " + action.payload)
-        // alert("the state.message is now " + state.message)
+        if (action.error.message === "Wrong Username or Password") {
+          state.message = action.error.message;
+        } else {
+          state.message = "Network Error";
+        }
       })
 
       //createDeleteAsync
