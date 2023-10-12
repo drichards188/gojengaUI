@@ -312,25 +312,6 @@ export const bankingSlice = createSlice({
         alert(`createDeleteAsync failed`);
       })
 
-      //createDeleteAsync
-      .addCase(createDeleteAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createDeleteAsync.fulfilled, (state, action) => {
-        // todo cause page to refresh after delete
-        state.status = "idle";
-        state.user = action.payload.username;
-        state.amount = action.payload.amount;
-        state.token = "";
-        state.message = "User Deleted";
-        state.loggedIn = false;
-      })
-      .addCase(createDeleteAsync.rejected, (state, action) => {
-        state.status = "failed";
-        state.message = "getUserAsync Error";
-        alert(`createDeleteAsync failed`);
-      })
-
       //getUserAsync
       .addCase(getUserAsync.pending, (state) => {
         state.status = "loading";
