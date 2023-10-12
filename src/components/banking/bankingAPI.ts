@@ -166,7 +166,9 @@ export async function crtLogin(username: string, password: string) {
     })
     .catch(function (response) {
       //handle error
-      alert("failed " + response);
+      // if ("message" in response) {
+      //   alert("failed " + response.message);
+      // }
 
       return response;
     });
