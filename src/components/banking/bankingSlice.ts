@@ -113,9 +113,14 @@ export const createLoginAsync = createAsyncThunk(
   "banking/createLogin",
   async (payload: any) => {
     let response = await crtLogin(payload.username, payload.password);
-    if (response.data.response.statusText === "Unauthorized") {
-      return Promise.reject("Wrong Username or Password");
+    if (response.data.response !== undefined) {
+      if ("Unauthorized" in response.data.response) {
+        if (response.data.response.statusText === "Unauthorized") {
+          return Promise.reject("Wrong Username or Password");
+        }
+      }
     }
+
     return response.data;
   }
 );
@@ -318,6 +323,12 @@ export const bankingSlice = createSlice({
       })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
+        if (
+          "message" in action.payload &&
+          action.payload.message !== "item not found"
+        ) {
+          alert("item not found in getUserAsync.fulfilled");
+        }
         state.balance = action.payload.balance;
         state.hasUpdate = false;
         state.loggedIn = true;
