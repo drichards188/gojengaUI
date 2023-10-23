@@ -113,8 +113,10 @@ export const createLoginAsync = createAsyncThunk(
   "banking/createLogin",
   async (payload: any) => {
     let response = await crtLogin(payload.username, payload.password);
-    if (response.data.response.statusText === "Unauthorized") {
-      return Promise.reject("Wrong Username or Password");
+    if ("response" in response.data) {
+      if (response.data.response.statusText === "Unauthorized") {
+        return Promise.reject("Wrong Username or Password");
+      }
     }
     return response.data;
   }
@@ -291,25 +293,6 @@ export const bankingSlice = createSlice({
         } else {
           state.message = "Network Error";
         }
-      })
-
-      //createDeleteAsync
-      .addCase(createDeleteAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createDeleteAsync.fulfilled, (state, action) => {
-        // todo cause page to refresh after delete
-        state.status = "idle";
-        state.user = action.payload.username;
-        state.amount = action.payload.amount;
-        state.token = "";
-        state.message = "User Deleted";
-        state.loggedIn = false;
-      })
-      .addCase(createDeleteAsync.rejected, (state, action) => {
-        state.status = "failed";
-        state.message = "getUserAsync Error";
-        alert(`createDeleteAsync failed`);
       })
 
       //createDeleteAsync
