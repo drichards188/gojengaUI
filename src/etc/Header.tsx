@@ -47,6 +47,13 @@ function Header() {
             navigate("/banking");
           }}
         />
+
+        <CustomButton
+          label={"Risk"}
+          clickFunction={() => {
+            navigate("/risk");
+          }}
+        />
       </nav>
     </div>
   );

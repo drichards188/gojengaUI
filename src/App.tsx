@@ -6,6 +6,7 @@ import { Welcome } from "./components/welcome/Welcome";
 import { Dashboard } from "./components/dashboard/Dashboard";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
+import Risk from "./components/risk/Risk";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/banking" element={<Banking />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/risk" element={<Risk />} />
             <Route path="*" element={<p>404 Not Found</p>} />
           </Routes>
         </header>
