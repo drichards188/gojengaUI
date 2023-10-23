@@ -74,8 +74,7 @@ export function Banking() {
   }
 
   useEffect(() => {
-    // todo !isLoggedIn causes a valid login to be kicked out
-    if (!storedUser && !isLoggedIn) {
+    if (!storedUser || !isLoggedIn) {
       // alert("Please login");
       localStorage.removeItem("user");
       navigate("/login");

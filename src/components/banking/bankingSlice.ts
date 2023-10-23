@@ -113,14 +113,9 @@ export const createLoginAsync = createAsyncThunk(
   "banking/createLogin",
   async (payload: any) => {
     let response = await crtLogin(payload.username, payload.password);
-    if (response.data.response !== undefined) {
-      if ("Unauthorized" in response.data.response) {
-        if (response.data.response.statusText === "Unauthorized") {
-          return Promise.reject("Wrong Username or Password");
-        }
-      }
+    if (response.data.response.statusText === "Unauthorized") {
+      return Promise.reject("Wrong Username or Password");
     }
-
     return response.data;
   }
 );
@@ -317,18 +312,31 @@ export const bankingSlice = createSlice({
         alert(`createDeleteAsync failed`);
       })
 
+      //createDeleteAsync
+      .addCase(createDeleteAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(createDeleteAsync.fulfilled, (state, action) => {
+        // todo cause page to refresh after delete
+        state.status = "idle";
+        state.user = action.payload.username;
+        state.amount = action.payload.amount;
+        state.token = "";
+        state.message = "User Deleted";
+        state.loggedIn = false;
+      })
+      .addCase(createDeleteAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = "getUserAsync Error";
+        alert(`createDeleteAsync failed`);
+      })
+
       //getUserAsync
       .addCase(getUserAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        if (
-          "message" in action.payload &&
-          action.payload.message !== "item not found"
-        ) {
-          alert("item not found in getUserAsync.fulfilled");
-        }
         state.balance = action.payload.balance;
         state.hasUpdate = false;
         state.loggedIn = true;
