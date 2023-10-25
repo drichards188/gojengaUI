@@ -164,6 +164,7 @@ export const bankingSlice = createSlice({
     makeLogin: (state, action: PayloadAction<any>) => {
       if (action.payload !== undefined) {
         state.message = "";
+        state.loggedIn = true;
         state.user = action.payload;
       }
       // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);

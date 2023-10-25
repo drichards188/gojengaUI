@@ -4,11 +4,16 @@ import React, { useEffect, useRef } from "react";
 
 let tvScriptLoadingPromise: any;
 
-export default function TradingViewWidget() {
+export default function TradingViewWidget(props: any) {
   const onLoadScriptRef = useRef();
 
   // @ts-ignore
   useEffect(() => {
+    let symbol = "BITSTAMP:XRPUSD";
+    if ("symbol" in props) {
+      symbol = props.symbol;
+      alert(`props symbol ${symbol}`);
+    }
     // @ts-ignore
     onLoadScriptRef.current = createWidget;
 
@@ -40,7 +45,7 @@ export default function TradingViewWidget() {
         // @ts-ignore
         new window.TradingView.widget({
           autosize: true,
-          symbol: "BITSTAMP:BTCUSD",
+          symbol: { symbol },
           interval: "D",
           timezone: "Etc/UTC",
           theme: "dark",

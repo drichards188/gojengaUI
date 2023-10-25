@@ -74,7 +74,7 @@ export function Banking() {
   }
 
   useEffect(() => {
-    if (!storedUser || !isLoggedIn) {
+    if (!storedUser && !isLoggedIn) {
       // alert("Please login");
       localStorage.removeItem("user");
       navigate("/login");
