@@ -1,16 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import CustomTextField from "../general/CustomTextField";
+import { Button, Grid } from "@mui/material";
 
 let tvScriptLoadingPromise: any;
 
 export default function TradingViewWidget(props: any) {
   const onLoadScriptRef = useRef();
   const [chartSymbol, setChartSymbol] = useState("BITSTAMP:XRPUSD");
+  const [securitySymbol, setSecuritySymbol] = useState("");
+
+  useEffect(() => {
+    if (props.symbol !== undefined && props.symbol !== chartSymbol) {
+      setChartSymbol(props.symbol);
+    }
+  }, [props.symbol]);
 
   // @ts-ignore
   useEffect(() => {
-    if (props.symbol !== undefined) {
-      setChartSymbol(props.symbol);
-    }
     // @ts-ignore
     onLoadScriptRef.current = createWidget;
 
@@ -59,14 +65,29 @@ export default function TradingViewWidget(props: any) {
   return (
     <div
       className="tradingview-widget-container"
-      style={{ height: "100%", width: "100%" }}
+      style={{
+        height: "100%",
+        width: "100%",
+        backgroundColor: "rgba(0,0,0,0)",
+      }}
     >
-      <button onClick={() => setChartSymbol("BITSTAMP:ETHUSD")}>ETH</button>
-      <button onClick={() => setChartSymbol("BITSTAMP:BTCUSD")}>BTC</button>
+      <Grid item sm={12} style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+        <CustomTextField
+          label="symbol"
+          type=""
+          value={securitySymbol}
+          setter={setSecuritySymbol}
+          autofocus={true}
+        />
+        <Button onClick={() => setChartSymbol(securitySymbol)}>
+          Update Chart
+        </Button>
+      </Grid>
       <div
         id="tradingview_3fe4f"
         style={{ height: "calc(100% - 32px)", width: "100%" }}
       />
+
       <div className="tradingview-widget-copyright">
         <a
           href="https://www.tradingview.com/"

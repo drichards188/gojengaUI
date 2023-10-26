@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Button, Grid, Paper } from "@mui/material";
 import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
 import React, { useState } from "react";
@@ -13,32 +13,33 @@ const Risk = () => {
       <Grid item xs={12}>
         <Header />
       </Grid>
-      <Grid item md={10}>
-        <Paper elevation={6}>
-          <h1>Risk</h1>
-        </Paper>
+      <Grid item md={10} style={{ backgroundColor: "rgba(0,0,0,.25" }}>
+        <h1>Risk</h1>
       </Grid>
-      <Grid item md={8}>
-        <Paper elevation={10} style={{ height: "50vh" }}>
-          <CustomTextField
-            label="symbol"
-            type=""
-            value={securitySymbol}
-            setter={setSecuritySymbol}
-            autofocus={true}
-          />
-          <button
-            onClick={() => {
-              SetShowTv(!showTv);
-            }}
-          >
-            See Chart!
-          </button>
-          {/*// @ts-ignore*/}
-          {/*<TradingViewWidget symbol={securitySymbol} />*/}
-
-          {showTv && <TradingViewWidget symbol={securitySymbol} />}
-        </Paper>
+      <Grid
+        item
+        md={10}
+        style={{ backgroundColor: "rgba(0,0,0,.25", height: "60vh" }}
+      >
+        {!showTv && (
+          <div>
+            <CustomTextField
+              label="symbol"
+              type=""
+              value={securitySymbol}
+              setter={setSecuritySymbol}
+              autofocus={true}
+            />
+            <Button
+              onClick={() => {
+                SetShowTv(!showTv);
+              }}
+            >
+              See Chart!
+            </Button>
+          </div>
+        )}
+        {showTv && <TradingViewWidget symbol={securitySymbol} />}
       </Grid>
     </Grid>
   );

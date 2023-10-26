@@ -18,7 +18,7 @@ function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <div style={{ marginBottom: "5%" }}>
+    <div style={{ marginBottom: ".25%" }}>
       <nav>
         <CustomButton
           label={"Log Out"}
