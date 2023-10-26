@@ -1,19 +1,19 @@
 // TradingViewWidget.jsx
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 let tvScriptLoadingPromise: any;
 
 export default function TradingViewWidget(props: any) {
   const onLoadScriptRef = useRef();
+  const [chartSymbol, setChartSymbol] = useState("BITSTAMP:XRPUSD");
 
   // @ts-ignore
   useEffect(() => {
-    let symbol = "BITSTAMP:XRPUSD";
-    if ("symbol" in props) {
-      symbol = props.symbol;
-      alert(`props symbol ${symbol}`);
-    }
+    // if ("symbol" in props) {
+    //   setChartSymbol(props.symbol);
+    //   alert(`props symbol ${chartSymbol}`);
+    // }
     // @ts-ignore
     onLoadScriptRef.current = createWidget;
 
@@ -45,7 +45,7 @@ export default function TradingViewWidget(props: any) {
         // @ts-ignore
         new window.TradingView.widget({
           autosize: true,
-          symbol: { symbol },
+          symbol: `${chartSymbol}`,
           interval: "D",
           timezone: "Etc/UTC",
           theme: "dark",
@@ -57,13 +57,15 @@ export default function TradingViewWidget(props: any) {
         });
       }
     }
-  }, []);
+  }, [chartSymbol]);
 
   return (
     <div
       className="tradingview-widget-container"
       style={{ height: "100%", width: "100%" }}
     >
+      <button onClick={() => setChartSymbol("BITSTAMP:ETHUSD")}>ETH</button>
+      <button onClick={() => setChartSymbol("BITSTAMP:BTCUSD")}>BTC</button>
       <div
         id="tradingview_3fe4f"
         style={{ height: "calc(100% - 32px)", width: "100%" }}

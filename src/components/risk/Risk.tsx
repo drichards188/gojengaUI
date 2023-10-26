@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Risk = () => {
   const [securitySymbol, setSecuritySymbol] = useState("BITSTAMP:BITCUSD");
+  const [showTv, SetShowTv] = useState(false);
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="baseline">
@@ -18,8 +19,17 @@ const Risk = () => {
       </Grid>
       <Grid item md={8}>
         <Paper elevation={10} style={{ height: "50vh" }}>
+          <button
+            onClick={() => {
+              SetShowTv(!showTv);
+            }}
+          >
+            ETH
+          </button>
           {/*// @ts-ignore*/}
-          <TradingViewWidget symbol={securitySymbol} />
+          {/*<TradingViewWidget symbol={securitySymbol} />*/}
+
+          {showTv && <TradingViewWidget symbol={"BITSTAMP:ETHUSD"} />}
         </Paper>
       </Grid>
     </Grid>
