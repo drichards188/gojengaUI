@@ -1,5 +1,3 @@
-// TradingViewWidget.jsx
-
 import React, { useEffect, useRef, useState } from "react";
 
 let tvScriptLoadingPromise: any;
@@ -10,10 +8,9 @@ export default function TradingViewWidget(props: any) {
 
   // @ts-ignore
   useEffect(() => {
-    // if ("symbol" in props) {
-    //   setChartSymbol(props.symbol);
-    //   alert(`props symbol ${chartSymbol}`);
-    // }
+    if (props.symbol !== undefined) {
+      setChartSymbol(props.symbol);
+    }
     // @ts-ignore
     onLoadScriptRef.current = createWidget;
 

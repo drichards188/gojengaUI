@@ -1,10 +1,11 @@
 import { Box, Grid, Paper } from "@mui/material";
 import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
-import { useState } from "react";
+import React, { useState } from "react";
+import CustomTextField from "../general/CustomTextField";
 
 const Risk = () => {
-  const [securitySymbol, setSecuritySymbol] = useState("BITSTAMP:BITCUSD");
+  const [securitySymbol, setSecuritySymbol] = useState("");
   const [showTv, SetShowTv] = useState(false);
 
   return (
@@ -19,17 +20,24 @@ const Risk = () => {
       </Grid>
       <Grid item md={8}>
         <Paper elevation={10} style={{ height: "50vh" }}>
+          <CustomTextField
+            label="symbol"
+            type=""
+            value={securitySymbol}
+            setter={setSecuritySymbol}
+            autofocus={true}
+          />
           <button
             onClick={() => {
               SetShowTv(!showTv);
             }}
           >
-            ETH
+            See Chart!
           </button>
           {/*// @ts-ignore*/}
           {/*<TradingViewWidget symbol={securitySymbol} />*/}
 
-          {showTv && <TradingViewWidget symbol={"BITSTAMP:ETHUSD"} />}
+          {showTv && <TradingViewWidget symbol={securitySymbol} />}
         </Paper>
       </Grid>
     </Grid>
