@@ -171,6 +171,7 @@ export const bankingSlice = createSlice({
     makeLogout: (state) => {
       state.token = "";
       state.refreshToken = "";
+      state.loggedIn = false;
     },
     makeTransaction: (state, action: PayloadAction<any>) => {
       state.destination = action.payload.destination;
