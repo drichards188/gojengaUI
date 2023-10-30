@@ -14,6 +14,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { setMessage, setRefreshToken, setToken } from "../banking/bankingSlice";
 import { useAppDispatch } from "../../app/hooks";
+import { triggerLogout } from "../banking/bankingAPI";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -110,12 +111,13 @@ export default function SearchAppBar() {
               >
                 <MenuItem
                   onClick={() => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("coinList");
-                    dispatch(setToken(""));
-                    dispatch(setRefreshToken(""));
-                    dispatch(setMessage("Invalid username or password"));
-                    navigate("/login");
+                    let logoutResponse: boolean = triggerLogout(dispatch);
+
+                    if (logoutResponse) {
+                      navigate("/login");
+                    } else {
+                      alert("logout failed");
+                    }
                   }}
                 >
                   Log Out

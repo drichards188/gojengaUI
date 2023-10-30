@@ -1,6 +1,8 @@
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
+import { makeLogout, resetBankState } from "./bankingSlice";
+import { resetDashboardState } from "../dashboard/dashboardSlice";
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {
@@ -132,6 +134,26 @@ export function getAccessToken() {
 export function getRefreshToken() {
   let user = JSON.parse(localStorage.getItem("user") || "{}");
   return user.refreshToken;
+}
+
+// should I pass a callback to navigate to be called by triggerLogout?
+export function triggerLogout(dispatch: any) {
+  localStorage.removeItem("user");
+  localStorage.removeItem("coinList");
+
+  if (
+    localStorage.getItem("user") === null &&
+    localStorage.getItem("coinList") === null
+  ) {
+    dispatch(makeLogout());
+    dispatch(resetBankState());
+    dispatch(resetDashboardState());
+
+    return true;
+  } else {
+    alert("failed to remove user cookie");
+    return false;
+  }
 }
 
 export async function crtLogin(username: string, password: string) {

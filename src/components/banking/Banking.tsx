@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import BankingToolbar from "./bankingToolbar/BankingToolbar";
 import AccountInfo from "./accountInfo/AccountInfo";
 import AccountBalance from "./accountBalance/AccountBalance";
-import { getAccessToken, getRefreshToken } from "./bankingAPI";
+import { getAccessToken, getRefreshToken, triggerLogout } from "./bankingAPI";
 
 export const paperStyle = {
   borderRadius: "10px",
@@ -75,9 +75,14 @@ export function Banking() {
 
   useEffect(() => {
     if (!storedUser || !isLoggedIn) {
-      // alert("Please login");
-      localStorage.removeItem("user");
-      navigate("/login");
+      // logout expression
+      let logoutResponse: boolean = triggerLogout(dispatch);
+
+      if (logoutResponse) {
+        navigate("/login");
+      } else {
+        alert("logout failed");
+      }
     } else if (isLoggedIn) {
       localStorage.setItem(
         "user",
