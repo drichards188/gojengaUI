@@ -35,7 +35,12 @@ function Header() {
           }}
         />
 
-        <CustomButton label={"Dashboard"} clickFunction={() => {}} />
+        <CustomButton
+          label={"Dashboard"}
+          clickFunction={() => {
+            navigate("/dashboard");
+          }}
+        />
 
         <CustomButton
           label={"Banking"}
