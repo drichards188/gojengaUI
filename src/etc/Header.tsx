@@ -11,6 +11,7 @@ import {
 import styles from "../components/banking/Banking.module.css";
 import CustomButton from "../components/general/CustomButton";
 import { resetDashboardState } from "../components/dashboard/dashboardSlice";
+import { triggerLogout } from "../components/banking/bankingAPI";
 
 function Header() {
   const navigate = useNavigate();
@@ -23,14 +24,13 @@ function Header() {
         <CustomButton
           label={"Log Out"}
           clickFunction={() => {
-            localStorage.removeItem("user");
-            localStorage.removeItem("coinList");
-            dispatch(setToken(""));
-            dispatch(setRefreshToken(""));
+            let logoutResponse: boolean = triggerLogout(dispatch);
 
-            dispatch(resetBankState());
-            dispatch(resetDashboardState());
-            navigate("/login");
+            if (logoutResponse) {
+              navigate("/login");
+            } else {
+              alert("logout failed");
+            }
           }}
         />
 

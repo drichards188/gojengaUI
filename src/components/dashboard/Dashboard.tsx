@@ -13,7 +13,7 @@ import {
 import SearchAppBar from "./Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken } from "../banking/bankingAPI";
+import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
 import { selectStatus } from "../banking/bankingSlice";
 
@@ -52,7 +52,13 @@ export function Dashboard() {
 
   useEffect(() => {
     if (!storedUser) {
-      navigate("/");
+      let logoutResponse: boolean = triggerLogout(dispatch);
+
+      if (logoutResponse) {
+        navigate("/login");
+      } else {
+        alert("logout failed");
+      }
     }
     dispatch(getPortfolio({ user: currentUser, jwt: token }));
     dispatch(

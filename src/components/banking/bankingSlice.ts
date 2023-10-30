@@ -169,6 +169,11 @@ export const bankingSlice = createSlice({
       }
       // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
     },
+    makeLogout: (state) => {
+      state.token = "";
+      state.refreshToken = "";
+      state.loggedIn = false;
+    },
     makeTransaction: (state, action: PayloadAction<any>) => {
       state.destination = action.payload.destination;
       state.amount = action.payload.amount;
@@ -342,6 +347,7 @@ export const {
   setMessage,
   createUser,
   makeTransaction,
+  makeLogout,
   makeLogin,
   makeDeposit,
   setUser,
