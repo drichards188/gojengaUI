@@ -21,7 +21,6 @@ function Header() {
   return (
     <div style={{ marginBottom: "5%" }}>
       <nav>
-        {/*  todo refactor logout to a in sequence flow*/}
         <CustomButton
           label={"Log Out"}
           clickFunction={() => {
