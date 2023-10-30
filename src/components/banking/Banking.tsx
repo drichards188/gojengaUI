@@ -75,7 +75,6 @@ export function Banking() {
 
   useEffect(() => {
     if (!storedUser || !isLoggedIn) {
-      // alert("Please login");
       // logout expression
       let logoutResponse: boolean = triggerLogout(dispatch);
 
