@@ -11,6 +11,7 @@ import TradingViewWidget from "./TradingViewChart";
 import React, { useState } from "react";
 import CustomTextField from "../general/CustomTextField";
 import SearchAppBar from "../dashboard/Search";
+import SharpeRatio from "./SharpeRatio";
 
 const Risk = () => {
   // const [securitySymbol, setSecuritySymbol] = useState("");
@@ -25,6 +26,7 @@ const Risk = () => {
     securityList[0]
   );
   const [inputValue, setInputValue] = React.useState("");
+  const [sharpeRatio, setSharpeRatio] = useState(0);
   const [showTv, SetShowTv] = useState(true);
 
   return (
@@ -32,45 +34,43 @@ const Risk = () => {
       <Grid item xs={12}>
         <Header />
       </Grid>
-      <Grid item md={10} style={{ backgroundColor: "rgba(0,0,0,.25" }}>
-        <h1>Risk</h1>
-      </Grid>
-      <Grid
-        item
-        md={10}
-        style={{ backgroundColor: "rgba(0,0,0,.25", height: "60vh" }}
-      >
-        {showTv && (
-          <div>
-            <Grid item sm={6}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={securityList}
-                sx={{ width: 300 }}
-                value={securitySymbol}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                  setInputValue(newInputValue);
-                }}
-                onChange={(event: any, newValue: string | null) => {
-                  setSecuritySymbol(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Security Symbol" />
-                )}
-              />
-            </Grid>
-            <Button
-              onClick={() => {
-                SetShowTv(!showTv);
-              }}
-            >
-              See Chart!
-            </Button>
-          </div>
-        )}
-        {showTv && <TradingViewWidget symbol={securitySymbol} />}
+
+      <Grid item sm={12} md={10}>
+        <Paper>
+          <h1>Risk</h1>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={securityList}
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "primary.main",
+              },
+              "& .MuiFormLabel-root": {
+                color: "secondary.main",
+              },
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "primary.main",
+              },
+              width: 300,
+            }}
+            value={securitySymbol}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            onChange={(event: any, newValue: string | null) => {
+              setSecuritySymbol(newValue);
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Security Symbol" />
+            )}
+          />
+          <SharpeRatio symbol={securitySymbol} />
+          <Grid item sm={12} style={{ height: "50vh" }}>
+            <TradingViewWidget symbol={securitySymbol} />
+          </Grid>
+        </Paper>
       </Grid>
     </Grid>
   );

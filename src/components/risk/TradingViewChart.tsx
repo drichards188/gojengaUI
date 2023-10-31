@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import CustomTextField from "../general/CustomTextField";
-import { Button, Grid } from "@mui/material";
 
 let tvScriptLoadingPromise: any;
 
 export default function TradingViewWidget(props: any) {
   const onLoadScriptRef = useRef();
   const [chartSymbol, setChartSymbol] = useState("BITSTAMP:XRPUSD");
-  const [securitySymbol, setSecuritySymbol] = useState("");
 
   useEffect(() => {
     if (props.symbol !== undefined && props.symbol !== chartSymbol) {
@@ -23,7 +20,7 @@ export default function TradingViewWidget(props: any) {
           translatedSymbol = "BITSTAMP:USDTUSD";
           break;
         case "bnb":
-          translatedSymbol = "BITSTAMP:BNBUSD";
+          translatedSymbol = "BINANCE:BNBUSD";
           break;
         case "xrp":
           translatedSymbol = "BITSTAMP:XRPUSD";
