@@ -11,7 +11,27 @@ export default function TradingViewWidget(props: any) {
 
   useEffect(() => {
     if (props.symbol !== undefined && props.symbol !== chartSymbol) {
-      setChartSymbol(props.symbol);
+      let translatedSymbol = "";
+      switch (props.symbol) {
+        case "btc":
+          translatedSymbol = "BITSTAMP:BTCUSD";
+          break;
+        case "eth":
+          translatedSymbol = "BITSTAMP:ETHUSD";
+          break;
+        case "usdt":
+          translatedSymbol = "BITSTAMP:USDTUSD";
+          break;
+        case "bnb":
+          translatedSymbol = "BITSTAMP:BNBUSD";
+          break;
+        case "xrp":
+          translatedSymbol = "BITSTAMP:XRPUSD";
+          break;
+        default:
+          translatedSymbol = "BITSTAMP:XRPUSD";
+      }
+      setChartSymbol(translatedSymbol);
     }
   }, [props.symbol]);
 
@@ -71,18 +91,6 @@ export default function TradingViewWidget(props: any) {
         backgroundColor: "rgba(0,0,0,0)",
       }}
     >
-      <Grid item sm={12} style={{ backgroundColor: "rgba(0,0,0,0)" }}>
-        <CustomTextField
-          label="symbol"
-          type=""
-          value={securitySymbol}
-          setter={setSecuritySymbol}
-          autofocus={true}
-        />
-        <Button onClick={() => setChartSymbol(securitySymbol)}>
-          Update Chart
-        </Button>
-      </Grid>
       <div
         id="tradingview_3fe4f"
         style={{ height: "calc(100% - 32px)", width: "100%" }}

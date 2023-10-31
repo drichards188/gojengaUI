@@ -25,7 +25,7 @@ const Risk = () => {
     securityList[0]
   );
   const [inputValue, setInputValue] = React.useState("");
-  const [showTv, SetShowTv] = useState(false);
+  const [showTv, SetShowTv] = useState(true);
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="baseline">
@@ -40,13 +40,9 @@ const Risk = () => {
         md={10}
         style={{ backgroundColor: "rgba(0,0,0,.25", height: "60vh" }}
       >
-        {!showTv && (
+        {showTv && (
           <div>
-            {securitySymbol}
-            <br />
-            {inputValue}
             <Grid item sm={6}>
-              {/*<TextField id="outlined-search" label="Search field" type="search" />*/}
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -65,13 +61,6 @@ const Risk = () => {
                 )}
               />
             </Grid>
-            <CustomTextField
-              label="symbol"
-              type=""
-              value={securitySymbol}
-              setter={setSecuritySymbol}
-              autofocus={true}
-            />
             <Button
               onClick={() => {
                 SetShowTv(!showTv);
