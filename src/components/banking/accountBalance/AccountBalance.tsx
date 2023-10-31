@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import styles from "../Banking.module.css";
 import React from "react";
-import { paperStyle } from "../Banking";
+import { paperStyle } from "../../views/Banking";
 
 const AccountBalance = ({ bankingUser, balance, serverMessage }: any) => {
   return (

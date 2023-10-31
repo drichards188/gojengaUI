@@ -3,7 +3,7 @@ import { Box, Container } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectBankingUser } from "../bankingSlice";
-import { BankComponents } from "../Banking";
+import { BankComponents } from "../../views/Banking";
 import CustomButton from "../../general/CustomButton";
 
 const BankingToolbar = (props: any) => {

@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import { Banking } from "./components/banking/Banking";
+import { Banking } from "./components/views/Banking";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Welcome } from "./components/welcome/Welcome";
-import { Dashboard } from "./components/dashboard/Dashboard";
+import { Dashboard } from "./components/views/Dashboard";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Risk from "./components/risk/Risk";

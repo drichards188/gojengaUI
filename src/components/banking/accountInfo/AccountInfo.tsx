@@ -3,7 +3,7 @@ import styles from "../Banking.module.css";
 import { Box } from "@mui/material";
 import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
-import { BankComponents } from "../Banking";
+import { BankComponents } from "../../views/Banking";
 import { setMessage } from "../bankingSlice";
 
 const AccountInfo = (props: any) => {

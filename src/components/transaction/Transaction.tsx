@@ -10,7 +10,7 @@ import {
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
 import { Box, Grid, TextField } from "@mui/material";
-import { BankComponents } from "../banking/Banking";
+import { BankComponents } from "../views/Banking";
 import CurrencyInput from "../general/CurrencyInput";
 import { NumericFormat } from "react-number-format";
 
