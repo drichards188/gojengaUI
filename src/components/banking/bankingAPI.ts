@@ -244,7 +244,7 @@ export async function getSharpeRatio(symbol: string, token: string) {
     })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response));
+      // alert("success " + JSON.stringify(response));
       return response.data.response;
     })
     .catch(function (response) {
