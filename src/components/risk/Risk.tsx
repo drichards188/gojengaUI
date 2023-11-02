@@ -16,6 +16,7 @@ import SharpeRatio from "./SharpeRatio";
 const Risk = () => {
   // const [securitySymbol, setSecuritySymbol] = useState("");
   const [securityList, setSecurityList] = useState([
+    "Symbol",
     "btc",
     "eth",
     "usdt",
@@ -27,7 +28,7 @@ const Risk = () => {
   );
   const [inputValue, setInputValue] = React.useState("");
   const [sharpeRatio, setSharpeRatio] = useState(0);
-  const [showTv, SetShowTv] = useState(true);
+  const [showTv, setShowTv] = useState(true);
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="baseline">
@@ -57,19 +58,36 @@ const Risk = () => {
             value={securitySymbol}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
+              if (newInputValue !== "Symbol") {
+                setInputValue(newInputValue);
+                setShowTv(true);
+              } else {
+                // setInputValue("Symbol");
+                setShowTv(false);
+              }
             }}
             onChange={(event: any, newValue: string | null) => {
-              setSecuritySymbol(newValue);
+              if (newValue !== "Symbol") {
+                setSecuritySymbol(newValue);
+                setShowTv(true);
+              } else {
+                // setSecuritySymbol("Symbol");
+                setShowTv(false);
+              }
             }}
             renderInput={(params) => (
               <TextField {...params} label="Security Symbol" />
             )}
           />
-          <SharpeRatio symbol={securitySymbol} />
-          <Grid item sm={12} style={{ height: "50vh" }}>
-            <TradingViewWidget symbol={securitySymbol} />
-          </Grid>
+
+          {showTv && (
+            <div>
+              <SharpeRatio symbol={securitySymbol} />
+              <Grid item sm={12} style={{ height: "50vh" }}>
+                <TradingViewWidget symbol={securitySymbol} />
+              </Grid>
+            </div>
+          )}
         </Paper>
       </Grid>
     </Grid>

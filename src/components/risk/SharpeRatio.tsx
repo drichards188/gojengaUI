@@ -21,7 +21,10 @@ const SharpeRatio = (props: any) => {
         setSharpeEval(sharpeEval);
       }
     }
-    getRatio();
+
+    if (symbol !== "Symbol") {
+      getRatio();
+    }
   }, [props.symbol]);
 
   return (
