@@ -31,59 +31,63 @@ const Risk = () => {
   const [showTv, setShowTv] = useState(true);
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="baseline">
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
       <Grid item xs={12}>
         <Header />
       </Grid>
 
       <Grid item sm={12} md={10}>
         <Paper>
-          <h1>Risk</h1>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={securityList}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
-              width: 300,
-            }}
-            value={securitySymbol}
-            inputValue={inputValue}
-            onInputChange={(event, newInputValue) => {
-              if (newInputValue !== "Symbol") {
-                setInputValue(newInputValue);
-                setShowTv(true);
-              } else {
-                // setInputValue("Symbol");
-                setShowTv(false);
-              }
-            }}
-            onChange={(event: any, newValue: string | null) => {
-              if (newValue !== "Symbol") {
-                setSecuritySymbol(newValue);
-                setShowTv(true);
-              } else {
-                // setSecuritySymbol("Symbol");
-                setShowTv(false);
-              }
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Security Symbol" />
-            )}
-          />
+          <Grid item sm={4}>
+            <h1>Risk</h1>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={securityList}
+              sx={{
+                "& .MuiInputBase-root": {
+                  color: "primary.main",
+                },
+                "& .MuiFormLabel-root": {
+                  color: "secondary.main",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                  color: "primary.main",
+                },
+                width: 300,
+              }}
+              value={securitySymbol}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                if (newInputValue !== "Symbol") {
+                  setInputValue(newInputValue);
+                  setShowTv(true);
+                } else {
+                  // setInputValue("Symbol");
+                  setShowTv(false);
+                }
+              }}
+              onChange={(event: any, newValue: string | null) => {
+                if (newValue !== "Symbol") {
+                  setSecuritySymbol(newValue);
+                  setShowTv(true);
+                } else {
+                  // setSecuritySymbol("Symbol");
+                  setShowTv(false);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Security Symbol" />
+              )}
+            />
+          </Grid>
 
           {showTv && (
             <div>
-              <SharpeRatio symbol={securitySymbol} />
-              <Grid item sm={12} style={{ height: "50vh" }}>
+              <Grid item sm={4}>
+                <SharpeRatio symbol={securitySymbol} />
+              </Grid>
+              <Grid item sm={12} style={{ height: "40vh" }}>
                 <TradingViewWidget symbol={securitySymbol} />
               </Grid>
             </div>
@@ -93,5 +97,4 @@ const Risk = () => {
     </Grid>
   );
 };
-
 export default Risk;
