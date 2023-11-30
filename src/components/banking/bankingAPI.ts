@@ -157,23 +157,15 @@ export function triggerLogout(dispatch: any) {
 }
 
 export async function crtLogin(username: string, password: string) {
-  let formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-
-  const headers = new Headers();
-  headers.set("Content-Type", "multipart/form-data");
-  headers.set("Is-Test", "True");
-
   let response = await axios({
     method: "post",
     url: `${backendURL}/auth/login`,
-    data: formData,
-    headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
+    data: { usernameOrEmail: username, password: password },
+    headers: { "Content-Type": "application/json", "Is-Test": "True" },
   })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data));
+      alert("success " + JSON.stringify(response.data));
       if ("access_token" in response.data && "refresh_token" in response.data) {
         localStorage.setItem(
           "user",
