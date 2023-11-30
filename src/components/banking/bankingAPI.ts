@@ -166,14 +166,18 @@ export async function crtLogin(username: string, password: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
-      response["data"]["refreshToken"] = response["data"]["accessToken"];
-      if ("accessToken" in response.data && "refreshToken" in response.data) {
+      if ("accessToken" in response.data) {
+        response["data"]["access_token"] = response["data"]["accessToken"];
+        response["data"]["refresh_token"] = response["data"]["access_token"];
+      }
+
+      if ("access_token" in response.data && "refresh_token" in response.data) {
         localStorage.setItem(
           "user",
           JSON.stringify({
             username: username,
-            jwt: response.data.accessToken,
-            refreshToken: response.data.refreshToken,
+            jwt: response.data.access_token,
+            refreshToken: response.data.refresh_token,
           })
         );
       }
@@ -195,9 +199,9 @@ export async function crtLogin(username: string, password: string) {
 
 export async function crtGetAccount(username: string, token: string) {
   let response = await api
-    .get(`${backendURL}/account/${username}`, {
+    .get(`${backendURL}/account?username=${username}`, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         "Is-Test": "True",
         Authorization: `Bearer ${token}`,
       },
@@ -205,7 +209,7 @@ export async function crtGetAccount(username: string, token: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data.response.balance));
-      return response.data.response;
+      return response.data;
     })
     .catch(function (response) {
       //handle error

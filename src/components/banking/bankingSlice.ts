@@ -284,7 +284,7 @@ export const bankingSlice = createSlice({
           if (action.payload.message === "Network Error") {
             state.message = action.payload.message;
           } else {
-            state.message = action.payload.response.statusText;
+            state.message = action.payload.message;
           }
         } else {
           state.token = action.payload.data.access_token;
