@@ -10,6 +10,12 @@ export default function TradingViewWidget(props: any) {
     if (props.symbol !== undefined && props.symbol !== chartSymbol) {
       let translatedSymbol = "";
       switch (props.symbol) {
+        case "lulu":
+          translatedSymbol = "NASDAQ:LULU";
+          break;
+        case "ibm":
+          translatedSymbol = "NYSE:IBM";
+          break;
         case "btc":
           translatedSymbol = "BITSTAMP:BTCUSD";
           break;

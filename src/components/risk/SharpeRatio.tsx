@@ -1,6 +1,10 @@
 import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getAccessToken, getSharpeRatio } from "../banking/bankingAPI";
+import {
+  getAccessToken,
+  getCalcSymbols,
+  getSharpeRatio,
+} from "../banking/bankingAPI";
 
 const SharpeRatio = (props: any) => {
   let symbol = props.symbol;

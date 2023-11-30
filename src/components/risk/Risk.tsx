@@ -8,28 +8,34 @@ import {
 } from "@mui/material";
 import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomTextField from "../general/CustomTextField";
 import SearchAppBar from "../dashboard/Search";
 import SharpeRatio from "./SharpeRatio";
+import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
 
 const Risk = () => {
   // const [securitySymbol, setSecuritySymbol] = useState("");
-  const [securityList, setSecurityList] = useState([
-    "Symbol",
-    "lulu",
-    "btc",
-    "eth",
-    "usdt",
-    "bnb",
-    "xrp",
-  ]);
+  const [securityList, setSecurityList] = useState(["Symbol"]);
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
   const [inputValue, setInputValue] = React.useState("");
   const [sharpeRatio, setSharpeRatio] = useState(0);
   const [showTv, setShowTv] = useState(true);
+  const jwtToken = getAccessToken();
+
+  useEffect(() => {
+    async function getAllSymbols() {
+      let response = await getCalcSymbols(jwtToken);
+      if (response) {
+        setSecurityList([...securityList, ...response.data]);
+        alert(`securityList ${securityList}`);
+      }
+    }
+
+    getAllSymbols();
+  }, []);
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="center">
