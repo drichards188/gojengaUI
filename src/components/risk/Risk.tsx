@@ -17,6 +17,7 @@ const Risk = () => {
   // const [securitySymbol, setSecuritySymbol] = useState("");
   const [securityList, setSecurityList] = useState([
     "Symbol",
+    "lulu",
     "btc",
     "eth",
     "usdt",

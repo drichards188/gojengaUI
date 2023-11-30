@@ -232,7 +232,7 @@ export async function crtGetAccount(username: string, token: string) {
 
 export async function getSharpeRatio(symbol: string, token: string) {
   let response = await api
-    .get(`${backendURL}/risk/${symbol}`, {
+    .get(`${backendURL}/risk?symbol=${symbol}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -242,7 +242,7 @@ export async function getSharpeRatio(symbol: string, token: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response));
-      return response.data.response;
+      return response.data;
     })
     .catch(function (response) {
       //handle error
