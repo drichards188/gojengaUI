@@ -165,14 +165,15 @@ export async function crtLogin(username: string, password: string) {
   })
     .then(function (response) {
       //handle success
-      alert("success " + JSON.stringify(response.data));
-      if ("access_token" in response.data && "refresh_token" in response.data) {
+      // alert("success " + JSON.stringify(response.data));
+      response["data"]["refreshToken"] = response["data"]["accessToken"];
+      if ("accessToken" in response.data && "refreshToken" in response.data) {
         localStorage.setItem(
           "user",
           JSON.stringify({
             username: username,
-            jwt: response.data.access_token,
-            refreshToken: response.data.refresh_token,
+            jwt: response.data.accessToken,
+            refreshToken: response.data.refreshToken,
           })
         );
       }
