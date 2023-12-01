@@ -1,5 +1,5 @@
 import styles from "../banking/Banking.module.css";
-import { BankComponents } from "../banking/Banking";
+import { BankComponents } from "../views/Banking";
 import React from "react";
 
 interface CustomButtonProps {

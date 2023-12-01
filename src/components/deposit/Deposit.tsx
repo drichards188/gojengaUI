@@ -21,7 +21,7 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { BankComponents } from "../banking/Banking";
+import { BankComponents } from "../views/Banking";
 import { NumericFormat } from "react-number-format";
 import CurrencyInput from "../general/CurrencyInput";
 

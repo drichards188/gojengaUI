@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Cards } from "./Cards";
+import { Cards } from "../dashboard/Cards";
 import React, { useEffect } from "react";
 import {
   getCoinBatchAsync,
@@ -9,8 +9,8 @@ import {
   selectCoinData,
   selectCoinDisplayList,
   selectCoinList,
-} from "./dashboardSlice";
-import SearchAppBar from "./Search";
+} from "../dashboard/dashboardSlice";
+import SearchAppBar from "../dashboard/Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../banking/bankingAPI";

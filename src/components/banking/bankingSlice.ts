@@ -14,6 +14,7 @@ import {
   crtTransaction,
   crtUser,
   fetchCount,
+  getSharpeRatio,
 } from "./bankingAPI";
 import { crtLogin } from "./bankingAPI";
 import { useNavigate } from "react-router-dom";
@@ -164,6 +165,7 @@ export const bankingSlice = createSlice({
     makeLogin: (state, action: PayloadAction<any>) => {
       if (action.payload !== undefined) {
         state.message = "";
+        state.loggedIn = true;
         state.user = action.payload;
       }
       // let uppercase = username.charAt(0).toUpperCase() + username.slice(1);
@@ -282,7 +284,7 @@ export const bankingSlice = createSlice({
           if (action.payload.message === "Network Error") {
             state.message = action.payload.message;
           } else {
-            state.message = action.payload.response.statusText;
+            state.message = action.payload.message;
           }
         } else {
           state.token = action.payload.data.access_token;

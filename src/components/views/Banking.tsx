@@ -8,18 +8,22 @@ import {
   getUserAsync,
   selectStatus,
   selectUpdate,
-} from "./bankingSlice";
-import styles from "./Banking.module.css";
+} from "../banking/bankingSlice";
+import styles from "../banking/Banking.module.css";
 import { Box, CircularProgress } from "@mui/material";
 import { Deposit } from "../deposit/Deposit";
 import { Transaction } from "../transaction/Transaction";
 import Header from "../../etc/Header";
 import Footer from "../../etc/Footer";
 import { useNavigate } from "react-router-dom";
-import BankingToolbar from "./bankingToolbar/BankingToolbar";
-import AccountInfo from "./accountInfo/AccountInfo";
-import AccountBalance from "./accountBalance/AccountBalance";
-import { getAccessToken, getRefreshToken, triggerLogout } from "./bankingAPI";
+import BankingToolbar from "../banking/bankingToolbar/BankingToolbar";
+import AccountInfo from "../banking/accountInfo/AccountInfo";
+import AccountBalance from "../banking/accountBalance/AccountBalance";
+import {
+  getAccessToken,
+  getRefreshToken,
+  triggerLogout,
+} from "../banking/bankingAPI";
 
 export const paperStyle = {
   borderRadius: "10px",

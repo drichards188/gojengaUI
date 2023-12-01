@@ -19,7 +19,7 @@ function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <div style={{ marginBottom: "5%" }}>
+    <div style={{ marginBottom: ".25%" }}>
       <nav>
         <CustomButton
           label={"Log Out"}
@@ -45,6 +45,20 @@ function Header() {
           label={"Banking"}
           clickFunction={() => {
             navigate("/banking");
+          }}
+        />
+
+        <CustomButton
+          label={"Risk"}
+          clickFunction={() => {
+            navigate("/risk");
+          }}
+        />
+
+        <CustomButton
+          label={"Diversification"}
+          clickFunction={() => {
+            navigate("/diversification");
           }}
         />
       </nav>

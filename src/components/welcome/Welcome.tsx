@@ -7,6 +7,7 @@ import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import {
+  setLoggedIn,
   setMessage,
   setRefreshToken,
   setToken,
@@ -55,6 +56,7 @@ export function Welcome() {
       dispatch(setRefreshToken(userObject.refreshToken));
       dispatch(setToken(userObject.jwt));
       dispatch(setUser({ account: userObject.username }));
+      dispatch(setLoggedIn(true));
       return true;
     }
     return false;

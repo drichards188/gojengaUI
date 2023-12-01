@@ -157,23 +157,20 @@ export function triggerLogout(dispatch: any) {
 }
 
 export async function crtLogin(username: string, password: string) {
-  let formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-
-  const headers = new Headers();
-  headers.set("Content-Type", "multipart/form-data");
-  headers.set("Is-Test", "True");
-
   let response = await axios({
     method: "post",
     url: `${backendURL}/auth/login`,
-    data: formData,
-    headers: { "Content-Type": "multipart/form-data", "Is-Test": "True" },
+    data: { usernameOrEmail: username, password: password },
+    headers: { "Content-Type": "application/json", "Is-Test": "True" },
   })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
+      if ("accessToken" in response.data) {
+        response["data"]["access_token"] = response["data"]["accessToken"];
+        response["data"]["refresh_token"] = response["data"]["access_token"];
+      }
+
       if ("access_token" in response.data && "refresh_token" in response.data) {
         localStorage.setItem(
           "user",
@@ -202,7 +199,40 @@ export async function crtLogin(username: string, password: string) {
 
 export async function crtGetAccount(username: string, token: string) {
   let response = await api
-    .get(`${backendURL}/account/${username}`, {
+    .get(`${backendURL}/account?username=${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response.data.response.balance));
+      return response.data;
+    })
+    .catch(function (response) {
+      //handle error
+      // how to detect expired refresh token but trigger logout on UI?
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      } else if (response.response.status === 500) {
+        // alert("refresh token expired");
+        console.log("--> refresh token expired");
+      }
+      alert("failed " + response);
+
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+}
+
+export async function getSharpeRatio(symbol: string, token: string) {
+  let response = await api
+    .get(`${backendURL}/risk?symbol=${symbol}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -211,8 +241,41 @@ export async function crtGetAccount(username: string, token: string) {
     })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data.response.balance));
-      return response.data.response;
+      // alert("success " + JSON.stringify(response));
+      return response.data;
+    })
+    .catch(function (response) {
+      //handle error
+      // how to detect expired refresh token but trigger logout on UI?
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      } else if (response.response.status === 500) {
+        // alert("refresh token expired");
+        console.log("--> refresh token expired");
+      }
+      alert("failed " + response);
+
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+}
+
+export async function getCalcSymbols(token: string) {
+  let response = await api
+    .get(`${backendURL}/risk/symbols`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response));
+      return response.data;
     })
     .catch(function (response) {
       //handle error
