@@ -10,11 +10,7 @@ import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
 import React, { useEffect, useState } from "react";
 import SharpeRatio from "./SharpeRatio";
-import {
-  getAccessToken,
-  getCalcSymbols,
-  getChartId,
-} from "../banking/bankingAPI";
+import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState(["Symbol"]);
@@ -24,6 +20,9 @@ const Risk = () => {
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(true);
   const jwtToken = getAccessToken();
+
+  const divColor = "#2C2F36";
+  const fontColor = "#61429E";
 
   useEffect(() => {
     async function getAllSymbols() {
@@ -44,7 +43,12 @@ const Risk = () => {
         <Header />
       </Grid>
 
-      <Grid item sm={12} md={10} style={{ backgroundColor: "rgba(0,0,0,.2)" }}>
+      <Grid
+        item
+        sm={12}
+        md={10}
+        style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
+      >
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item sm={12} md={6}>
             <Paper>
@@ -53,6 +57,7 @@ const Risk = () => {
                 spacing={2}
                 justifyContent="center"
                 alignItems="space-evenly"
+                style={{ backgroundColor: divColor, color: fontColor }}
               >
                 <Grid item sm={4}>
                   <h1>Risk</h1>
@@ -107,7 +112,11 @@ const Risk = () => {
         <Paper>
           {showTv && (
             <div>
-              <Grid item sm={12}>
+              <Grid
+                item
+                sm={12}
+                style={{ backgroundColor: divColor, color: fontColor }}
+              >
                 <h2>Calculations</h2>
 
                 <Grid container spacing={2} alignItems="space-between">
