@@ -16,6 +16,9 @@ const Diversification = () => {
   const [showTv, setShowTv] = useState(true);
   const jwtToken = getAccessToken();
 
+  const divColor = "#2C2F36";
+  const fontColor = "#61429E";
+
   useEffect(() => {
     async function getAllSymbols() {
       let response = await getCalcSymbols(jwtToken);
@@ -35,20 +38,25 @@ const Diversification = () => {
         <Header />
       </Grid>
 
-      <Grid item sm={12} md={10} style={{ backgroundColor: "rgba(0,0,0,.2)" }}>
+      <Grid
+        item
+        sm={12}
+        md={10}
+        style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
+      >
         <Grid container spacing={2} justifyContent="center" alignItems="center">
-          <Grid item sm={12} md={8}>
+          <Grid item sm={12} md={6}>
             <Paper>
               <Grid
                 container
                 spacing={2}
-                justifyContent="center"
-                alignItems="space-evenly"
+                justifyContent="space-between"
+                alignItems="center"
+                style={{ backgroundColor: divColor, color: fontColor }}
               >
-                <Grid item sm={6}>
+                <Grid item sm={4}>
                   <h1>Diversification</h1>
                 </Grid>
-
                 <Grid item sm={6}>
                   <Autocomplete
                     disablePortal
@@ -99,15 +107,24 @@ const Diversification = () => {
         <Paper>
           {showTv && (
             <div>
-              <Grid item sm={12}>
+              <Grid
+                item
+                sm={12}
+                style={{ backgroundColor: divColor, color: fontColor }}
+              >
+                <h2>Recommendations</h2>
+
                 <Grid container spacing={2} alignItems="space-between">
                   <Grid item sm={4}>
-                    <DiversificationCard name={"Xcel Energy"} symbol={"XEL"} />
+                    <h1>Xcel Energy</h1>
+                    <h2>XEL</h2>
+                    <h3>correlation</h3>
+                    <h2>.014%</h2>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item sm={12} style={{ height: "40vh" }}>
-                <TradingViewWidget symbol={securitySymbol} />
+                <TradingViewWidget chartId={securitySymbol} />
               </Grid>
             </div>
           )}

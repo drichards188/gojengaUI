@@ -55,8 +55,8 @@ const Risk = () => {
               <Grid
                 container
                 spacing={2}
-                justifyContent="center"
-                alignItems="space-evenly"
+                justifyContent="space-between"
+                alignItems="center"
                 style={{ backgroundColor: divColor, color: fontColor }}
               >
                 <Grid item sm={4}>
