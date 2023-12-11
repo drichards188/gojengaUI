@@ -9,19 +9,19 @@ import {
 import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
 import React, { useEffect, useState } from "react";
-import CustomTextField from "../general/CustomTextField";
-import SearchAppBar from "../dashboard/Search";
 import SharpeRatio from "./SharpeRatio";
-import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
+import {
+  getAccessToken,
+  getCalcSymbols,
+  getChartId,
+} from "../banking/bankingAPI";
 
 const Risk = () => {
-  // const [securitySymbol, setSecuritySymbol] = useState("");
   const [securityList, setSecurityList] = useState(["Symbol"]);
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
   const [inputValue, setInputValue] = React.useState("");
-  const [sharpeRatio, setSharpeRatio] = useState(0);
   const [showTv, setShowTv] = useState(true);
   const jwtToken = getAccessToken();
 
@@ -32,7 +32,6 @@ const Risk = () => {
         if (!securityList.includes(response.data[0])) {
           setSecurityList([...securityList, ...response.data]);
         }
-        // alert(`securityList ${securityList}`);
       }
     }
 
@@ -110,6 +109,7 @@ const Risk = () => {
             <div>
               <Grid item sm={12}>
                 <h2>Calculations</h2>
+
                 <Grid container spacing={2} alignItems="space-between">
                   <Grid item sm={4}>
                     <SharpeRatio symbol={securitySymbol} />
@@ -127,7 +127,7 @@ const Risk = () => {
                 </Grid>
               </Grid>
               <Grid item sm={12} style={{ height: "40vh" }}>
-                <TradingViewWidget symbol={securitySymbol} />
+                <TradingViewWidget chartId={securitySymbol} />
               </Grid>
             </div>
           )}
@@ -136,4 +136,5 @@ const Risk = () => {
     </Grid>
   );
 };
+
 export default Risk;
