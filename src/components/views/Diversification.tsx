@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import SharpeRatio from "../risk/SharpeRatio";
 import TradingViewWidget from "../risk/TradingViewChart";
 import Typography from "@mui/material/Typography";
-import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
+import {
+  getAccessToken,
+  getCalcSymbols,
+  getDiversRec,
+} from "../banking/bankingAPI";
 import DiversificationCard from "../DiversificationCard";
 
 const Diversification = () => {
@@ -14,6 +18,7 @@ const Diversification = () => {
   );
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(true);
+  const [diversRec, setDiversRec] = useState(["AAPL"]);
   const jwtToken = getAccessToken();
 
   const divColor = "#2C2F36";
@@ -31,6 +36,14 @@ const Diversification = () => {
 
     getAllSymbols();
   }, []);
+
+  async function getDiverseRecs() {
+    let response = await getDiversRec("lulu", jwtToken);
+    if (response) {
+      // alert(JSON.stringify(response.data));
+      setDiversRec(response.data);
+    }
+  }
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -79,6 +92,7 @@ const Diversification = () => {
                     onInputChange={(event, newInputValue) => {
                       if (newInputValue !== "Symbol") {
                         setInputValue(newInputValue);
+                        getDiverseRecs();
                         setShowTv(true);
                       } else {
                         // setInputValue("Symbol");
@@ -88,6 +102,7 @@ const Diversification = () => {
                     onChange={(event: any, newValue: string | null) => {
                       if (newValue !== "Symbol") {
                         setSecuritySymbol(newValue);
+                        getDiverseRecs();
                         setShowTv(true);
                       } else {
                         // setSecuritySymbol("Symbol");
@@ -114,13 +129,24 @@ const Diversification = () => {
               >
                 <h2>Recommendations</h2>
 
-                <Grid container spacing={2} alignItems="space-between">
-                  <Grid item sm={4}>
-                    <h1>Xcel Energy</h1>
-                    <h2>XEL</h2>
-                    <h3>correlation</h3>
-                    <h2>.014%</h2>
-                  </Grid>
+                <Grid
+                  container
+                  spacing={2}
+                  alignItems="center"
+                  justifyContent="space-evenly"
+                >
+                  {diversRec.map((rec: any) => {
+                    // alert(`rec is ${JSON.stringify(rec)}`);
+                    return (
+                      <Grid item sm={4}>
+                        <DiversificationCard
+                          symbol={rec}
+                          name="name"
+                          corr="0.01"
+                        />
+                      </Grid>
+                    );
+                  })}
                 </Grid>
               </Grid>
               <Grid item sm={12} style={{ height: "40vh" }}>
