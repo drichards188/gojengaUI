@@ -10,6 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
+import axios from "axios";
+import { getChartId } from "../banking/bankingAPI";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -41,6 +43,7 @@ const SignUp = () => {
   return (
     <Grid container spacing={1} alignItems="center" justifyContent="center">
       {loadingCircle}
+
       <Grid
         container
         xs={12}

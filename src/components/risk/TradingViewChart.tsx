@@ -1,42 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 let tvScriptLoadingPromise: any;
 
 export default function TradingViewWidget(props: any) {
   const onLoadScriptRef = useRef();
-  const [chartSymbol, setChartSymbol] = useState("BITSTAMP:XRPUSD");
-
-  useEffect(() => {
-    if (props.symbol !== undefined && props.symbol !== chartSymbol) {
-      let translatedSymbol = "";
-      switch (props.symbol) {
-        case "lulu":
-          translatedSymbol = "NASDAQ:LULU";
-          break;
-        case "ibm":
-          translatedSymbol = "NYSE:IBM";
-          break;
-        case "btc":
-          translatedSymbol = "BITSTAMP:BTCUSD";
-          break;
-        case "eth":
-          translatedSymbol = "BITSTAMP:ETHUSD";
-          break;
-        case "usdt":
-          translatedSymbol = "BITSTAMP:USDTUSD";
-          break;
-        case "bnb":
-          translatedSymbol = "BINANCE:BNBUSD";
-          break;
-        case "xrp":
-          translatedSymbol = "BITSTAMP:XRPUSD";
-          break;
-        default:
-          translatedSymbol = "BITSTAMP:XRPUSD";
-      }
-      setChartSymbol(translatedSymbol);
-    }
-  }, [props.symbol]);
 
   // @ts-ignore
   useEffect(() => {
@@ -71,7 +38,7 @@ export default function TradingViewWidget(props: any) {
         // @ts-ignore
         new window.TradingView.widget({
           autosize: true,
-          symbol: `${chartSymbol}`,
+          symbol: `${props.chartId}`,
           interval: "D",
           timezone: "Etc/UTC",
           theme: "dark",
@@ -83,7 +50,7 @@ export default function TradingViewWidget(props: any) {
         });
       }
     }
-  }, [chartSymbol]);
+  }, [props.chartId]);
 
   return (
     <div
