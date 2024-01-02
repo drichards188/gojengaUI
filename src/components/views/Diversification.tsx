@@ -18,7 +18,17 @@ const Diversification = () => {
   );
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(true);
-  const [diversRec, setDiversRec] = useState(["AAPL"]);
+  const [diversRec, setDiversRec] = useState([
+    {
+      id: {
+        baseSymbol: "avy",
+        corrSymbol: "CAH",
+      },
+      name: "Placeholder",
+      date: "2023-12-30T07:00:00.000+00:00",
+      correlation: 0.230304,
+    },
+  ]);
   const jwtToken = getAccessToken();
 
   const divColor = "#2C2F36";
@@ -37,10 +47,9 @@ const Diversification = () => {
     getAllSymbols();
   }, []);
 
-  async function getDiverseRecs() {
-    let response = await getDiversRec("lulu", jwtToken);
+  async function getDiverseRecs(symbol: string) {
+    let response = await getDiversRec(symbol, jwtToken);
     if (response) {
-      // alert(JSON.stringify(response.data));
       setDiversRec(response.data);
     }
   }
@@ -92,7 +101,9 @@ const Diversification = () => {
                     onInputChange={(event, newInputValue) => {
                       if (newInputValue !== "Symbol") {
                         setInputValue(newInputValue);
-                        getDiverseRecs();
+                        if (newInputValue !== null) {
+                          getDiverseRecs(newInputValue);
+                        }
                         setShowTv(true);
                       } else {
                         // setInputValue("Symbol");
@@ -102,7 +113,9 @@ const Diversification = () => {
                     onChange={(event: any, newValue: string | null) => {
                       if (newValue !== "Symbol") {
                         setSecuritySymbol(newValue);
-                        getDiverseRecs();
+                        if (newValue !== null) {
+                          getDiverseRecs(newValue);
+                        }
                         setShowTv(true);
                       } else {
                         // setSecuritySymbol("Symbol");
@@ -136,13 +149,12 @@ const Diversification = () => {
                   justifyContent="space-evenly"
                 >
                   {diversRec.map((rec: any) => {
-                    // alert(`rec is ${JSON.stringify(rec)}`);
                     return (
                       <Grid item sm={4}>
                         <DiversificationCard
-                          symbol={rec}
-                          name="name"
-                          corr="0.01"
+                          symbol={rec.id.corrSymbol}
+                          name={rec.name}
+                          corr={rec.correlation}
                         />
                       </Grid>
                     );
