@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import {
   getAccessToken,
   getCalcSymbols,
+  getCompanyName,
   getDiversRec,
 } from "../banking/bankingAPI";
 import DiversificationCard from "../DiversificationCard";
@@ -16,6 +17,7 @@ const Diversification = () => {
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
+  const [companyName, setCompanyName] = React.useState<string | null>();
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(true);
   const [diversRec, setDiversRec] = useState([
@@ -51,6 +53,13 @@ const Diversification = () => {
     let response = await getDiversRec(symbol, jwtToken);
     if (response) {
       setDiversRec(response.data);
+    }
+  }
+
+  async function getSymbolName(symbol: string) {
+    let response = await getCompanyName(symbol, jwtToken);
+    if (response) {
+      setCompanyName(response.data.name);
     }
   }
 
@@ -102,6 +111,7 @@ const Diversification = () => {
                       if (newInputValue !== "Symbol") {
                         setInputValue(newInputValue);
                         if (newInputValue !== null) {
+                          getSymbolName(newInputValue);
                           getDiverseRecs(newInputValue);
                         }
                         setShowTv(true);
@@ -114,6 +124,7 @@ const Diversification = () => {
                       if (newValue !== "Symbol") {
                         setSecuritySymbol(newValue);
                         if (newValue !== null) {
+                          getSymbolName(newValue);
                           getDiverseRecs(newValue);
                         }
                         setShowTv(true);
@@ -141,7 +152,7 @@ const Diversification = () => {
                 style={{ backgroundColor: divColor, color: fontColor }}
               >
                 <h2>Recommendations</h2>
-
+                <h3>{companyName}</h3>
                 <Grid
                   container
                   spacing={2}

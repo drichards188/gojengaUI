@@ -329,6 +329,39 @@ export async function getCalcSymbols(token: string) {
   );
 }
 
+export async function getCompanyName(symbol: string, token: string) {
+  let response = await api
+    .get(`${backendURL}/logistic/lookup?symbol=${symbol}`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Is-Test": "True",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (response) {
+      //handle success
+      // alert("success " + JSON.stringify(response));
+      return response.data;
+    })
+    .catch(function (response) {
+      //handle error
+      // how to detect expired refresh token but trigger logout on UI?
+      if (response.response.status === 401) {
+        localStorage.removeItem("user");
+      } else if (response.response.status === 500) {
+        // alert("refresh token expired");
+        console.log("--> refresh token expired");
+      }
+      alert("failed " + response);
+
+      return response;
+    });
+
+  return new Promise<{ data: any }>((resolve) =>
+    setTimeout(() => resolve({ data: response }))
+  );
+}
+
 export async function getDiversRec(symbol: string, token: string) {
   let response = await api
     .get(`${backendURL}/diversification?symbol=${symbol}`, {
