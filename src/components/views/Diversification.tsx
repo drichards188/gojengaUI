@@ -112,6 +112,7 @@ const Diversification = () => {
                         setInputValue(newInputValue);
                         if (newInputValue !== null) {
                           getSymbolName(newInputValue);
+
                           getDiverseRecs(newInputValue);
                         }
                         setShowTv(true);
