@@ -18,7 +18,7 @@ const Risk = () => {
     securityList[0]
   );
   const [inputValue, setInputValue] = React.useState("");
-  const [showTv, setShowTv] = useState(true);
+  const [showTv, setShowTv] = useState(false);
   const jwtToken = getAccessToken();
 
   const divColor = "#2C2F36";
@@ -84,25 +84,20 @@ const Risk = () => {
                     onInputChange={(event, newInputValue) => {
                       if (newInputValue !== "Symbol") {
                         setInputValue(newInputValue);
-                        setShowTv(true);
-                      } else {
-                        // setInputValue("Symbol");
-                        setShowTv(false);
-                      }
-                    }}
-                    onChange={(event: any, newValue: string | null) => {
-                      if (newValue !== "Symbol") {
-                        setSecuritySymbol(newValue);
-                        setShowTv(true);
-                      } else {
-                        // setSecuritySymbol("Symbol");
-                        setShowTv(false);
                       }
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Security Symbol" />
                     )}
                   />
+                  <Button
+                    onClick={() => {
+                      setSecuritySymbol(inputValue);
+                      setShowTv(true);
+                    }}
+                  >
+                    Retrieve
+                  </Button>
                 </Grid>
               </Grid>
             </Paper>

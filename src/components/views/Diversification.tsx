@@ -1,4 +1,4 @@
-import { Autocomplete, Grid, Paper, TextField } from "@mui/material";
+import { Autocomplete, Button, Grid, Paper, TextField } from "@mui/material";
 import Header from "../../etc/Header";
 import React, { useEffect, useState } from "react";
 import SharpeRatio from "../risk/SharpeRatio";
@@ -17,6 +17,7 @@ const Diversification = () => {
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
+  const [tvSymbol, setTvSymbol] = React.useState<string | null>();
   const [companyName, setCompanyName] = React.useState<string | null>();
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(true);
@@ -110,34 +111,29 @@ const Diversification = () => {
                     onInputChange={(event, newInputValue) => {
                       if (newInputValue !== "Symbol") {
                         setInputValue(newInputValue);
-                        if (newInputValue !== null) {
-                          getSymbolName(newInputValue);
-
-                          getDiverseRecs(newInputValue);
-                        }
-                        setShowTv(true);
-                      } else {
-                        // setInputValue("Symbol");
-                        setShowTv(false);
                       }
                     }}
                     onChange={(event: any, newValue: string | null) => {
                       if (newValue !== "Symbol") {
                         setSecuritySymbol(newValue);
-                        if (newValue !== null) {
-                          getSymbolName(newValue);
-                          getDiverseRecs(newValue);
-                        }
-                        setShowTv(true);
-                      } else {
-                        // setSecuritySymbol("Symbol");
-                        setShowTv(false);
                       }
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Security Symbol" />
                     )}
                   />
+                  <Button
+                    onClick={() => {
+                      if (securitySymbol != null) {
+                        getSymbolName(securitySymbol);
+                        getDiverseRecs(securitySymbol);
+                        setTvSymbol(securitySymbol);
+                        setShowTv(true);
+                      }
+                    }}
+                  >
+                    Retrieve
+                  </Button>
                 </Grid>
               </Grid>
             </Paper>
@@ -174,7 +170,7 @@ const Diversification = () => {
                 </Grid>
               </Grid>
               <Grid item sm={12} style={{ height: "40vh" }}>
-                <TradingViewWidget chartId={securitySymbol} />
+                <TradingViewWidget chartId={tvSymbol} />
               </Grid>
             </div>
           )}
