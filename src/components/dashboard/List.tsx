@@ -16,10 +16,7 @@ function List(props: any) {
   const [searchMin, setSearchMin] = useState(0);
   const [searchMax, setSearchMax] = useState(10);
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectBankingUser);
-  const token = useAppSelector(selectToken);
 
   useEffect(() => {
     setSearchMin(0);
