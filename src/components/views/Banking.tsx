@@ -61,21 +61,6 @@ export function Banking() {
   const navigate = useNavigate();
 
   let loadingCircle: JSX.Element = <></>;
-  // detect if request is loading
-  useEffect(() => {
-    // alert(`state is ${state}`);
-    if (state === "loading") {
-      // alert(`state read as ${state}`);
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-      loadingCircle = <></>;
-    }
-  }, [state]);
-
-  if (isLoading) {
-    loadingCircle = <CircularProgress />;
-  }
 
   useEffect(() => {
     if (!storedUser || !isLoggedIn) {
@@ -99,6 +84,22 @@ export function Banking() {
       dispatch(getUserAsync({ username: bankingUser, jwt: jwtToken }));
     }
   }, [storedUser, isLoggedIn]);
+
+  // detect if request is loading
+  useEffect(() => {
+    // alert(`state is ${state}`);
+    if (state === "loading") {
+      // alert(`state read as ${state}`);
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      loadingCircle = <></>;
+    }
+  }, [state]);
+
+  if (isLoading) {
+    loadingCircle = <CircularProgress />;
+  }
 
   // if user has been updated refresh user data
   useEffect(() => {

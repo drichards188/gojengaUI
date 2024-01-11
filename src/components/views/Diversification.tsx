@@ -9,18 +9,26 @@ import {
   getCalcSymbols,
   getCompanyName,
   getDiversRec,
+  triggerLogout,
 } from "../banking/bankingAPI";
 import DiversificationCard from "../DiversificationCard";
+import { getUserAsync, selectLoggedIn } from "../banking/bankingSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 const Diversification = () => {
   const [securityList, setSecurityList] = useState(["Symbol"]);
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
+  const isLoggedIn = useAppSelector(selectLoggedIn);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const storedUser: string | null = localStorage.getItem("user");
   const [tvSymbol, setTvSymbol] = React.useState<string | null>();
   const [companyName, setCompanyName] = React.useState<string | null>();
   const [inputValue, setInputValue] = React.useState("");
-  const [showTv, setShowTv] = useState(true);
+  const [showTv, setShowTv] = useState(false);
   const [diversRec, setDiversRec] = useState([
     {
       id: {
@@ -49,6 +57,19 @@ const Diversification = () => {
 
     getAllSymbols();
   }, []);
+
+  useEffect(() => {
+    if (!storedUser || !isLoggedIn) {
+      // logout expression
+      let logoutResponse: boolean = triggerLogout(dispatch);
+
+      if (logoutResponse) {
+        navigate("/login");
+      } else {
+        alert("logout failed");
+      }
+    }
+  }, [storedUser, isLoggedIn]);
 
   async function getDiverseRecs(symbol: string) {
     let response = await getDiversRec(symbol, jwtToken);

@@ -72,7 +72,7 @@ export function Welcome() {
             const loginCheck = checkAutoLogin();
             if (loginCheck) {
               dispatch(setMessage(""));
-              navigate("/banking");
+              navigate("/diversification");
             } else {
               dispatch(setMessage(""));
               setDisplay(true);
