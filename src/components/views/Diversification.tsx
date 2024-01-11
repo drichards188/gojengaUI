@@ -1,9 +1,7 @@
 import { Autocomplete, Button, Grid, Paper, TextField } from "@mui/material";
 import Header from "../../etc/Header";
 import React, { useEffect, useState } from "react";
-import SharpeRatio from "../risk/SharpeRatio";
 import TradingViewWidget from "../risk/TradingViewChart";
-import Typography from "@mui/material/Typography";
 import {
   getAccessToken,
   getCalcSymbols,
@@ -12,7 +10,7 @@ import {
   triggerLogout,
 } from "../banking/bankingAPI";
 import DiversificationCard from "../DiversificationCard";
-import { getUserAsync, selectLoggedIn } from "../banking/bankingSlice";
+import { selectLoggedIn } from "../banking/bankingSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 

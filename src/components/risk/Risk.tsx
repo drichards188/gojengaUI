@@ -10,7 +10,14 @@ import Header from "../../etc/Header";
 import TradingViewWidget from "./TradingViewChart";
 import React, { useEffect, useState } from "react";
 import SharpeRatio from "./SharpeRatio";
-import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
+import {
+  getAccessToken,
+  getCalcSymbols,
+  triggerLogout,
+} from "../banking/bankingAPI";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectLoggedIn } from "../banking/bankingSlice";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState(["Symbol"]);
@@ -23,6 +30,24 @@ const Risk = () => {
 
   const divColor = "#2C2F36";
   const fontColor = "#61429E";
+
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(selectLoggedIn);
+  const navigate = useNavigate();
+  const storedUser: string | null = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (!storedUser || !isLoggedIn) {
+      // logout expression
+      let logoutResponse: boolean = triggerLogout(dispatch);
+
+      if (logoutResponse) {
+        navigate("/login");
+      } else {
+        alert("logout failed");
+      }
+    }
+  }, [storedUser, isLoggedIn]);
 
   useEffect(() => {
     async function getAllSymbols() {

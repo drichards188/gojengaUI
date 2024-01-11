@@ -3,7 +3,6 @@ import logo from "../../logo.svg";
 import "../../App.css";
 import styles from "../banking/Banking.module.css";
 import { Box, Button, Grid, Paper } from "@mui/material";
-import { getCoinListAsync } from "../dashboard/dashboardSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import {
