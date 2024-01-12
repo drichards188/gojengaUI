@@ -45,7 +45,7 @@ const Login = () => {
   useEffect(() => {
     if (token != "" && token != "error") {
       dispatch(makeLogin(username));
-      navigate("/banking");
+      navigate("/diversification");
     } else if (token === "error") {
       // alert("there was a problem logging in. please try to login again");
     }

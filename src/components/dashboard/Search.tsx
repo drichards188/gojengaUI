@@ -10,11 +10,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import List from "./List";
 import { useState } from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Grid, Menu, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { setMessage, setRefreshToken, setToken } from "../banking/bankingSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { triggerLogout } from "../banking/bankingAPI";
+import Header from "../../etc/Header";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -78,97 +79,29 @@ export default function SearchAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <div>
-              <button
-                style={{
-                  backgroundColor: "rgba(0,0,0,0)",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={handleClick}
-              >
-                <MenuIcon />
-              </button>
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Header />
 
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    let logoutResponse: boolean = triggerLogout(dispatch);
-
-                    if (logoutResponse) {
-                      navigate("/login");
-                    } else {
-                      alert("logout failed");
-                    }
-                  }}
-                >
-                  Log Out
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    navigate("/dashboard");
-                  }}
-                >
-                  Dashboard
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    navigate("/banking");
-                  }}
-                >
-                  Bank
-                </MenuItem>
-              </Menu>
-            </div>
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            Gojenga
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={inputText}
-              onChange={inputHandler}
-            />
-          </Search>
-          <a
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setInputText("");
-            }}
-          >
-            X
-          </a>
-        </Toolbar>
-      </AppBar>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          value={inputText}
+          onChange={inputHandler}
+        />
+      </Search>
+      <a
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setInputText("");
+        }}
+      >
+        X
+      </a>
       <List input={inputText} />
-    </Box>
+    </Grid>
   );
 }

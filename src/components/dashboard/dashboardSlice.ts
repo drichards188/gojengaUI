@@ -29,7 +29,7 @@ const initialState: DashboardState = {
   displayCoinList: {},
   amount: 0,
   balance: 0,
-  user: "david",
+  user: "drichards",
   password: "12345",
   destination: "allie",
   message: "",
@@ -62,6 +62,7 @@ export const getPortfolio = createAsyncThunk(
   "dashboard/getPortfolio",
   async (payload: any) => {
     const response = await getUserPortfolio(payload.user, payload.jwt);
+
     // The value we return becomes the `fulfilled` action payload
     let wrappedData = { coinList: response.data };
     return wrappedData;
@@ -207,19 +208,16 @@ export const dashboardSlice = createSlice({
       .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "idle";
 
-        let toBeAdded: string[] = [];
+        if ("data" in action.payload.coinList) {
+          let coins = action.payload.coinList.data;
 
-        if ("portfolio" in action.payload.coinList) {
-          let coins = action.payload.coinList.portfolio;
+          state.displayCoinList = {};
 
           coins.forEach(
-            (item: { name: string; amount: number; id: string }) => {
-              if (!(item.id in state.displayCoinList)) {
-                // if (!state.displayCoinList.includes(item.id)) {
-                // todo figure out how to add coins to the display list while removing the placeholder
-                const coinName = item.id;
+            (item: { username: string; amount: number; asset: string }) => {
+              if (!(item.asset in state.displayCoinList)) {
+                const coinName = item.asset;
                 state.displayCoinList[coinName] = { quantity: item.amount };
-                // toBeAdded.push(item.id);
               }
             }
           );
@@ -227,7 +225,7 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getPortfolio.rejected, (state, action) => {
         state.status = "failed";
-        // alert("createUser rejected " + action.payload)
+        // alert("getPortfolio rejected " + action.payload)
         // alert("the state.message is now " + state.message)
       });
   },
