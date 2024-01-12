@@ -20,6 +20,7 @@ import styles from "../banking/Banking.module.css";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 import { updatePortfolio } from "./dashboardAPI";
 import { getAccessToken } from "../banking/bankingAPI";
+import TradingViewWidget from "../risk/TradingViewChart";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
