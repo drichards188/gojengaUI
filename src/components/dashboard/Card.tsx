@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { useState, createContext } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
+  getPortfolio,
   removeCoinFromDisplayList,
   selectCoinDisplayList,
 } from "./dashboardSlice";
@@ -23,11 +24,10 @@ import { getAccessToken } from "../banking/bankingAPI";
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
 
-  const dispatch = useAppDispatch();
-
   const displayCoinData = useAppSelector(selectCoinDisplayList);
 
   const [tradeAmount, setTradeAmount] = useState(0);
+  const dispatch = useAppDispatch();
 
   const currentUser = useAppSelector(selectBankingUser);
   const token = getAccessToken();
@@ -112,7 +112,6 @@ const Card = (props: any) => {
             variant="standard"
             type="number"
             inputMode="numeric"
-            autoFocus={true}
             className={styles.textbox}
             aria-label="Trade Amount"
             value={tradeAmount}
@@ -143,7 +142,8 @@ const Card = (props: any) => {
                 id,
                 id,
                 tradeAmount,
-                token
+                token,
+                dispatch
               )
             }
           >
@@ -160,7 +160,8 @@ const Card = (props: any) => {
                 id,
                 id,
                 tradeAmount,
-                token
+                token,
+                dispatch
               )
             }
           >
@@ -178,18 +179,20 @@ async function triggerPortfolioUpdate(
   coinName: string,
   coinId: string,
   quantity: number,
-  token: string
+  token: string,
+  dispatch: any
 ) {
   quantity = parseInt(String(quantity));
   let resp = await updatePortfolio(
     {
-      username: currentUser,
-      portfolio: [{ name: coinName, amount: quantity, id: coinId }],
+      orderType: updateType,
+      amount: quantity,
+      asset: coinId,
     },
-    updateType,
     token
   );
-  alert(JSON.stringify(resp));
+  dispatch(getPortfolio({ user: currentUser, jwt: token }));
+  // alert(JSON.stringify(resp));
 }
 
 export default Card;

@@ -5,6 +5,7 @@ import {
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
+import { getPortfolio } from "./dashboardSlice";
 
 // headers is Is-Test and Update-Type
 
@@ -140,8 +141,8 @@ export async function getUserPortfolio(username: string, token: string) {
     })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data.response.balance));
-      return response.data.response;
+      // alert("success " + JSON.stringify(response.data));
+      return response;
       // return ["bitcoin", "ethereum", "ripple"];
     })
     .catch(function (response) {
@@ -178,27 +179,27 @@ export async function crtLogin(account: string, password: string) {
 
 // todo move axios calls to the axios instance calls
 export async function updatePortfolio(
-  coin: { username: string; portfolio: object[] },
-  updateType: string,
+  coin: { orderType: string; amount: number; asset: string },
   token: string
 ) {
   let response = await axios({
     method: "PUT",
-    url: `${backendURL}/portfolio/` + coin.username,
+    // url: `${backendURL}/portfolio/` + coin.username,
+    url: `${backendURL}/portfolio/drichards`,
     data: JSON.stringify(coin),
     headers: {
       "Content-Type": "application/json",
       "Is-Test": "True",
-      "Update-Type": updateType,
       Authorization: `Bearer ${token}`,
     },
   })
     .then(function (response) {
       //handle success
-      // alert("success " + JSON.stringify(response.data.response.balance));
-      return response.data.response;
+      // alert("success " + JSON.stringify(response.data));
+      return response.data;
       // return ["bitcoin", "ethereum", "ripple"];
     })
+    .then(() => getPortfolio({ user: "drichards", jwt: token }))
     .catch(function (response) {
       //handle error
       alert("failed " + response);
