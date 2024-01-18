@@ -1,5 +1,5 @@
 import { Link, Router, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useAppDispatch } from "../app/hooks";
 import {
   setLoggedIn,
@@ -19,50 +19,52 @@ function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <div style={{ marginBottom: ".25%" }}>
-      <nav>
-        <CustomButton
-          label={"Log Out"}
-          clickFunction={() => {
-            let logoutResponse: boolean = triggerLogout(dispatch);
+    <Grid container>
+      <Grid item sm={12}>
+        <nav>
+          <CustomButton
+            label={"Log Out"}
+            clickFunction={() => {
+              let logoutResponse: boolean = triggerLogout(dispatch);
 
-            if (logoutResponse) {
-              navigate("/login");
-            } else {
-              alert("logout failed");
-            }
-          }}
-        />
+              if (logoutResponse) {
+                navigate("/login");
+              } else {
+                alert("logout failed");
+              }
+            }}
+          />
 
-        <CustomButton
-          label={"Dashboard"}
-          clickFunction={() => {
-            navigate("/dashboard");
-          }}
-        />
+          <CustomButton
+            label={"Dashboard"}
+            clickFunction={() => {
+              navigate("/dashboard");
+            }}
+          />
 
-        <CustomButton
-          label={"Banking"}
-          clickFunction={() => {
-            navigate("/banking");
-          }}
-        />
+          <CustomButton
+            label={"Banking"}
+            clickFunction={() => {
+              navigate("/banking");
+            }}
+          />
 
-        <CustomButton
-          label={"Risk"}
-          clickFunction={() => {
-            navigate("/risk");
-          }}
-        />
+          <CustomButton
+            label={"Risk"}
+            clickFunction={() => {
+              navigate("/risk");
+            }}
+          />
 
-        <CustomButton
-          label={"Diversification"}
-          clickFunction={() => {
-            navigate("/diversification");
-          }}
-        />
-      </nav>
-    </div>
+          <CustomButton
+            label={"Diversification"}
+            clickFunction={() => {
+              navigate("/diversification");
+            }}
+          />
+        </nav>
+      </Grid>
+    </Grid>
   );
 }
 

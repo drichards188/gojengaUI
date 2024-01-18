@@ -84,8 +84,14 @@ const Diversification = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item xs={12}>
+    <Grid
+      container
+      spacing={2}
+      justifyContent="center"
+      alignItems="flex-start"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item sm={12} md={8}>
         <Header />
       </Grid>
 
@@ -95,7 +101,7 @@ const Diversification = () => {
         md={10}
         style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
       >
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent="center">
           <Grid item sm={12} md={6}>
             <Paper>
               <Grid
@@ -105,10 +111,10 @@ const Diversification = () => {
                 alignItems="center"
                 style={{ backgroundColor: divColor, color: fontColor }}
               >
-                <Grid item sm={4}>
+                <Grid item sm={12} md={4}>
                   <h1>Diversification</h1>
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item sm={12} md={6}>
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -177,7 +183,7 @@ const Diversification = () => {
                 >
                   {diversRec.map((rec: any) => {
                     return (
-                      <Grid item sm={4}>
+                      <Grid item sm={12} md={4}>
                         <DiversificationCard
                           symbol={rec.id.corrSymbol}
                           name={rec.name}

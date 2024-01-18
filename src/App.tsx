@@ -9,6 +9,7 @@ import SignUp from "./components/signUp/SignUp";
 import Risk from "./components/risk/Risk";
 import Diversification from "./components/views/Diversification";
 
+import Demo from "./components/views/Demo";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/risk" element={<Risk />} />
             <Route path="/diversification" element={<Diversification />} />
+            <Route path="/demo" element={<Demo />} />
             <Route path="*" element={<p>404 Not Found</p>} />
           </Routes>
         </header>

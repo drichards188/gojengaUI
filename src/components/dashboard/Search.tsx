@@ -79,29 +79,37 @@ export default function SearchAppBar() {
   };
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Header />
-
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          value={inputText}
-          onChange={inputHandler}
-        />
-      </Search>
-      <a
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          setInputText("");
-        }}
-      >
-        X
-      </a>
-      <List input={inputText} />
+    <Grid
+      container
+      spacing={2}
+      direction="row"
+      justifyContent="space-around"
+      alignItems="center"
+    >
+      <Grid item sm={8}>
+        <Search>
+          <Grid container justifyContent="space-between" alignItems="center">
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              value={inputText}
+              onChange={inputHandler}
+            />
+            <a
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setInputText("");
+              }}
+            >
+              X
+            </a>
+          </Grid>
+        </Search>
+        <List input={inputText} />
+      </Grid>
     </Grid>
   );
 }
