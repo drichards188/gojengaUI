@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Cards } from "../dashboard/Cards";
+import Cards from "../dashboard/Cards";
 import React, { useEffect } from "react";
 import {
   getCoinBatchAsync,
@@ -83,7 +83,6 @@ export function Dashboard() {
   return (
     <Grid
       container
-      spacing={1}
       alignItems="flex-start"
       justifyContent="center"
       style={{ minHeight: "100vh" }}
@@ -98,7 +97,7 @@ export function Dashboard() {
           <Grid item sm={12} md={8}>
             <Header />
           </Grid>
-          <Grid item sm={12} md={4}>
+          <Grid item sm={12} md={12}>
             <SearchAppBar />
           </Grid>
         </Grid>
@@ -106,7 +105,7 @@ export function Dashboard() {
 
       {loadingCircle}
 
-      <Grid item sm={6} md={10}>
+      <Grid item sm={2} md={10}>
         <Cards cardData={coinData} />
       </Grid>
     </Grid>

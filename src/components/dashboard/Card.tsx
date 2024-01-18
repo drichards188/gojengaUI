@@ -49,10 +49,11 @@ const Card = (props: any) => {
   }, [displayCoinData]);
 
   const divStyle = {
-    display: "inline-block",
+    // display: "inline-block",
     margin: "2%",
     width: "100%",
     backgroundColor: "#363940",
+
     color: "#BA79F7",
     boxShadow:
       "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
@@ -71,103 +72,101 @@ const Card = (props: any) => {
   return (
     <Grid
       container
-      spacing={1}
       style={divStyle}
-      sm={4}
-      md={4}
-      lg={2}
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item md={2}>
-        <a
-          style={closeCardStyle}
-          onClick={() => {
-            dispatch(removeCoinFromDisplayList(id));
-          }}
-        >
-          X
-        </a>
-      </Grid>
-
       <Grid item md={12}>
-        <p>{id}</p>
-        <p>{USDollar.format(last)}</p>
-        <p>
-          Volume <br />
-          {volume}
-        </p>
-      </Grid>
-
-      <Grid
-        container
-        spacing={1}
-        alignItems="center"
-        justifyContent="center"
-        md={12}
-      >
-        <Grid item md={10}>
-          <TextField
-            id="deposit-amount"
-            label="Trade Amount"
-            variant="standard"
-            type="number"
-            inputMode="numeric"
-            className={styles.textbox}
-            aria-label="Trade Amount"
-            value={tradeAmount}
-            sx={{
-              "& .MuiInputBase-root": {
-                color: "primary.main",
-              },
-              "& .MuiFormLabel-root": {
-                color: "secondary.main",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "primary.main",
-              },
+        <Grid item md={2}>
+          <a
+            style={closeCardStyle}
+            onClick={() => {
+              dispatch(removeCoinFromDisplayList(id));
             }}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              setTradeAmount(value);
-            }}
-          />
+          >
+            X
+          </a>
         </Grid>
 
-        <Grid item md={4}>
-          <Button
-            onClick={() =>
-              triggerPortfolioUpdate(
-                "buy",
-                currentUser,
-                id,
-                id,
-                tradeAmount,
-                token,
-                dispatch
-              )
-            }
-          >
-            Buy
-          </Button>
+        <Grid item md={12}>
+          <p>{id}</p>
+          <p>{USDollar.format(last)}</p>
+          <p>
+            Volume <br />
+            {volume}
+          </p>
         </Grid>
 
-        <Grid item md={4}>
-          <Button
-            onClick={() =>
-              triggerPortfolioUpdate(
-                "sell",
-                currentUser,
-                id,
-                id,
-                tradeAmount,
-                token,
-                dispatch
-              )
-            }
-          >
-            Sell
-          </Button>
+        <Grid
+          container
+          spacing={1}
+          alignItems="center"
+          justifyContent="center"
+          md={12}
+        >
+          <Grid item md={10}>
+            <TextField
+              id="deposit-amount"
+              label="Trade Amount"
+              variant="standard"
+              type="number"
+              inputMode="numeric"
+              className={styles.textbox}
+              aria-label="Trade Amount"
+              value={tradeAmount}
+              sx={{
+                "& .MuiInputBase-root": {
+                  color: "primary.main",
+                },
+                "& .MuiFormLabel-root": {
+                  color: "secondary.main",
+                },
+                "& .MuiFormLabel-root.Mui-focused": {
+                  color: "primary.main",
+                },
+              }}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                setTradeAmount(value);
+              }}
+            />
+          </Grid>
+
+          <Grid item md={4}>
+            <Button
+              onClick={() =>
+                triggerPortfolioUpdate(
+                  "buy",
+                  currentUser,
+                  id,
+                  id,
+                  tradeAmount,
+                  token,
+                  dispatch
+                )
+              }
+            >
+              Buy
+            </Button>
+          </Grid>
+
+          <Grid item md={4}>
+            <Button
+              onClick={() =>
+                triggerPortfolioUpdate(
+                  "sell",
+                  currentUser,
+                  id,
+                  id,
+                  tradeAmount,
+                  token,
+                  dispatch
+                )
+              }
+            >
+              Sell
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
