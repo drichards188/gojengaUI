@@ -33,7 +33,6 @@ const Card = (props: any) => {
   const currentUser = useAppSelector(selectBankingUser);
   const token = getAccessToken();
 
-  // last = last.toFixed(4);
   volume = volume.toFixed(2);
 
   let USDollar = new Intl.NumberFormat("en-US", {
@@ -49,11 +48,8 @@ const Card = (props: any) => {
   }, [displayCoinData]);
 
   const divStyle = {
-    // display: "inline-block",
-    margin: "2%",
-    width: "100%",
+    padding: "2%",
     backgroundColor: "#363940",
-
     color: "#BA79F7",
     boxShadow:
       "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
@@ -76,7 +72,7 @@ const Card = (props: any) => {
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item md={12}>
+      <Grid item xs={12} md={12}>
         <Grid item md={2}>
           <a
             style={closeCardStyle}
@@ -182,17 +178,21 @@ async function triggerPortfolioUpdate(
   token: string,
   dispatch: any
 ) {
-  quantity = parseInt(String(quantity));
-  let resp = await updatePortfolio(
-    {
-      orderType: updateType,
-      amount: quantity,
-      asset: coinId,
-    },
-    token
-  );
-  dispatch(getPortfolio({ user: currentUser, jwt: token }));
-  // alert(JSON.stringify(resp));
+  try {
+    quantity = parseInt(String(quantity));
+    let resp = await updatePortfolio(
+      {
+        orderType: updateType,
+        amount: quantity,
+        asset: coinId,
+      },
+      token
+    );
+    dispatch(getPortfolio({ user: currentUser, jwt: token }));
+    // alert(JSON.stringify(resp));
+  } catch (err) {
+    alert(`triggerPortfolioUpdate is ${err}`);
+  }
 }
 
 export default Card;

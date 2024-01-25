@@ -86,7 +86,7 @@ export default function SearchAppBar() {
       justifyContent="space-around"
       alignItems="center"
     >
-      <Grid item sm={8}>
+      <Grid item xs={6} sm={4} md={4}>
         <Search>
           <Grid container justifyContent="space-between" alignItems="center">
             <SearchIconWrapper>

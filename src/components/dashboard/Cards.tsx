@@ -17,9 +17,9 @@ const Cards = ({ cardData }: any) => {
           <a style={{ color: "#BA79F7" }}>Portfolio</a>
         </Grid>
         <Grid item md={12}>
-          <Grid container justifyContent="space-evenly">
+          <Grid container spacing={2} justifyContent="space-evenly">
             {cardData.map((coinData: any) => (
-              <Grid item sm={4}>
+              <Grid item xs={4} sm={4} md={2}>
                 <Card key={coinData.id} data={coinData} />
               </Grid>
             ))}

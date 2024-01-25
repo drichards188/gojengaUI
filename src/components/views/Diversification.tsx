@@ -1,4 +1,14 @@
-import { Autocomplete, Button, Grid, Paper, TextField } from "@mui/material";
+import {
+  Alert,
+  Autocomplete,
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Snackbar,
+  SnackbarOrigin,
+  TextField,
+} from "@mui/material";
 import Header from "../../etc/Header";
 import React, { useEffect, useState } from "react";
 import TradingViewWidget from "../risk/TradingViewChart";
@@ -13,8 +23,19 @@ import DiversificationCard from "../DiversificationCard";
 import { selectLoggedIn } from "../banking/bankingSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 const Diversification = () => {
+  const [state, setState] = React.useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
   const [securityList, setSecurityList] = useState(["Symbol"]);
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
@@ -56,18 +77,19 @@ const Diversification = () => {
     getAllSymbols();
   }, []);
 
-  useEffect(() => {
-    if (!storedUser || !isLoggedIn) {
-      // logout expression
-      let logoutResponse: boolean = triggerLogout(dispatch);
-
-      if (logoutResponse) {
-        navigate("/login");
-      } else {
-        alert("logout failed");
-      }
-    }
-  }, [storedUser, isLoggedIn]);
+  // todo re enable
+  // useEffect(() => {
+  //   if (!storedUser || !isLoggedIn) {
+  //     // logout expression
+  //     let logoutResponse: boolean = triggerLogout(dispatch);
+  //
+  //     if (logoutResponse) {
+  //       navigate("/login");
+  //     } else {
+  //       alert("logout failed");
+  //     }
+  //   }
+  // }, [storedUser, isLoggedIn]);
 
   async function getDiverseRecs(symbol: string) {
     let response = await getDiversRec(symbol, jwtToken);
@@ -83,10 +105,17 @@ const Diversification = () => {
     }
   }
 
+  const handleClick = (newState: SnackbarOrigin) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   return (
     <Grid
       container
-      spacing={2}
       justifyContent="center"
       alignItems="flex-start"
       style={{ minHeight: "100vh" }}
@@ -104,6 +133,25 @@ const Diversification = () => {
         <Grid container spacing={2} justifyContent="center">
           <Grid item sm={12} md={6}>
             <Paper>
+              {/*<Grid item xs={12}>*/}
+              {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
+              {/*    <Button*/}
+              {/*      onClick={handleClick({*/}
+              {/*        vertical: "top",*/}
+              {/*        horizontal: "center",*/}
+              {/*      })}*/}
+              {/*    >*/}
+              {/*      Top-Center*/}
+              {/*    </Button>*/}
+              {/*  </Box>*/}
+              {/*</Grid>*/}
+              <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={handleClose}
+                message="I love snacks"
+                key={vertical + horizontal}
+              />
               <Grid
                 container
                 spacing={2}
@@ -111,10 +159,10 @@ const Diversification = () => {
                 alignItems="center"
                 style={{ backgroundColor: divColor, color: fontColor }}
               >
-                <Grid item sm={12} md={4}>
+                <Grid item xs={12} md={4}>
                   <h1>Diversification</h1>
                 </Grid>
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12} md={6}>
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -165,41 +213,39 @@ const Diversification = () => {
           </Grid>
         </Grid>
 
-        <Paper>
-          {showTv && (
-            <div>
+        {showTv && (
+          <Grid item xs={12} style={{ paddingLeft: "0px" }}>
+            <Grid
+              item
+              xs={12}
+              style={{ backgroundColor: divColor, color: fontColor }}
+            >
+              <h2>Recommendations</h2>
+              <h3>{companyName}</h3>
               <Grid
-                item
-                sm={12}
-                style={{ backgroundColor: divColor, color: fontColor }}
+                container
+                spacing={2}
+                alignItems="center"
+                justifyContent="space-evenly"
               >
-                <h2>Recommendations</h2>
-                <h3>{companyName}</h3>
-                <Grid
-                  container
-                  spacing={2}
-                  alignItems="center"
-                  justifyContent="space-evenly"
-                >
-                  {diversRec.map((rec: any) => {
-                    return (
-                      <Grid item sm={12} md={4}>
-                        <DiversificationCard
-                          symbol={rec.id.corrSymbol}
-                          name={rec.name}
-                          corr={rec.correlation}
-                        />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
+                {diversRec.map((rec: any) => {
+                  return (
+                    <Grid item xs={12} md={4}>
+                      <DiversificationCard
+                        symbol={rec.id.corrSymbol}
+                        name={rec.name}
+                        corr={rec.correlation}
+                      />
+                    </Grid>
+                  );
+                })}
               </Grid>
-              <Grid item sm={12} style={{ height: "40vh" }}>
-                <TradingViewWidget chartId={tvSymbol} />
-              </Grid>
-            </div>
-          )}
-        </Paper>
+            </Grid>
+            <Grid item sm={12} style={{ height: "40vh" }}>
+              <TradingViewWidget chartId={tvSymbol} />
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
