@@ -131,7 +131,7 @@ const Diversification = () => {
         style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
       >
         <Grid container spacing={2} justifyContent="center">
-          <Grid item sm={12} md={6}>
+          <Grid item sm={12} md={8}>
             <Paper>
               {/*<Grid item xs={12}>*/}
               {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
@@ -159,10 +159,16 @@ const Diversification = () => {
                 alignItems="center"
                 style={{ backgroundColor: divColor, color: fontColor }}
               >
-                <Grid item xs={12} md={4}>
-                  <h1>Diversification</h1>
+                <Grid item xs={12} md={8}>
+                  <Typography
+                    variant="h2"
+                    noWrap
+                    style={{ overflowWrap: "break-word" }}
+                  >
+                    Diversification
+                  </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
