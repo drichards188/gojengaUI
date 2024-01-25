@@ -1,8 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Gojenga
 
-# Gojenga UI
+## About The Project
+***
+Gojenga is a web app inspired by financial dashboards like
+Schwab. It contains limited banking, portfolio, risk and diversification features.
 
-UI utilizes placeholder data for banking and CoinGecko for financial info
+## Built With
+<ol>
+<li>React</li>
+<li>Typescript</li>
+<li>Redux</li></ol>
 
 ## Available Scripts
 

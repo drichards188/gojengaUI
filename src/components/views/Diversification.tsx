@@ -131,7 +131,7 @@ const Diversification = () => {
         style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
       >
         <Grid container spacing={2} justifyContent="center">
-          <Grid item sm={12} md={8}>
+          <Grid item sm={12} md={8} lg={6}>
             <Paper>
               {/*<Grid item xs={12}>*/}
               {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
