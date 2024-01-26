@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Cards } from "../dashboard/Cards";
+import Cards from "../dashboard/Cards";
 import React, { useEffect } from "react";
 import {
   getCoinBatchAsync,
@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
 import { selectStatus } from "../banking/bankingSlice";
+import Header from "../../etc/Header";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
@@ -80,13 +81,31 @@ export function Dashboard() {
   }, [coinSearchList]);
 
   return (
-    <Grid container spacing={1} alignItems="center" justifyContent="center">
-      {loadingCircle}
-      <Grid item md={10}>
-        <SearchAppBar />
+    <Grid
+      container
+      alignItems="flex-start"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item sm={12} md={8}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          style={{ backgroundColor: "rgba(0,0,0,.2)" }}
+        >
+          <Grid item xs={12}>
+            <Header />
+          </Grid>
+          <Grid item sm={12} md={12}>
+            <SearchAppBar />
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid item md={10}>
+      {loadingCircle}
+
+      <Grid item sm={2} md={10}>
         <Cards cardData={coinData} />
       </Grid>
     </Grid>

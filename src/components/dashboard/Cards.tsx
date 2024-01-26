@@ -4,17 +4,26 @@ import { useState, createContext } from "react";
 import Card from "./Card";
 import { Grid } from "@mui/material";
 
-export const Cards = ({ cardData }: any) => {
+const Cards = ({ cardData }: any) => {
   if (cardData.length >= 0) {
     return (
-      <Grid container md={12} alignContent="center" justifyContent="center">
+      <Grid
+        container
+        direction="row"
+        alignContent="center"
+        justifyContent="center"
+      >
         <Grid item md={12}>
           <a style={{ color: "#BA79F7" }}>Portfolio</a>
         </Grid>
         <Grid item md={12}>
-          {cardData.map((coinData: any) => (
-            <Card key={coinData.id} data={coinData} />
-          ))}
+          <Grid container spacing={2} justifyContent="space-evenly">
+            {cardData.map((coinData: any) => (
+              <Grid item xs={4} sm={4} md={2}>
+                <Card key={coinData.id} data={coinData} />
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     );

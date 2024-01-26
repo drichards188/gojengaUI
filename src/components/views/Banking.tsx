@@ -10,7 +10,7 @@ import {
   selectUpdate,
 } from "../banking/bankingSlice";
 import styles from "../banking/Banking.module.css";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import { Deposit } from "../deposit/Deposit";
 import { Transaction } from "../transaction/Transaction";
 import Header from "../../etc/Header";
@@ -156,13 +156,24 @@ export function Banking() {
   }
 
   return (
-    <div>
-      <Header />
-      {loadingCircle}
-      {balanceDiv}
-      <div className={styles.row}>{dialog}</div>
-      {toolbar}
+    <Grid
+      container
+      spacing={2}
+      style={{ minHeight: "100vh" }}
+      alignItems="flex-start"
+      justifyContent="center"
+    >
+      <Grid item sm={12} md={8}>
+        <Header />
+      </Grid>
+      <Grid item sm={12} md={8}>
+        {loadingCircle}
+        {balanceDiv}
+        <Grid className={styles.row}>{dialog}</Grid>
+        {toolbar}
+      </Grid>
+
       <Footer />
-    </div>
+    </Grid>
   );
 }
