@@ -87,41 +87,43 @@ const Risk = () => {
                   <h1>Risk</h1>
                 </Grid>
                 <Grid item sm={8}>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={securityList}
-                    sx={{
-                      "& .MuiInputBase-root": {
-                        color: "primary.main",
-                      },
-                      "& .MuiFormLabel-root": {
-                        color: "secondary.main",
-                      },
-                      "& .MuiFormLabel-root.Mui-focused": {
-                        color: "primary.main",
-                      },
-                      width: 300,
-                    }}
-                    value={securitySymbol}
-                    inputValue={inputValue}
-                    onInputChange={(event, newInputValue) => {
-                      if (newInputValue !== "Symbol") {
-                        setInputValue(newInputValue);
-                      }
-                    }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Security Symbol" />
-                    )}
-                  />
-                  <Button
-                    onClick={() => {
-                      setSecuritySymbol(inputValue);
-                      setShowTv(true);
-                    }}
-                  >
-                    Retrieve
-                  </Button>
+                  <Grid container>
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={securityList}
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          color: "primary.main",
+                        },
+                        "& .MuiFormLabel-root": {
+                          color: "secondary.main",
+                        },
+                        "& .MuiFormLabel-root.Mui-focused": {
+                          color: "primary.main",
+                        },
+                        width: 300,
+                      }}
+                      value={securitySymbol}
+                      inputValue={inputValue}
+                      onInputChange={(event, newInputValue) => {
+                        if (newInputValue !== "Symbol") {
+                          setInputValue(newInputValue);
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Security Symbol" />
+                      )}
+                    />
+                    <Button
+                      onClick={() => {
+                        setSecuritySymbol(inputValue);
+                        setShowTv(true);
+                      }}
+                    >
+                      Retrieve
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Paper>

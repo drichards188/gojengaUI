@@ -171,51 +171,53 @@ const Diversification = () => {
                     Diversification
                   </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={securityList}
-                    sx={{
-                      "& .MuiInputBase-root": {
-                        color: "primary.main",
-                      },
-                      "& .MuiFormLabel-root": {
-                        color: "secondary.main",
-                      },
-                      "& .MuiFormLabel-root.Mui-focused": {
-                        color: "primary.main",
-                      },
-                      width: 300,
-                    }}
-                    value={securitySymbol}
-                    inputValue={inputValue}
-                    onInputChange={(event, newInputValue) => {
-                      if (newInputValue !== "Symbol") {
-                        setInputValue(newInputValue);
-                      }
-                    }}
-                    onChange={(event: any, newValue: string | null) => {
-                      if (newValue !== "Symbol") {
-                        setSecuritySymbol(newValue);
-                      }
-                    }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Security Symbol" />
-                    )}
-                  />
-                  <Button
-                    onClick={() => {
-                      if (securitySymbol != null) {
-                        getSymbolName(securitySymbol);
-                        getDiverseRecs(securitySymbol);
-                        setTvSymbol(securitySymbol);
-                        setShowTv(true);
-                      }
-                    }}
-                  >
-                    Retrieve
-                  </Button>
+                <Grid item xs={12} md={6} style={{ padding: "2%" }}>
+                  <Grid container>
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={securityList}
+                      sx={{
+                        "& .MuiInputBase-root": {
+                          color: "primary.main",
+                        },
+                        "& .MuiFormLabel-root": {
+                          color: "secondary.main",
+                        },
+                        "& .MuiFormLabel-root.Mui-focused": {
+                          color: "primary.main",
+                        },
+                        width: 300,
+                      }}
+                      value={securitySymbol}
+                      inputValue={inputValue}
+                      onInputChange={(event, newInputValue) => {
+                        if (newInputValue !== "Symbol") {
+                          setInputValue(newInputValue);
+                        }
+                      }}
+                      onChange={(event: any, newValue: string | null) => {
+                        if (newValue !== "Symbol") {
+                          setSecuritySymbol(newValue);
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Security Symbol" />
+                      )}
+                    />
+                    <Button
+                      onClick={() => {
+                        if (securitySymbol != null) {
+                          getSymbolName(securitySymbol);
+                          getDiverseRecs(securitySymbol);
+                          setTvSymbol(securitySymbol);
+                          setShowTv(true);
+                        }
+                      }}
+                    >
+                      Retrieve
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Paper>
