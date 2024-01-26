@@ -94,7 +94,7 @@ export function Dashboard() {
           alignItems="center"
           style={{ backgroundColor: "rgba(0,0,0,.2)" }}
         >
-          <Grid item sm={12} md={8}>
+          <Grid item xs={12}>
             <Header />
           </Grid>
           <Grid item sm={12} md={12}>
