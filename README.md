@@ -5,7 +5,7 @@
 Gojenga is a web app inspired by financial dashboards like
 Schwab. It contains limited banking, portfolio, risk and diversification features.
 
-![UI screenshot of diversification feature](https://github.com/drichards188/gojengaUI/blob/master/src/gojengaUICapture.png?raw=true)
+![UI screenshot of diversification feature](https://github.com/drichards188/gojengaUI/blob/master/src/gojengaUICapture2.png?raw=true)
 
 ## Built With
 <ol>
