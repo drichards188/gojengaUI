@@ -236,7 +236,7 @@ const Diversification = () => {
               <Grid
                 container
                 spacing={2}
-                alignItems="center"
+                alignItems="flex-start"
                 justifyContent="space-evenly"
               >
                 {diversRec.map((rec: any) => {
