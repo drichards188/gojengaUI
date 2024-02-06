@@ -8,8 +8,12 @@ const DiversificationCard = (props: any) => {
   };
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item xs={12} style={{ backgroundColor: "rgba(0,0,0,.1)" }}>
+    <Grid container justifyContent="center">
+      <Grid
+        item
+        xs={12}
+        style={{ backgroundColor: "rgba(0,0,0,.1)", minHeight: "25vh" }}
+      >
         <Typography variant="h4" component="h4" mb="1%">
           {props.name}
         </Typography>
