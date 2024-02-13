@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { Banking } from "./components/views/Banking";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Welcome } from "./components/welcome/Welcome";
 import { Dashboard } from "./components/views/Dashboard";
@@ -18,7 +17,6 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/banking" element={<Banking />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/risk" element={<Risk />} />
             <Route path="/diversification" element={<Diversification />} />

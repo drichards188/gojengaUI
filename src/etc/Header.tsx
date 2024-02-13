@@ -43,13 +43,6 @@ function Header() {
           />
 
           <CustomButton
-            label={"Banking"}
-            clickFunction={() => {
-              navigate("/banking");
-            }}
-          />
-
-          <CustomButton
             label={"Risk"}
             clickFunction={() => {
               navigate("/risk");
