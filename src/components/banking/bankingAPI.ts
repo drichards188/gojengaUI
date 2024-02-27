@@ -265,7 +265,7 @@ export async function getChartId(symbol: string, token: string) {
 
 export async function getSharpeRatio(symbol: string, token: string) {
   let response = await api
-    .get(`${backendURL}/risk?symbol=${symbol}`, {
+    .get(`${backendURL}/risk/${symbol}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -298,7 +298,7 @@ export async function getSharpeRatio(symbol: string, token: string) {
 
 export async function getCalcSymbols(token: string) {
   let response = await api
-    .get(`${backendURL}/diversification/symbols`, {
+    .get(`${backendURL}/risk/symbols`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -308,7 +308,7 @@ export async function getCalcSymbols(token: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response));
-      return response.data;
+      return response.data.body;
     })
     .catch(function (response) {
       //handle error
@@ -316,7 +316,7 @@ export async function getCalcSymbols(token: string) {
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
-        // alert("refresh token expired");
+        alert("refresh token expired");
         console.log("--> refresh token expired");
       }
       alert("failed " + response);

@@ -2,6 +2,7 @@ import {
   Autocomplete,
   Box,
   Button,
+  CircularProgress,
   Grid,
   Paper,
   TextField,
@@ -17,7 +18,7 @@ import {
 } from "../banking/bankingAPI";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectLoggedIn } from "../banking/bankingSlice";
+import { selectLoggedIn, selectStatus } from "../banking/bankingSlice";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState(["Symbol"]);
@@ -27,27 +28,27 @@ const Risk = () => {
   const [inputValue, setInputValue] = React.useState("");
   const [showTv, setShowTv] = useState(false);
   const jwtToken = getAccessToken();
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const divColor = "#2C2F36";
   const fontColor = "#61429E";
-
+  const state = useAppSelector(selectStatus);
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectLoggedIn);
   const navigate = useNavigate();
   const storedUser: string | null = localStorage.getItem("user");
 
-  useEffect(() => {
-    if (!storedUser || !isLoggedIn) {
-      // logout expression
-      let logoutResponse: boolean = triggerLogout(dispatch);
-
-      if (logoutResponse) {
-        navigate("/login");
-      } else {
-        alert("logout failed");
-      }
-    }
-  }, [storedUser, isLoggedIn]);
+  // useEffect(() => {
+  //   if (!storedUser || !isLoggedIn) {
+  //     // logout expression
+  //     let logoutResponse: boolean = triggerLogout(dispatch);
+  //
+  //     if (logoutResponse) {
+  //       navigate("/login");
+  //     } else {
+  //       alert("logout failed");
+  //     }
+  //   }
+  // }, [storedUser, isLoggedIn]);
 
   useEffect(() => {
     async function getAllSymbols() {
@@ -62,6 +63,22 @@ const Risk = () => {
     getAllSymbols();
   }, []);
 
+  let loadingCircle: JSX.Element = <></>;
+  if (isLoading) {
+    loadingCircle = <CircularProgress />;
+  }
+
+  useEffect(() => {
+    // alert(`state is ${state}`);
+    if (state === "loading") {
+      // alert(`state read as ${state}`);
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      loadingCircle = <></>;
+    }
+  }, [state]);
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={12}>
@@ -74,6 +91,7 @@ const Risk = () => {
         md={10}
         style={{ backgroundColor: "rgba(0,0,0,.2)", color: fontColor }}
       >
+        {loadingCircle}
         <Grid container justifyContent="center" alignItems="center">
           <Grid item sm={12} md={8}>
             <Paper>
