@@ -177,7 +177,10 @@ const Risk = () => {
 
                 <Grid container alignItems="space-between">
                   <Grid item sm={4}>
-                    <SharpeRatio symbol={securitySymbol} />
+                    <SharpeRatio
+                      symbol={securitySymbol}
+                      setIsLoading={setIsLoading}
+                    />
                   </Grid>
                   <Grid item sm={4}>
                     <p>Alpha</p>

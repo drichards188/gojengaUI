@@ -14,6 +14,7 @@ const SharpeRatio = (props: any) => {
 
   useEffect(() => {
     async function getRatio() {
+      props.setIsLoading(true);
       let response = await getSharpeRatio(symbol, jwtToken);
       let sharpeRatio = response.data.sharpe_ratio;
 
@@ -25,6 +26,7 @@ const SharpeRatio = (props: any) => {
       if (sharpeEval) {
         setSharpeEval(sharpeEval);
       }
+      props.setIsLoading(false);
     }
 
     if (symbol !== "Symbol") {
