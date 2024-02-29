@@ -21,7 +21,12 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectLoggedIn, selectStatus } from "../banking/bankingSlice";
 
 const Risk = () => {
-  const [securityList, setSecurityList] = useState(["Symbol"]);
+  const [securityList, setSecurityList] = useState([
+    "Symbol",
+    "CRM",
+    "MSFT",
+    "GOOGL",
+  ]);
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
@@ -50,13 +55,20 @@ const Risk = () => {
   //   }
   // }, [storedUser, isLoggedIn]);
 
+  // todo need to have a load widget for getting symbols
+  // todo need to change to getting risk symbols not diversification
   useEffect(() => {
     async function getAllSymbols() {
       let response = await getCalcSymbols(jwtToken);
-      if (response) {
+      setIsLoading(true);
+      if (response.data != undefined) {
+        setIsLoading(false);
         if (!securityList.includes(response.data[0])) {
           setSecurityList([...securityList, ...response.data]);
         }
+      } else {
+        console.log("--> error getting risk symbols");
+        setIsLoading(false);
       }
     }
 
@@ -80,8 +92,13 @@ const Risk = () => {
   }, [state]);
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item xs={12}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="flex-start"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item sm={12} md={8}>
         <Header />
       </Grid>
 

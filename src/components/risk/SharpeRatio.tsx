@@ -9,7 +9,7 @@ import {
 const SharpeRatio = (props: any) => {
   let symbol = props.symbol;
   const jwtToken = getAccessToken();
-  const [sharpeRatio, setSharpeRatio] = useState(0.0);
+  const [sharpeRatio, setSharpeRatio] = useState(1.349);
   const [sharpeEval, setSharpeEval] = useState("");
 
   useEffect(() => {

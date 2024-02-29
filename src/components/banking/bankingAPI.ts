@@ -298,7 +298,7 @@ export async function getSharpeRatio(symbol: string, token: string) {
 
 export async function getCalcSymbols(token: string) {
   let response = await api
-    .get(`${backendURL}/risk/symbols`, {
+    .get(`${backendURL}/diversification/symbols`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -308,7 +308,7 @@ export async function getCalcSymbols(token: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response));
-      return response.data.body;
+      return response.data;
     })
     .catch(function (response) {
       //handle error
