@@ -52,49 +52,58 @@ const Login = () => {
   }, [token]);
 
   return (
-    <div>
-      {loadingCircle}
-      <Grid container spacing={1} alignItems="center" justifyContent="center">
-        <Grid item xs={12}>
-          <h1 style={{ color: "#BA79F7" }}>Login</h1>
-        </Grid>
+    <Grid container justifyContent="center">
+      <Grid item xs={12} sm={8} style={{ backgroundColor: "rgba(0,0,0,.25" }}>
+        <Grid container justifyContent="center">
+          {loadingCircle}
+          <Grid item xs={12}>
+            <h1 style={{ color: "#BA79F7" }}>Login</h1>
+          </Grid>
 
-        <Grid item xs={12} md={4}>
-          <CustomTextField
-            label="Username"
-            type=""
-            value={username}
-            setter={setUsername}
-            autofocus={true}
-          />
-        </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              label="Username"
+              type=""
+              value={username}
+              setter={setUsername}
+              autofocus={true}
+            />
+          </Grid>
 
-        <Grid item xs={12} md={4}>
-          <CustomTextField
-            label="Password"
-            type="password"
-            value={password}
-            setter={setPassword}
-            autofocus={false}
-          />
-        </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              label="Password"
+              type="password"
+              value={password}
+              setter={setPassword}
+              autofocus={false}
+            />
+          </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Button
-            data-cy="login-button"
-            onClick={() => {
-              dispatch(createLoginAsync({ username, password }));
-            }}
-          >
-            Login
-          </Button>
+          <Grid item xs={12}>
+            <Grid container justifyContent="center">
+              <Grid item xs={2}>
+                <Button
+                  data-cy="login-button"
+                  onClick={() => {
+                    dispatch(createLoginAsync({ username, password }));
+                  }}
+                >
+                  Login
+                </Button>
+              </Grid>
+
+              <Grid item xs={2}>
+                {msg && <p>{msg}</p>}
+                <Button color="secondary" onClick={() => navigate("/")}>
+                  Back
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-      {msg && <p>{msg}</p>}
-      <Button color="secondary" onClick={() => navigate("/")}>
-        Back
-      </Button>
-    </div>
+    </Grid>
   );
 };
 
