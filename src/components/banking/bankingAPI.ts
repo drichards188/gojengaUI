@@ -159,8 +159,8 @@ export function triggerLogout(dispatch: any) {
 export async function crtLogin(username: string, password: string) {
   let response = await axios({
     method: "post",
-    url: `${backendURL}/auth/login`,
-    data: { usernameOrEmail: username, password: password },
+    url: `https://rjeu9nicn3.execute-api.us-east-2.amazonaws.com/dev/login`,
+    data: { username: username, password: password },
     headers: { "Content-Type": "application/json", "Is-Test": "True" },
   })
     .then(function (response) {
