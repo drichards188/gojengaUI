@@ -60,7 +60,7 @@ const Login = () => {
             <h1 style={{ color: "#BA79F7" }}>Login</h1>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={2}>
             <CustomTextField
               label="Username"
               type=""
@@ -70,7 +70,7 @@ const Login = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={2}>
             <CustomTextField
               label="Password"
               type="password"
@@ -94,10 +94,10 @@ const Login = () => {
               </Grid>
 
               <Grid item xs={2}>
-                {msg && <p>{msg}</p>}
                 <Button color="secondary" onClick={() => navigate("/")}>
                   Back
                 </Button>
+                {msg && <p>{msg}</p>}
               </Grid>
             </Grid>
           </Grid>

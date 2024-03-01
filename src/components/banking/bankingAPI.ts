@@ -13,11 +13,11 @@ export function fetchCount(amount = 1) {
 
 export const crtUser = async (account: string, password: string) => {
   let response = await api
-    .post(`/user`, {
+    .post(`${backendURL}/signup`, {
       headers: {
         "Content-Type": "application/json",
       },
-      name: account,
+      username: account,
       password: password,
     })
     .then(function (response) {
