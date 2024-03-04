@@ -83,30 +83,40 @@ export function Dashboard() {
   return (
     <Grid
       container
-      alignItems="flex-start"
       justifyContent="center"
+      alignItems="center"
       style={{ minHeight: "100vh" }}
     >
       <Grid item sm={12} md={8}>
         <Grid
           container
           justifyContent="center"
-          alignItems="center"
           style={{ backgroundColor: "rgba(0,0,0,.2)" }}
         >
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ padding: "2%" }}>
             <Header />
           </Grid>
-          <Grid item sm={12} md={12}>
-            <SearchAppBar />
+        </Grid>
+
+        <Grid
+          item
+          sm={12}
+          md={12}
+          style={{ marginTop: "10vh", backgroundColor: "rgba(0,0,0,.2)" }}
+        >
+          {loadingCircle}
+          <Grid container justifyContent="center">
+            <Grid item xs={6}>
+              <SearchAppBar />
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid item md={12}>
+              <a style={{ color: "#BA79F7" }}>Portfolio</a>
+            </Grid>
+            <Cards cardData={coinData} />
           </Grid>
         </Grid>
-      </Grid>
-
-      {loadingCircle}
-
-      <Grid item sm={2} md={10}>
-        <Cards cardData={coinData} />
       </Grid>
     </Grid>
   );
