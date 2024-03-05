@@ -1,7 +1,3 @@
-import {
-  returnLoginData,
-  returnTransactionData,
-} from "../../backend/backendInterface";
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
@@ -157,23 +153,6 @@ export async function getUserPortfolio(username: string, token: string) {
 
   return new Promise<{ data: any }>((resolve) =>
     setTimeout(() => resolve({ data: response }))
-  );
-}
-
-export async function crtLogin(account: string, password: string) {
-  const response = await fetch(backendURL, {
-    method: "PUT",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "LOGIN",
-      account: account,
-      password: password,
-    }),
-  });
-  const data = returnLoginData(account, password);
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
   );
 }
 

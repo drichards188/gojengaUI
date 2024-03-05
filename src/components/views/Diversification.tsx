@@ -228,7 +228,7 @@ const Diversification = () => {
                         }
                       }}
                       renderInput={(params) => (
-                        <TextField {...params} label="Security Symbol" />
+                        <TextField {...params} label="Select Symbol" />
                       )}
                     />
                     <Button

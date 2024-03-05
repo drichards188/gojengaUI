@@ -121,3 +121,5 @@ export function Dashboard() {
     </Grid>
   );
 }
+
+export default Dashboard;
