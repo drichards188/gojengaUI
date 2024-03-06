@@ -51,14 +51,14 @@
 .headerContainer {
     margin-top: 2%;
     padding: 1%;
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0,0,0,.5);
     border-radius: 15px;
     border-left: 1px solid #704cb6;
     border-right: 1px solid #704cb6;
 }
 
 .defaultContainer {
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0,0,0,.5);
     border-radius: 15px;
     border-left: 1px solid #704cb6;
     border-right: 1px solid #704cb6;

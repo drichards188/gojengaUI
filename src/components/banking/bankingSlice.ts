@@ -119,7 +119,7 @@ export const createLoginAsync = createAsyncThunk(
         return Promise.reject("Wrong Username or Password");
       }
     }
-    return response.data;
+    return response.data.response;
   }
 );
 
@@ -287,8 +287,8 @@ export const bankingSlice = createSlice({
             state.message = action.payload.message;
           }
         } else {
-          state.token = action.payload.data.access_token;
-          state.refreshToken = action.payload.data.refresh_token;
+          state.token = action.payload.access_token;
+          state.refreshToken = action.payload.refresh_token;
           state.loggedIn = true;
         }
       })
