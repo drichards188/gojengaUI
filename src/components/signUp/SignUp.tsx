@@ -41,49 +41,56 @@ const SignUp = () => {
   }
 
   return (
-    <Grid container spacing={1} alignItems="center" justifyContent="center">
-      {loadingCircle}
+    <Grid container alignItems="center" justifyContent="center">
+      <Grid item xs={8} style={{ backgroundColor: "rgba(0,0,0,.5)" }}>
+        <Grid container justifyContent="center">
+          {loadingCircle}
 
-      <Grid
-        container
-        xs={12}
-        md={4}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid item xs={12}>
-          <h1>Signup</h1>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <CustomTextField
-            label="Username"
-            type=""
-            value={username}
-            setter={setUsername}
-            autofocus={true}
-          />
-        </Grid>
+          <Grid
+            container
+            xs={12}
+            md={4}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item xs={12}>
+              <h1>Signup</h1>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <CustomTextField
+                label="Username"
+                type=""
+                value={username}
+                setter={setUsername}
+                autofocus={true}
+              />
+            </Grid>
 
-        <Grid item xs={12} md={4}>
-          <CustomTextField
-            label="Password"
-            type="password"
-            value={password}
-            setter={setPassword}
-            autofocus={false}
-          />
-        </Grid>
-        <Button
-          onClick={() => {
-            dispatch(createUserAsync({ username, password, token }));
-            navigate("/login");
-          }}
-        >
-          Signup
-        </Button>
+            <Grid item xs={12} md={4}>
+              <CustomTextField
+                label="Password"
+                type="password"
+                value={password}
+                setter={setPassword}
+                autofocus={false}
+              />
+            </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Button onClick={() => navigate("/")}>Back</Button>
+            <Grid item xs={12} md={6}>
+              <Button
+                onClick={() => {
+                  dispatch(createUserAsync({ username, password, token }));
+                  navigate("/login");
+                }}
+              >
+                Signup
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Button onClick={() => navigate("/")}>Back</Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

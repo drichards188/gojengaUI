@@ -13,6 +13,7 @@ import {
 import Header from "../../etc/Header";
 import React, { useEffect, useState } from "react";
 import TradingViewWidget from "../risk/TradingViewChart";
+import styles from "../banking/Banking.module.css";
 import {
   getAccessToken,
   getCalcSymbols,
@@ -151,102 +152,93 @@ const Diversification = () => {
       container
       justifyContent="center"
       alignItems="flex-start"
-      style={{ minHeight: "100vh" }}
+      style={{
+        minHeight: "100vh",
+      }}
     >
-      <Grid item sm={12} md={8}>
+      <Grid item sm={12} md={8} className={styles.headerContainer}>
         <Header />
       </Grid>
 
-      <Grid
-        item
-        sm={12}
-        md={10}
-        style={{
-          backgroundColor: "rgba(0,0,0,.2)",
-          color: fontColor,
-          minHeight: "15vh",
-        }}
-      >
+      <Grid item sm={12} md={10}>
         <Grid container justifyContent="center">
           <Grid item sm={12} md={10}>
-            <Paper>
-              {/*<Grid item xs={12}>*/}
-              {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
-              {/*    <Button*/}
-              {/*      onClick={handleClick({*/}
-              {/*        vertical: "top",*/}
-              {/*        horizontal: "center",*/}
-              {/*      })}*/}
-              {/*    >*/}
-              {/*      Top-Center*/}
-              {/*    </Button>*/}
-              {/*  </Box>*/}
-              {/*</Grid>*/}
-              <Grid
-                container
-                justifyContent="space-between"
-                alignItems="center"
-                style={{ backgroundColor: divColor, color: fontColor }}
-              >
-                <Grid item xs={12} md={6}>
-                  <Typography
-                    variant="h3"
-                    noWrap
-                    style={{ overflowWrap: "break-word" }}
+            {/*<Grid item xs={12}>*/}
+            {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
+            {/*    <Button*/}
+            {/*      onClick={handleClick({*/}
+            {/*        vertical: "top",*/}
+            {/*        horizontal: "center",*/}
+            {/*      })}*/}
+            {/*    >*/}
+            {/*      Top-Center*/}
+            {/*    </Button>*/}
+            {/*  </Box>*/}
+            {/*</Grid>*/}
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              className={styles.defaultContainer}
+            >
+              <Grid item xs={12} md={6}>
+                <Typography
+                  variant="h3"
+                  noWrap
+                  style={{ overflowWrap: "break-word" }}
+                >
+                  Diversification
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={6} style={{ padding: "2%" }}>
+                <Grid container>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={securityList}
+                    sx={{
+                      "& .MuiInputBase-root": {
+                        color: "primary.main",
+                      },
+                      "& .MuiFormLabel-root": {
+                        color: "secondary.main",
+                      },
+                      "& .MuiFormLabel-root.Mui-focused": {
+                        color: "primary.main",
+                      },
+                      width: 300,
+                    }}
+                    value={securitySymbol}
+                    inputValue={inputValue}
+                    onInputChange={(event, newInputValue) => {
+                      if (newInputValue !== "Symbol") {
+                        setInputValue(newInputValue);
+                      }
+                    }}
+                    onChange={(event: any, newValue: string | null) => {
+                      if (newValue !== "Symbol") {
+                        setSecuritySymbol(newValue);
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Select Symbol" />
+                    )}
+                  />
+                  <Button
+                    onClick={() => {
+                      if (securitySymbol != null) {
+                        getSymbolName(securitySymbol);
+                        getDiverseRecs(securitySymbol);
+                        setTvSymbol(securitySymbol);
+                        setShowTv(true);
+                      }
+                    }}
                   >
-                    Diversification
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} md={6} style={{ padding: "2%" }}>
-                  <Grid container>
-                    <Autocomplete
-                      disablePortal
-                      id="combo-box-demo"
-                      options={securityList}
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          color: "primary.main",
-                        },
-                        "& .MuiFormLabel-root": {
-                          color: "secondary.main",
-                        },
-                        "& .MuiFormLabel-root.Mui-focused": {
-                          color: "primary.main",
-                        },
-                        width: 300,
-                      }}
-                      value={securitySymbol}
-                      inputValue={inputValue}
-                      onInputChange={(event, newInputValue) => {
-                        if (newInputValue !== "Symbol") {
-                          setInputValue(newInputValue);
-                        }
-                      }}
-                      onChange={(event: any, newValue: string | null) => {
-                        if (newValue !== "Symbol") {
-                          setSecuritySymbol(newValue);
-                        }
-                      }}
-                      renderInput={(params) => (
-                        <TextField {...params} label="Select Symbol" />
-                      )}
-                    />
-                    <Button
-                      onClick={() => {
-                        if (securitySymbol != null) {
-                          getSymbolName(securitySymbol);
-                          getDiverseRecs(securitySymbol);
-                          setTvSymbol(securitySymbol);
-                          setShowTv(true);
-                        }
-                      }}
-                    >
-                      Retrieve
-                    </Button>
-                  </Grid>
+                    Retrieve
+                  </Button>
                 </Grid>
               </Grid>
-            </Paper>
+            </Grid>
           </Grid>
         </Grid>
 
@@ -255,7 +247,11 @@ const Diversification = () => {
             <Grid
               item
               xs={12}
-              style={{ backgroundColor: divColor, color: fontColor }}
+              style={{
+                backgroundColor: "rgba(0,0,0,.5)",
+                color: fontColor,
+                borderRadius: "15px",
+              }}
             >
               <h2>Recommendations</h2>
               <h3>{companyName}</h3>

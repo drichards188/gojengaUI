@@ -176,7 +176,6 @@ export async function updatePortfolio(
       //handle success
       // alert("success " + JSON.stringify(response.data));
       return response.data;
-      // return ["bitcoin", "ethereum", "ripple"];
     })
     .then(() => getPortfolio({ user: "drichards", jwt: token }))
     .catch(function (response) {

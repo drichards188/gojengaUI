@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
+import styles from "./banking/Banking.module.css";
 
 const DiversificationCard = (props: any) => {
   const typingStyle = {
@@ -12,6 +13,7 @@ const DiversificationCard = (props: any) => {
       <Grid
         item
         xs={12}
+        className={styles.statContainer}
         style={{ backgroundColor: "rgba(0,0,0,.1)", minHeight: "25vh" }}
       >
         <Typography variant="h4" component="h4" mb="1%">

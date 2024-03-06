@@ -53,51 +53,59 @@ const Login = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={12} sm={8} style={{ backgroundColor: "rgba(0,0,0,.25" }}>
+      <Grid item xs={12} sm={8} style={{ backgroundColor: "rgba(0,0,0,.5" }}>
         <Grid container justifyContent="center">
           {loadingCircle}
-          <Grid item xs={12}>
-            <h1 style={{ color: "#BA79F7" }}>Login</h1>
-          </Grid>
+          <Grid
+            container
+            xs={12}
+            md={4}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item xs={12}>
+              <h1 style={{ color: "#BA79F7" }}>Login</h1>
+            </Grid>
 
-          <Grid item xs={12} md={2}>
-            <CustomTextField
-              label="Username"
-              type=""
-              value={username}
-              setter={setUsername}
-              autofocus={true}
-            />
-          </Grid>
+            <Grid item xs={12} md={6}>
+              <CustomTextField
+                label="Username"
+                type=""
+                value={username}
+                setter={setUsername}
+                autofocus={true}
+              />
+            </Grid>
 
-          <Grid item xs={12} md={2}>
-            <CustomTextField
-              label="Password"
-              type="password"
-              value={password}
-              setter={setPassword}
-              autofocus={false}
-            />
-          </Grid>
+            <Grid item xs={12} md={6}>
+              <CustomTextField
+                label="Password"
+                type="password"
+                value={password}
+                setter={setPassword}
+                autofocus={false}
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <Grid container justifyContent="center">
-              <Grid item xs={2}>
-                <Button
-                  data-cy="login-button"
-                  onClick={() => {
-                    dispatch(createLoginAsync({ username, password }));
-                  }}
-                >
-                  Login
-                </Button>
-              </Grid>
+            <Grid item xs={8}>
+              <Grid container justifyContent="center">
+                <Grid item xs={6}>
+                  <Button
+                    data-cy="login-button"
+                    onClick={() => {
+                      dispatch(createLoginAsync({ username, password }));
+                    }}
+                  >
+                    Login
+                  </Button>
+                </Grid>
 
-              <Grid item xs={2}>
-                <Button color="secondary" onClick={() => navigate("/")}>
-                  Back
-                </Button>
-                {msg && <p>{msg}</p>}
+                <Grid item xs={6}>
+                  <Button color="secondary" onClick={() => navigate("/")}>
+                    Back
+                  </Button>
+                  {msg && <p>{msg}</p>}
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

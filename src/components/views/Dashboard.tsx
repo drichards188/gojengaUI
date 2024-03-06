@@ -10,6 +10,7 @@ import {
   selectCoinDisplayList,
   selectCoinList,
 } from "../dashboard/dashboardSlice";
+import styles from "../banking/Banking.module.css";
 import SearchAppBar from "../dashboard/Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -84,26 +85,14 @@ export function Dashboard() {
     <Grid
       container
       justifyContent="center"
-      alignItems="center"
+      alignItems="flex-start"
       style={{ minHeight: "100vh" }}
     >
-      <Grid item sm={12} md={8}>
-        <Grid
-          container
-          justifyContent="center"
-          style={{ backgroundColor: "rgba(0,0,0,.2)" }}
-        >
-          <Grid item xs={12} style={{ padding: "2%" }}>
-            <Header />
-          </Grid>
-        </Grid>
-
-        <Grid
-          item
-          sm={12}
-          md={12}
-          style={{ marginTop: "10vh", backgroundColor: "rgba(0,0,0,.2)" }}
-        >
+      <Grid item sm={12} md={8} className={styles.headerContainer}>
+        <Header />
+      </Grid>
+      <Grid item sm={12} md={8} className={styles.defaultContainer}>
+        <Grid item sm={12} md={12}>
           {loadingCircle}
           <Grid container justifyContent="center">
             <Grid item xs={6}>
