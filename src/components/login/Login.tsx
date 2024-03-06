@@ -12,7 +12,7 @@ import {
 } from "../banking/bankingSlice";
 import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
-
+import styles from "../banking/Banking.module.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={12} sm={8} style={{ backgroundColor: "rgba(0,0,0,.5" }}>
+      <Grid item xs={12} sm={8} className={styles.roundedContainer}>
         <Grid container justifyContent="center">
           {loadingCircle}
           <Grid

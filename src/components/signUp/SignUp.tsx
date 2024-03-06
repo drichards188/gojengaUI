@@ -42,7 +42,7 @@ const SignUp = () => {
 
   return (
     <Grid container alignItems="center" justifyContent="center">
-      <Grid item xs={8} style={{ backgroundColor: "rgba(0,0,0,.5)" }}>
+      <Grid item xs={8} className={styles.roundedContainer}>
         <Grid container justifyContent="center">
           {loadingCircle}
 

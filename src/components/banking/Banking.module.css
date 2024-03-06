@@ -43,6 +43,11 @@
     background: radial-gradient(at right bottom, #31293D, #1D1C1F);
 }
 
+.roundedContainer {
+    background-color: rgba(0,0,0,.5);
+    border-radius: 15px;
+}
+
 .headerContainer {
     margin-top: 2%;
     padding: 1%;
