@@ -2,6 +2,7 @@ import { Button, CircularProgress, Grid, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import InfoIcon from "@mui/icons-material/Info";
 import {
   createLoginAsync,
   makeLogin,
@@ -13,10 +14,14 @@ import {
 import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
 import styles from "../banking/Banking.module.css";
+import SimpleSnackbar from "../general/SimpleSnackbar";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const msg = useAppSelector(selectMessage);
   const token = useAppSelector(selectToken);
@@ -86,6 +91,13 @@ const Login = () => {
                 autofocus={false}
               />
             </Grid>
+            <InfoIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setSnackbarMessage("Demo account creds hire | me");
+                setSnackbarOpen(true);
+              }}
+            />
 
             <Grid item xs={8}>
               <Grid container justifyContent="center">
@@ -111,6 +123,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </Grid>
+      <SimpleSnackbar openOveride={snackbarOpen} message={snackbarMessage} />
     </Grid>
   );
 };

@@ -157,7 +157,7 @@ export function triggerLogout(dispatch: any) {
 }
 
 export async function crtLogin(username: string, password: string) {
-  if (username === "admin" && password === "admin") {
+  if (username === "hire" && password === "me") {
     localStorage.setItem(
       "user",
       JSON.stringify({

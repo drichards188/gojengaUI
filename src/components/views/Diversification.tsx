@@ -163,18 +163,6 @@ const Diversification = () => {
       <Grid item sm={12} md={10}>
         <Grid container justifyContent="center">
           <Grid item sm={12} md={10}>
-            {/*<Grid item xs={12}>*/}
-            {/*  <Box sx={{ display: "flex", justifyContent: "center" }}>*/}
-            {/*    <Button*/}
-            {/*      onClick={handleClick({*/}
-            {/*        vertical: "top",*/}
-            {/*        horizontal: "center",*/}
-            {/*      })}*/}
-            {/*    >*/}
-            {/*      Top-Center*/}
-            {/*    </Button>*/}
-            {/*  </Box>*/}
-            {/*</Grid>*/}
             <Grid
               container
               justifyContent="space-between"

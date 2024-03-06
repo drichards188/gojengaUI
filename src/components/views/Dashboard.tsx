@@ -12,17 +12,19 @@ import {
 } from "../dashboard/dashboardSlice";
 import styles from "../banking/Banking.module.css";
 import SearchAppBar from "../dashboard/Search";
-import { CircularProgress, Grid } from "@mui/material";
+import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
 import { selectStatus } from "../banking/bankingSlice";
 import Header from "../../etc/Header";
+import SimpleSnackbar from "../general/SimpleSnackbar";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [openOveride, setOpenOveride] = React.useState(false);
 
   const coinData = useAppSelector(selectCoinData);
   const token = getAccessToken();
@@ -34,6 +36,14 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const storedUser: string | null = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (currentUser === "hire") {
+      setOpenOveride(true);
+    } else {
+      setOpenOveride(false);
+    }
+  }, [currentUser]);
 
   let loadingCircle: JSX.Element = <></>;
   // detect if request is loading
@@ -107,6 +117,7 @@ export function Dashboard() {
           </Grid>
         </Grid>
       </Grid>
+      <SimpleSnackbar openOveride={openOveride} message={"Offline Demo Mode"} />
     </Grid>
   );
 }
