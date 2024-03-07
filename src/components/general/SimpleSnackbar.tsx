@@ -38,24 +38,18 @@ const SimpleSnackbar = ({
   };
 
   const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" onClick={() => setOpen(false)} />
+    </IconButton>
   );
 
   return (
     <div>
-      {/*<Button onClick={handleClick}>Open Snackbar</Button>*/}
       <Snackbar
         open={open}
         autoHideDuration={6000}

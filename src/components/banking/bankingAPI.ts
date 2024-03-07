@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
-import { makeLogout, resetBankState } from "./bankingSlice";
+import { makeLogout, resetBankState, responseType } from "./bankingSlice";
 import { resetDashboardState } from "../dashboard/dashboardSlice";
 
 // A mock function to mimic making an async request for data
@@ -156,7 +156,10 @@ export function triggerLogout(dispatch: any) {
   }
 }
 
-export async function crtLogin(username: string, password: string) {
+export async function crtLogin(
+  username: string,
+  password: string
+): Promise<any> {
   if (username === "hire" && password === "me") {
     localStorage.setItem(
       "user",
@@ -168,15 +171,11 @@ export async function crtLogin(username: string, password: string) {
     );
 
     return {
-      data: {
-        response: {
-          status: 200,
-          username: username,
-          access_token: "12345",
-          refreshToken: "6789",
-          message: "login successful",
-        },
-      },
+      status: 200,
+      username: username,
+      access_token: "12345",
+      refresh_token: "6789",
+      msg: "login successful",
     };
   }
   let response = await axios({
@@ -188,8 +187,8 @@ export async function crtLogin(username: string, password: string) {
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
-      if ("accessToken" in response.data) {
-        response["data"]["access_token"] = response["data"]["accessToken"];
+      if ("access_token" in response.data) {
+        response["data"]["access_token"] = response["data"]["access_token"];
         response["data"]["refresh_token"] = response["data"]["access_token"];
       }
 
@@ -203,7 +202,8 @@ export async function crtLogin(username: string, password: string) {
           })
         );
       }
-      return response;
+      response.data.status = 200;
+      return response.data;
     })
     .catch(function (response) {
       //handle error
@@ -215,7 +215,7 @@ export async function crtLogin(username: string, password: string) {
     });
 
   return new Promise<{ data: any }>((resolve, reject) => {
-    resolve({ data: response });
+    resolve(response);
   });
 }
 
