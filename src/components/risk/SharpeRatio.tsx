@@ -9,13 +9,14 @@ import {
 const SharpeRatio = (props: any) => {
   let symbol = props.symbol;
   const jwtToken = getAccessToken();
-  const [sharpeRatio, setSharpeRatio] = useState(0.0);
+  const [sharpeRatio, setSharpeRatio] = useState(1.349);
   const [sharpeEval, setSharpeEval] = useState("");
 
   useEffect(() => {
     async function getRatio() {
+      props.setIsLoading(true);
       let response = await getSharpeRatio(symbol, jwtToken);
-      let sharpeRatio = response.data.sharpeRatio;
+      let sharpeRatio = response.data.sharpe_ratio;
 
       // todo actually evaluate the sharpe ratio
       let sharpeEval = "Good";
@@ -25,6 +26,7 @@ const SharpeRatio = (props: any) => {
       if (sharpeEval) {
         setSharpeEval(sharpeEval);
       }
+      props.setIsLoading(false);
     }
 
     if (symbol !== "Symbol") {

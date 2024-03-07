@@ -1,7 +1,3 @@
-import {
-  returnLoginData,
-  returnTransactionData,
-} from "../../backend/backendInterface";
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
@@ -160,23 +156,6 @@ export async function getUserPortfolio(username: string, token: string) {
   );
 }
 
-export async function crtLogin(account: string, password: string) {
-  const response = await fetch(backendURL, {
-    method: "PUT",
-    credentials: "same-origin",
-    body: JSON.stringify({
-      verb: "LOGIN",
-      account: account,
-      password: password,
-    }),
-  });
-  const data = returnLoginData(account, password);
-
-  return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: data }), 500)
-  );
-}
-
 // todo move axios calls to the axios instance calls
 export async function updatePortfolio(
   coin: { orderType: string; amount: number; asset: string },
@@ -197,7 +176,6 @@ export async function updatePortfolio(
       //handle success
       // alert("success " + JSON.stringify(response.data));
       return response.data;
-      // return ["bitcoin", "ethereum", "ripple"];
     })
     .then(() => getPortfolio({ user: "drichards", jwt: token }))
     .catch(function (response) {

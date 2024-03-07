@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "../../api";
 import { backendURL } from "../../api";
-import { makeLogout, resetBankState } from "./bankingSlice";
+import { makeLogout, resetBankState, responseType } from "./bankingSlice";
 import { resetDashboardState } from "../dashboard/dashboardSlice";
 
 // A mock function to mimic making an async request for data
@@ -13,11 +13,11 @@ export function fetchCount(amount = 1) {
 
 export const crtUser = async (account: string, password: string) => {
   let response = await api
-    .post(`/user`, {
+    .post(`${backendURL}/signup`, {
       headers: {
         "Content-Type": "application/json",
       },
-      name: account,
+      username: account,
       password: password,
     })
     .then(function (response) {
@@ -156,18 +156,39 @@ export function triggerLogout(dispatch: any) {
   }
 }
 
-export async function crtLogin(username: string, password: string) {
+export async function crtLogin(
+  username: string,
+  password: string
+): Promise<any> {
+  if (username === "hire" && password === "me") {
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: username,
+        jwt: "12345",
+        refreshToken: "6789",
+      })
+    );
+
+    return {
+      status: 200,
+      username: username,
+      access_token: "12345",
+      refresh_token: "6789",
+      msg: "login successful",
+    };
+  }
   let response = await axios({
     method: "post",
-    url: `${backendURL}/auth/login`,
-    data: { usernameOrEmail: username, password: password },
+    url: `${backendURL}/login`,
+    data: { username: username, password: password },
     headers: { "Content-Type": "application/json", "Is-Test": "True" },
   })
     .then(function (response) {
       //handle success
       // alert("success " + JSON.stringify(response.data));
-      if ("accessToken" in response.data) {
-        response["data"]["access_token"] = response["data"]["accessToken"];
+      if ("access_token" in response.data) {
+        response["data"]["access_token"] = response["data"]["access_token"];
         response["data"]["refresh_token"] = response["data"]["access_token"];
       }
 
@@ -181,19 +202,15 @@ export async function crtLogin(username: string, password: string) {
           })
         );
       }
-      return response;
+      response.data.status = 200;
+      return response.data;
     })
     .catch(function (response) {
-      //handle error
-      // if ("message" in response) {
-      //   alert("failed " + response.message);
-      // }
-
       return response;
     });
 
   return new Promise<{ data: any }>((resolve, reject) => {
-    resolve({ data: response });
+    resolve(response);
   });
 }
 
@@ -265,7 +282,7 @@ export async function getChartId(symbol: string, token: string) {
 
 export async function getSharpeRatio(symbol: string, token: string) {
   let response = await api
-    .get(`${backendURL}/risk?symbol=${symbol}`, {
+    .get(`${backendURL}/risk/${symbol}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
@@ -316,7 +333,7 @@ export async function getCalcSymbols(token: string) {
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
-        // alert("refresh token expired");
+        alert("refresh token expired");
         console.log("--> refresh token expired");
       }
       alert("failed " + response);

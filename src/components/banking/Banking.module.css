@@ -38,6 +38,38 @@
     transition: all 0.15s;
 }
 
+.containerBackground {
+    background: #31293D;
+    background: radial-gradient(at right bottom, #31293D, #1D1C1F);
+}
+
+.roundedContainer {
+    background-color: rgba(0,0,0,.5);
+    border-radius: 15px;
+}
+
+.headerContainer {
+    margin-top: 2%;
+    padding: 1%;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 15px;
+    border-left: 1px solid #704cb6;
+    border-right: 1px solid #704cb6;
+}
+
+.defaultContainer {
+    background-color: rgba(0,0,0,.5);
+    border-radius: 15px;
+    border-left: 1px solid #704cb6;
+    border-right: 1px solid #704cb6;
+}
+
+.statContainer {
+    border-radius: 15px;
+    border-left: 1px solid #704cb6;
+    border-right: 1px solid #704cb6;
+}
+
 .primaryButton {
     appearance: none;
     background: none;

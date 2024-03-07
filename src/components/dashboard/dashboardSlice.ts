@@ -24,7 +24,10 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
-  coinData: [],
+  coinData: [
+    { id: "default", last: 1654.32, volume: 100, userQuantity: 5 },
+    { id: "placeholder", last: 15.32, volume: 32, userQuantity: 2 },
+  ],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
   displayCoinList: {},
   amount: 0,
@@ -173,7 +176,10 @@ export const dashboardSlice = createSlice({
       })
       .addCase(getCoinBatchAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        if (action.payload.coinData !== undefined) {
+        if (
+          action.payload.coinData !== undefined &&
+          action.payload.coinData.length > 0
+        ) {
           state.coinData = action.payload.coinData;
         }
         state.loggedIn = true;

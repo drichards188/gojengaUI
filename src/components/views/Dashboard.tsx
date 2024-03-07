@@ -10,6 +10,7 @@ import {
   selectCoinDisplayList,
   selectCoinList,
 } from "../dashboard/dashboardSlice";
+import styles from "../banking/Banking.module.css";
 import SearchAppBar from "../dashboard/Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -17,11 +18,13 @@ import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
 import { selectStatus } from "../banking/bankingSlice";
 import Header from "../../etc/Header";
+import SimpleSnackbar from "../general/SimpleSnackbar";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [openOveride, setOpenOveride] = React.useState(false);
 
   const coinData = useAppSelector(selectCoinData);
   const token = getAccessToken();
@@ -34,12 +37,18 @@ export function Dashboard() {
 
   const storedUser: string | null = localStorage.getItem("user");
 
+  useEffect(() => {
+    if (currentUser === "hire") {
+      setOpenOveride(true);
+    } else {
+      setOpenOveride(false);
+    }
+  }, [currentUser]);
+
   let loadingCircle: JSX.Element = <></>;
   // detect if request is loading
   useEffect(() => {
-    // alert(`state is ${state}`);
     if (state === "loading") {
-      // alert(`state read as ${state}`);
       setIsLoading(true);
     } else {
       setIsLoading(false);
@@ -83,31 +92,39 @@ export function Dashboard() {
   return (
     <Grid
       container
-      alignItems="flex-start"
       justifyContent="center"
+      alignItems="flex-start"
       style={{ minHeight: "100vh" }}
     >
-      <Grid item sm={12} md={8}>
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
-          style={{ backgroundColor: "rgba(0,0,0,.2)" }}
-        >
-          <Grid item xs={12}>
-            <Header />
+      <Grid
+        item
+        xs={12}
+        md={12}
+        lg={8}
+        xl={6}
+        className={styles.headerContainer}
+      >
+        <Header />
+      </Grid>
+      <Grid item xs={12} md={12} lg={8} className={styles.defaultContainer}>
+        <Grid item xs={12}>
+          {loadingCircle}
+          <Grid container justifyContent="center">
+            <Grid item xs={12}>
+              <SearchAppBar />
+            </Grid>
           </Grid>
-          <Grid item sm={12} md={12}>
-            <SearchAppBar />
+          <Grid item xs={12}>
+            <Grid item md={12}>
+              <a style={{ color: "#BA79F7" }}>Portfolio</a>
+            </Grid>
+            <Cards cardData={coinData} />
           </Grid>
         </Grid>
       </Grid>
-
-      {loadingCircle}
-
-      <Grid item sm={2} md={10}>
-        <Cards cardData={coinData} />
-      </Grid>
+      <SimpleSnackbar openOveride={openOveride} message={"Offline Demo Mode"} />
     </Grid>
   );
 }
+
+export default Dashboard;

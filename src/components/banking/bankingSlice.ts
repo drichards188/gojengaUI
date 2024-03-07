@@ -1,10 +1,4 @@
-import {
-  createAsyncThunk,
-  createReducer,
-  createSlice,
-  PayloadAction,
-  unwrapResult,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import {
   crtDelete,
@@ -13,11 +7,8 @@ import {
   crtInfo,
   crtTransaction,
   crtUser,
-  fetchCount,
-  getSharpeRatio,
 } from "./bankingAPI";
 import { crtLogin } from "./bankingAPI";
-import { useNavigate } from "react-router-dom";
 
 export interface BankingState {
   amount: number;
@@ -110,16 +101,27 @@ export const createDeleteAsync = createAsyncThunk(
   }
 );
 
+export type responseType = {
+  status: number;
+  username: string;
+  access_token: string;
+  refresh_token: string;
+  msg?: string;
+};
+
 export const createLoginAsync = createAsyncThunk(
   "banking/createLogin",
   async (payload: any) => {
-    let response = await crtLogin(payload.username, payload.password);
-    if ("response" in response.data) {
-      if (response.data.response.statusText === "Unauthorized") {
+    let response: responseType = await crtLogin(
+      payload.username,
+      payload.password
+    );
+    if ("access_token" in response) {
+      if (response.msg === "Unauthorized") {
         return Promise.reject("Wrong Username or Password");
       }
     }
-    return response.data;
+    return response;
   }
 );
 
@@ -281,14 +283,16 @@ export const bankingSlice = createSlice({
       .addCase(createLoginAsync.fulfilled, (state, action) => {
         state.status = "idle";
         if (action.payload.status !== 200) {
-          if (action.payload.message === "Network Error") {
-            state.message = action.payload.message;
+          if (action.payload.msg === "Network Error") {
+            state.message = action.payload.msg;
           } else {
-            state.message = action.payload.message;
+            if ("msg" in action.payload && action.payload.msg !== undefined) {
+              state.message = action.payload.msg;
+            }
           }
         } else {
-          state.token = action.payload.data.access_token;
-          state.refreshToken = action.payload.data.refresh_token;
+          state.token = action.payload.access_token;
+          state.refreshToken = action.payload.refresh_token;
           state.loggedIn = true;
         }
       })

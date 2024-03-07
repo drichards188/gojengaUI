@@ -1,21 +1,10 @@
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import List from "./List";
 import { useState } from "react";
-import { Button, Grid, Menu, MenuItem } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { setMessage, setRefreshToken, setToken } from "../banking/bankingSlice";
-import { useAppDispatch } from "../../app/hooks";
-import { triggerLogout } from "../banking/bankingAPI";
-import Header from "../../etc/Header";
+import { Grid } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,9 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-  const navigate = useNavigate();
   const [inputText, setInputText] = useState("");
-  const dispatch = useAppDispatch();
   let inputHandler = (e: any) => {
     //convert input text to lower case
     let lowerCase = e.target.value.toLowerCase();
@@ -80,8 +67,11 @@ export default function SearchAppBar() {
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item xs={6} sm={4} md={12}>
-        <Grid item xs={4}>
+      <Grid item xs={12}>
+        Search For Asset
+      </Grid>
+      <Grid item xs={10} sm={10} md={8} lg={6}>
+        <Grid item xs={12}>
           <Search>
             <Grid container justifyContent="space-between" alignItems="center">
               <SearchIconWrapper>
