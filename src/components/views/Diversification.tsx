@@ -183,6 +183,9 @@ const Diversification = () => {
                       "& .MuiFormLabel-root.Mui-focused": {
                         color: "primary.main",
                       },
+                      "& .MuiSvgIcon-root": {
+                        color: "#BA79F7",
+                      },
                       width: 300,
                     }}
                     value={securitySymbol}
