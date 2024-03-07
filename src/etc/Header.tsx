@@ -20,7 +20,7 @@ function Header() {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item sm={2}>
+      <nav>
         <CustomButton
           label={"Log Out"}
           clickFunction={() => {
@@ -33,8 +33,6 @@ function Header() {
             }
           }}
         />
-      </Grid>
-      <Grid item sm={2}>
         <CustomButton
           label={"Dashboard"}
           clickFunction={() => {
@@ -43,21 +41,21 @@ function Header() {
         />
       </Grid>
       <Grid item sm={2}>
+
         <CustomButton
           label={"Risk"}
           clickFunction={() => {
             navigate("/risk");
           }}
         />
-      </Grid>
-      <Grid item sm={2}>
+
         <CustomButton
           label={"Diversification"}
           clickFunction={() => {
             navigate("/diversification");
           }}
         />
-      </Grid>
+      </nav>
     </Grid>
   );
 }
