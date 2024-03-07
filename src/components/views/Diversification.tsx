@@ -156,11 +156,18 @@ const Diversification = () => {
         minHeight: "100vh",
       }}
     >
-      <Grid item sm={12} md={8} className={styles.headerContainer}>
+      <Grid
+        item
+        xs={12}
+        md={12}
+        lg={8}
+        xl={6}
+        className={styles.headerContainer}
+      >
         <Header />
       </Grid>
 
-      <Grid item sm={12} md={10}>
+      <Grid item sm={12} md={12} lg={8}>
         <Grid container justifyContent="center">
           <Grid item sm={12} md={10}>
             <Grid

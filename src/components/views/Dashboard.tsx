@@ -98,14 +98,21 @@ export function Dashboard() {
       alignItems="flex-start"
       style={{ minHeight: "100vh" }}
     >
-      <Grid item sm={12} md={8} className={styles.headerContainer}>
+      <Grid
+        item
+        xs={12}
+        md={12}
+        lg={8}
+        xl={6}
+        className={styles.headerContainer}
+      >
         <Header />
       </Grid>
-      <Grid item sm={12} md={8} className={styles.defaultContainer}>
-        <Grid item sm={12} md={12}>
+      <Grid item xs={12} md={12} lg={8} className={styles.defaultContainer}>
+        <Grid item xs={12}>
           {loadingCircle}
           <Grid container justifyContent="center">
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <SearchAppBar />
             </Grid>
           </Grid>

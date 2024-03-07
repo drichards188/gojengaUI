@@ -94,7 +94,7 @@ const Login = () => {
             <InfoIcon
               style={{ cursor: "pointer" }}
               onClick={() => {
-                setSnackbarMessage("Demo account creds hire | me");
+                setSnackbarMessage("Demo account: user = hire, pwd = me");
                 setSnackbarOpen(true);
               }}
             />

@@ -83,7 +83,7 @@ export default function SearchAppBar() {
       <Grid item xs={12}>
         Search For Asset
       </Grid>
-      <Grid item xs={6} sm={4} md={12}>
+      <Grid item xs={10} sm={10} md={8} lg={6}>
         <Grid item xs={12}>
           <Search>
             <Grid container justifyContent="space-between" alignItems="center">

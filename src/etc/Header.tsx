@@ -19,43 +19,44 @@ function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <Grid container>
-      <Grid item sm={12}>
-        <nav>
-          <CustomButton
-            label={"Log Out"}
-            clickFunction={() => {
-              let logoutResponse: boolean = triggerLogout(dispatch);
+    <Grid container justifyContent="center">
+      <Grid item sm={2}>
+        <CustomButton
+          label={"Log Out"}
+          clickFunction={() => {
+            let logoutResponse: boolean = triggerLogout(dispatch);
 
-              if (logoutResponse) {
-                navigate("/login");
-              } else {
-                alert("logout failed");
-              }
-            }}
-          />
-
-          <CustomButton
-            label={"Dashboard"}
-            clickFunction={() => {
-              navigate("/dashboard");
-            }}
-          />
-
-          <CustomButton
-            label={"Risk"}
-            clickFunction={() => {
-              navigate("/risk");
-            }}
-          />
-
-          <CustomButton
-            label={"Diversification"}
-            clickFunction={() => {
-              navigate("/diversification");
-            }}
-          />
-        </nav>
+            if (logoutResponse) {
+              navigate("/login");
+            } else {
+              alert("logout failed");
+            }
+          }}
+        />
+      </Grid>
+      <Grid item sm={2}>
+        <CustomButton
+          label={"Dashboard"}
+          clickFunction={() => {
+            navigate("/dashboard");
+          }}
+        />
+      </Grid>
+      <Grid item sm={2}>
+        <CustomButton
+          label={"Risk"}
+          clickFunction={() => {
+            navigate("/risk");
+          }}
+        />
+      </Grid>
+      <Grid item sm={2}>
+        <CustomButton
+          label={"Diversification"}
+          clickFunction={() => {
+            navigate("/diversification");
+          }}
+        />
       </Grid>
     </Grid>
   );
