@@ -1,10 +1,4 @@
-import {
-  createAsyncThunk,
-  createReducer,
-  createSlice,
-  PayloadAction,
-  unwrapResult,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import {
   crtDelete,
@@ -13,11 +7,8 @@ import {
   crtInfo,
   crtTransaction,
   crtUser,
-  fetchCount,
-  getSharpeRatio,
 } from "./bankingAPI";
 import { crtLogin } from "./bankingAPI";
-import { useNavigate } from "react-router-dom";
 
 export interface BankingState {
   amount: number;
