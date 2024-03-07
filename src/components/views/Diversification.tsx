@@ -19,7 +19,6 @@ import {
   getCalcSymbols,
   getCompanyName,
   getDiversRec,
-  triggerLogout,
 } from "../banking/bankingAPI";
 import DiversificationCard from "../DiversificationCard";
 import { selectLoggedIn, selectStatus } from "../banking/bankingSlice";
@@ -41,10 +40,7 @@ const Diversification = () => {
   const [securitySymbol, setSecuritySymbol] = React.useState<string | null>(
     securityList[0]
   );
-  const isLoggedIn = useAppSelector(selectLoggedIn);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const storedUser: string | null = localStorage.getItem("user");
+
   const state = useAppSelector(selectStatus);
   const [isLoading, setIsLoading] = React.useState(false);
   const [tvSymbol, setTvSymbol] = React.useState<string | null>();
@@ -118,20 +114,6 @@ const Diversification = () => {
       loadingCircle = <></>;
     }
   }, [state]);
-
-  // todo re enable
-  // useEffect(() => {
-  //   if (!storedUser || !isLoggedIn) {
-  //     // logout expression
-  //     let logoutResponse: boolean = triggerLogout(dispatch);
-  //
-  //     if (logoutResponse) {
-  //       navigate("/login");
-  //     } else {
-  //       alert("logout failed");
-  //     }
-  //   }
-  // }, [storedUser, isLoggedIn]);
 
   async function getDiverseRecs(symbol: string) {
     let response = await getDiversRec(symbol, jwtToken);

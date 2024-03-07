@@ -57,9 +57,7 @@ const Risk = () => {
   }
 
   useEffect(() => {
-    // alert(`state is ${state}`);
     if (state === "loading") {
-      // alert(`state read as ${state}`);
       setIsLoading(true);
     } else {
       setIsLoading(false);

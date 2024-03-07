@@ -12,7 +12,7 @@ import {
 } from "../dashboard/dashboardSlice";
 import styles from "../banking/Banking.module.css";
 import SearchAppBar from "../dashboard/Search";
-import { Box, Button, CircularProgress, Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
 import TokenService from "../../services/token.service";
@@ -48,9 +48,7 @@ export function Dashboard() {
   let loadingCircle: JSX.Element = <></>;
   // detect if request is loading
   useEffect(() => {
-    // alert(`state is ${state}`);
     if (state === "loading") {
-      // alert(`state read as ${state}`);
       setIsLoading(true);
     } else {
       setIsLoading(false);
