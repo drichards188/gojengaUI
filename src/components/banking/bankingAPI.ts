@@ -206,11 +206,6 @@ export async function crtLogin(
       return response.data;
     })
     .catch(function (response) {
-      //handle error
-      // if ("message" in response) {
-      //   alert("failed " + response.message);
-      // }
-
       return response;
     });
 
