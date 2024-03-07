@@ -39,16 +39,12 @@ function Header() {
             navigate("/dashboard");
           }}
         />
-      </Grid>
-      <Grid item sm={2}>
-
         <CustomButton
           label={"Risk"}
           clickFunction={() => {
             navigate("/risk");
           }}
         />
-
         <CustomButton
           label={"Diversification"}
           clickFunction={() => {
