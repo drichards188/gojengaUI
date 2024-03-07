@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../logo.svg";
+import logo from "../../gojenga1.webp";
 import "../../App.css";
 import styles from "../banking/Banking.module.css";
 import { Box, Button, Grid, Paper } from "@mui/material";

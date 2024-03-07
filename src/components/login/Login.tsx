@@ -15,6 +15,7 @@ import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
 import styles from "../banking/Banking.module.css";
 import SimpleSnackbar from "../general/SimpleSnackbar";
+import logo from "../../gojenga1.webp";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +59,9 @@ const Login = () => {
 
   return (
     <Grid container justifyContent="center">
+      <Grid item xs={12}>
+        <img src={logo} className="App-logo" alt="logo" />
+      </Grid>
       <Grid item xs={12} sm={8} className={styles.roundedContainer}>
         <Grid container justifyContent="center">
           {loadingCircle}
