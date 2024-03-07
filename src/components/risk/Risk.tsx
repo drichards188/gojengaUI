@@ -112,6 +112,9 @@ const Risk = () => {
                       "& .MuiFormLabel-root.Mui-focused": {
                         color: "primary.main",
                       },
+                      "& .MuiSvgIcon-root": {
+                        color: "#BA79F7",
+                      },
                       width: 300,
                     }}
                     value={securitySymbol}
@@ -125,6 +128,7 @@ const Risk = () => {
                       <TextField {...params} label="Select Symbol" />
                     )}
                   />
+
                   <Button
                     onClick={() => {
                       setSecuritySymbol(inputValue);
