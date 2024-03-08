@@ -12,6 +12,7 @@ import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
 import axios from "axios";
 import { getChartId } from "../banking/bankingAPI";
+import logo from "../../gojenga1.webp";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -42,6 +43,9 @@ const SignUp = () => {
 
   return (
     <Grid container alignItems="center" justifyContent="center">
+      <Grid item xs={12}>
+        <img src={logo} className="App-logo" alt="logo" />
+      </Grid>
       <Grid item xs={8} className={styles.roundedContainer}>
         <Grid container justifyContent="center">
           {loadingCircle}

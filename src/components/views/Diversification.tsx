@@ -149,9 +149,9 @@ const Diversification = () => {
         <Header />
       </Grid>
 
-      <Grid item sm={12} md={12} lg={8}>
+      <Grid item xs={12} md={12} lg={8}>
         <Grid container justifyContent="center">
-          <Grid item sm={12} md={10}>
+          <Grid item xs={12} md={10}>
             <Grid
               container
               justifyContent="space-between"
@@ -254,7 +254,7 @@ const Diversification = () => {
                 })}
               </Grid>
             </Grid>
-            <Grid item sm={12} style={{ height: "40vh" }}>
+            <Grid item xs={12} style={{ height: "40vh" }}>
               <TradingViewWidget chartId={tvSymbol} />
             </Grid>
           </Grid>
