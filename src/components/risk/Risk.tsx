@@ -83,20 +83,20 @@ const Risk = () => {
         <Header />
       </Grid>
 
-      <Grid item sm={12} md={12} lg={8}>
+      <Grid item xs={12} md={12} lg={8}>
         {loadingCircle}
         <Grid container justifyContent="center">
-          <Grid item sm={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Grid
               container
               justifyContent="space-between"
               alignItems="center"
               className={styles.defaultContainer}
             >
-              <Grid item sm={4}>
+              <Grid item xs={4}>
                 <h1>Risk</h1>
               </Grid>
-              <Grid item sm={8}>
+              <Grid item xs={8}>
                 <Grid container>
                   <Autocomplete
                     disablePortal
@@ -143,7 +143,7 @@ const Risk = () => {
           <div>
             <Grid
               item
-              sm={12}
+              xs={12}
               style={{
                 backgroundColor: divColor,
                 color: fontColor,
@@ -153,25 +153,25 @@ const Risk = () => {
               <h2>Calculations</h2>
 
               <Grid container alignItems="space-between">
-                <Grid item sm={4} className={styles.statContainer}>
+                <Grid item xs={4} className={styles.statContainer}>
                   <SharpeRatio
                     symbol={securitySymbol}
                     setIsLoading={setIsLoading}
                   />
                 </Grid>
-                <Grid item sm={4} className={styles.statContainer}>
+                <Grid item xs={4} className={styles.statContainer}>
                   <p>Alpha</p>
                   <p>1.7%</p>
                   <p>Good</p>
                 </Grid>
-                <Grid item sm={4} className={styles.statContainer}>
+                <Grid item xs={4} className={styles.statContainer}>
                   <p>Beta</p>
                   <p>1.1</p>
                   <p>Ok</p>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item sm={12} style={{ height: "40vh" }}>
+            <Grid item xs={12} style={{ height: "40vh" }}>
               <TradingViewWidget chartId={securitySymbol} />
             </Grid>
           </div>
