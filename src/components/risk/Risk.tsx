@@ -126,6 +126,7 @@ const Risk = () => {
                     )}
                   />
                   <Button
+                    id="risk-retrieve"
                     onClick={() => {
                       setSecuritySymbol(inputValue);
                       setShowTv(true);
