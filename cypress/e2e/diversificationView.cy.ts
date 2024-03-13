@@ -18,7 +18,7 @@ describe("template spec", () => {
     cy.get("#combo-box-demo").click();
     cy.focused().type("CR");
     cy.contains("CRM").click();
-    cy.get("#risk-retrieve").click();
-    cy.get("h2").contains("Calculations");
+    cy.get("#divers-retrieve").click();
+    cy.get("h2").contains("Recommendations");
   });
 });
