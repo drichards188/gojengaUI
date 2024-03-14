@@ -133,7 +133,7 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <SimpleSnackbar openOveride={snackbarOpen} message={snackbarMessage}/>
+            <SimpleSnackbar showButton={false} openOveride={snackbarOpen} snackbarMessage={snackbarMessage}/>
         </Grid>
     );
 };
