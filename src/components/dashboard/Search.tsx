@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import List from "./List";
 import { useState } from "react";
 import { Grid } from "@mui/material";
+import "./Card.css"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -71,7 +72,7 @@ export default function SearchAppBar() {
         Search For Asset
       </Grid>
       <Grid item xs={10} sm={10} md={8} lg={6}>
-        <Grid item xs={12}>
+        <Grid item xs={12} className="search">
           <Search>
             <Grid container justifyContent="space-between" alignItems="center">
               <SearchIconWrapper>
@@ -85,7 +86,7 @@ export default function SearchAppBar() {
                 onChange={inputHandler}
               />
               <a
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", color: "#F6F6F6", backgroundColor: "rgba(0,0,0,.5)" }}
                 onClick={() => {
                   setInputText("");
                 }}

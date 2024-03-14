@@ -1,0 +1,13 @@
+.card {
+    padding: 2%;
+    color: #BA79F7;
+    background: linear-gradient(135deg, #1a1a1a, #353535);
+    border-left: 1px solid #704cb6;
+    border-right: 1px solid #704cb6;
+    border-radius: 10px;
+}
+
+.search {
+    background: rgb(26,26,26);
+    background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(53,53,53,1) 75%, rgba(112,76,182,1) 100%);
+}

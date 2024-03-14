@@ -51,23 +51,28 @@
 .headerContainer {
     margin-top: 2%;
     padding: 1%;
-    background-color: rgba(0,0,0,.5);
+    background: rgb(0,0,28);
+    background: linear-gradient(90deg, rgba(0,0,28,1) 0%, rgba(0,0,34,1) 95%, rgba(112,76,182,1) 100%);
     border-radius: 15px;
     border-left: 1px solid #704cb6;
-    border-right: 1px solid #704cb6;
+    /*border-right: 1px solid #704cb6;*/
 }
 
 .defaultContainer {
-    background-color: rgba(0,0,0,.5);
+    background: rgb(0,0,28);
+    background: linear-gradient(90deg, rgba(0,0,28,1) 0%, rgba(0,0,34,1) 95%, rgba(112,76,182,1) 100%);
     border-radius: 15px;
     border-left: 1px solid #704cb6;
-    border-right: 1px solid #704cb6;
+    /*border-right: 1px solid #704cb6;*/
 }
 
 .statContainer {
     border-radius: 15px;
     border-left: 1px solid #704cb6;
-    border-right: 1px solid #704cb6;
+    /*border-right: 1px solid #704cb6;*/
+    background: rgb(0,0,28);
+    background: linear-gradient(90deg, rgba(0,0,28,1) 0%, rgba(0,0,34,1) 95%, rgba(112,76,182,1) 100%);
+
 }
 
 .primaryButton {

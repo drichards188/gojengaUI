@@ -20,7 +20,7 @@ import {
   getCompanyName,
   getDiversRec,
 } from "../banking/bankingAPI";
-import DiversificationCard from "../DiversificationCard";
+import DiversificationCard from "../general/DiversificationCard";
 import { selectLoggedIn, selectStatus } from "../banking/bankingSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
@@ -127,7 +127,7 @@ const Diversification = () => {
     if (response.data !== "network error") {
       setCompanyName(response.data.name);
     } else {
-      setCompanyName("Offline Mode");
+      setCompanyName("Fortinet (Offline Mode)");
     }
   }
 
