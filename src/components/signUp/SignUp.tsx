@@ -62,6 +62,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12} md={4}>
               <CustomTextField
+                  cyLabel="username-field"
                 label="Username"
                 type=""
                 value={username}
@@ -72,6 +73,7 @@ const SignUp = () => {
 
             <Grid item xs={12} md={4}>
               <CustomTextField
+                  cyLabel="password-field"
                 label="Password"
                 type="password"
                 value={password}

@@ -5,7 +5,7 @@ describe("template spec", () => {
   });
 
   it("should have diversification page", () => {
-    cy.get("Typography").contains("Diversification");
+    cy.contains("Diversification");
   });
 
   it("should have data", () => {
