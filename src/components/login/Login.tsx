@@ -17,10 +17,6 @@ import styles from "../banking/Banking.module.css";
 import SimpleSnackbar from "../general/SimpleSnackbar";
 import logo from "../../gojenga1.webp";
 
-const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -84,8 +80,6 @@ const Login = () => {
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            <CustomInput />
-
                             <CustomTextField
                                 cyLabel="username-field"
                                 label="Username"
