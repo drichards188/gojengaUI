@@ -16,6 +16,7 @@ describe("template spec", () => {
         cy.contains("$1,654.32");
         cy.contains("placeholder");
         cy.contains("Volume");
+        cy.contains("Offline Demo Mode");
     });
 
     it("should verify search works", () => {
