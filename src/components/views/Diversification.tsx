@@ -115,17 +115,19 @@ const Diversification = () => {
     }
   }, [state]);
 
-  async function getDiverseRecs(symbol: string) {
+  async function getDiverseRecs(symbol: string, jwtToken: string) {
     let response = await getDiversRec(symbol, jwtToken);
-    if (response) {
+    if (response.data !== "network error") {
       setDiversRec(response.data);
     }
   }
 
   async function getSymbolName(symbol: string) {
     let response = await getCompanyName(symbol, jwtToken);
-    if (response) {
+    if (response.data !== "network error") {
       setCompanyName(response.data.name);
+    } else {
+      setCompanyName("Offline Mode");
     }
   }
 
@@ -205,10 +207,11 @@ const Diversification = () => {
                     )}
                   />
                   <Button
+                      id="divers-retrieve"
                     onClick={() => {
                       if (securitySymbol != null) {
                         getSymbolName(securitySymbol);
-                        getDiverseRecs(securitySymbol);
+                        getDiverseRecs(securitySymbol, jwtToken);
                         setTvSymbol(securitySymbol);
                         setShowTv(true);
                       }
