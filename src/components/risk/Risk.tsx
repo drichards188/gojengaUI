@@ -150,7 +150,7 @@ const Risk = () => {
               item
               xs={12}
               style={{
-                backgroundColor: divColor,
+                backgroundColor: "#00002E",
                 color: fontColor,
                 borderRadius: "15px",
               }}

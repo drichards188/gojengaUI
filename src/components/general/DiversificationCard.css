@@ -1,4 +1,4 @@
 .DiversificationCard {
-    background: rgb(26,26,26);
-    background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(53,53,53,1) 90%, rgba(112,76,182,1) 100%);
+    background: rgb(0,0,28);
+    background: linear-gradient(90deg, rgba(0,0,28,1) 0%, rgba(0,0,34,1) 95%, rgba(112,76,182,1) 100%);
 }
