@@ -127,7 +127,7 @@ const Diversification = () => {
     if (response.data !== "network error") {
       setCompanyName(response.data.name);
     } else {
-      setCompanyName("Offline Mode");
+      setCompanyName("Fortinet (Offline Mode)");
     }
   }
 
