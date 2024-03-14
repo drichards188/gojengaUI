@@ -53,7 +53,7 @@ export default function MySnackbar(props:any) {
 
   return (
       <div>
-        <Button onClick={handleClick}>{buttonMessage}</Button>
+          {props.showButton && <Button onClick={handleClick}>{buttonMessage}</Button>}
         <Snackbar
             open={open}
             autoHideDuration={6000}
