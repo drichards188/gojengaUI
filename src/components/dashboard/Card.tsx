@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import ReactDOM from "react-dom";
+import "./Card.css";
 import { useState, createContext } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -20,7 +20,6 @@ import styles from "../banking/Banking.module.css";
 import { selectBankingUser, selectToken } from "../banking/bankingSlice";
 import { updatePortfolio } from "./dashboardAPI";
 import { getAccessToken } from "../banking/bankingAPI";
-import TradingViewWidget from "../risk/TradingViewChart";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;
@@ -47,13 +46,6 @@ const Card = (props: any) => {
     }
   }, [displayCoinData]);
 
-  const divStyle = {
-    padding: "2%",
-    backgroundColor: "#363940",
-    color: "#BA79F7",
-    boxShadow:
-      "0px 3px 1px -2px rgba(112,76,182),0px 2px 2px 0px rgba(112,76,182,0.9),0px 1px 5px 0px rgba(82,0,130,0.12)",
-  };
 
   const closeCardStyle = {
     display: "block",
@@ -68,7 +60,7 @@ const Card = (props: any) => {
   return (
     <Grid
       container
-      style={divStyle}
+      className="card"
       justifyContent="center"
       alignItems="center"
     >

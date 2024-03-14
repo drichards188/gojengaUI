@@ -122,7 +122,7 @@ export function Dashboard() {
           </Grid>
         </Grid>
       </Grid>
-      <SimpleSnackbar openOveride={openOveride} message={"Offline Demo Mode"} />
+      <SimpleSnackbar openOveride={openOveride} snackbarMessage={"Offline Demo Mode"} buttonMessage={"hit it"}/>
     </Grid>
   );
 }
