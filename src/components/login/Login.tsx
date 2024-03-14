@@ -16,7 +16,11 @@ import CustomTextField from "../general/CustomTextField";
 import styles from "../banking/Banking.module.css";
 import SimpleSnackbar from "../general/SimpleSnackbar";
 import logo from "../../gojenga1.webp";
-import CustomInput from "./CustomInput";
+
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
 const Login = () => {
     const [username, setUsername] = useState("");

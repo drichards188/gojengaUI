@@ -106,8 +106,6 @@ export async function crtDelete(account: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
     })
     .catch(function (response) {
@@ -136,7 +134,6 @@ export function getRefreshToken() {
   return user.refreshToken;
 }
 
-// should I pass a callback to navigate to be called by triggerLogout?
 export function triggerLogout(dispatch: any) {
   localStorage.removeItem("user");
   localStorage.removeItem("coinList");
@@ -185,8 +182,6 @@ export async function crtLogin(
     headers: { "Content-Type": "application/json", "Is-Test": "True" },
   })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data));
       if ("access_token" in response.data) {
         response["data"]["access_token"] = response["data"]["access_token"];
         response["data"]["refresh_token"] = response["data"]["access_token"];
@@ -224,13 +219,9 @@ export async function crtGetAccount(username: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data.response.balance));
       return response.data;
     })
     .catch(function (response) {
-      //handle error
-      // how to detect expired refresh token but trigger logout on UI?
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
@@ -257,13 +248,9 @@ export async function getChartId(symbol: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data.response.balance));
       return response.data;
     })
     .catch(function (response) {
-      //handle error
-      // how to detect expired refresh token but trigger logout on UI?
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
@@ -290,13 +277,9 @@ export async function getSharpeRatio(symbol: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response));
       return response.data;
     })
     .catch(function (response) {
-      //handle error
-      // how to detect expired refresh token but trigger logout on UI?
       if (response.response.status === 401) {
         localStorage.removeItem("user");
       } else if (response.response.status === 500) {
@@ -323,8 +306,6 @@ export async function getCalcSymbols(token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response));
       return response.data;
     })
     .catch(function (response) {
@@ -356,8 +337,6 @@ export async function getCompanyName(symbol: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response));
       return response.data;
     })
     .catch(function (response) {
@@ -394,8 +373,6 @@ export async function getDiversRec(symbol: string, token: string) {
       },
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response));
       return response.data;
     })
     .catch(function (response) {
@@ -437,13 +414,9 @@ export const crtDeposit = async (
       balance: amount,
     })
     .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data));
       return response.data.response;
     })
     .catch(function (response) {
-      //handle error
-      // alert("failed " + response);
       return response;
     });
 
