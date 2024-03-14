@@ -1,12 +1,10 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
-import styles from "./banking/Banking.module.css";
+import styles from "../banking/Banking.module.css";
+import "./DiversificationCard.css";
 
 const DiversificationCard = (props: any) => {
-  const typingStyle = {
-    mb: "1%",
-  };
 
   return (
     <Grid container justifyContent="center">

@@ -1,14 +1,13 @@
 .card {
-    /*background: rgb(102, 93, 205);*/
-    /*background: linear-gradient(90deg, rgba(102, 93, 205, 1) 0%, rgba(95, 164, 230, 1) 35%, rgba(210, 171, 103, 1) 100%);*/
     padding: 2%;
-    /*backgroundColor: #363940;*/
     color: #BA79F7;
-    /*-webkit-box-shadow: 10px 10px 5px 0px rgba(112,76,114,0.67);*/
-    /*-moz-box-shadow: 10px 10px 5px 0px rgba(112,76,114,0.67);*/
-    /*box-shadow: 10px 10px 5px 0px rgba(112,76,114,0.67);*/
     background: linear-gradient(135deg, #1a1a1a, #353535);
     border-left: 1px solid #704cb6;
     border-right: 1px solid #704cb6;
     border-radius: 10px;
+}
+
+.search {
+    background: rgb(26,26,26);
+    background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(53,53,53,1) 75%, rgba(112,76,182,1) 100%);
 }
