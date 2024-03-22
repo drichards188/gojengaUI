@@ -10,7 +10,7 @@ import TradingViewWidget from "./TradingViewChart";
 import React, { useEffect, useState } from "react";
 import SharpeRatio from "./SharpeRatio";
 import styles from "../banking/Banking.module.css";
-import { getAccessToken, getCalcSymbols } from "../banking/bankingAPI";
+import {getAccessToken, getCalcSymbols, getCompanyName} from "../banking/bankingAPI";
 import { useAppSelector } from "../../app/hooks";
 import { selectStatus } from "../banking/bankingSlice";
 
@@ -28,6 +28,8 @@ const Risk = () => {
   const [showTv, setShowTv] = useState(false);
   const jwtToken = getAccessToken();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [companyName, setCompanyName] = React.useState<string | null>();
+
   const divColor = "rgba(0,0,0,.5)";
   const fontColor = "#61429E";
   const state = useAppSelector(selectStatus);
@@ -54,6 +56,15 @@ const Risk = () => {
   let loadingCircle: JSX.Element = <></>;
   if (isLoading) {
     loadingCircle = <CircularProgress />;
+  }
+
+  async function getSymbolName(symbol: string | null) {
+    let response = await getCompanyName(symbol, jwtToken);
+    if (response.data !== "network error") {
+      setCompanyName(response.data.name);
+    } else {
+      setCompanyName("Fortinet (Offline Mode)");
+    }
   }
 
   useEffect(() => {
@@ -133,6 +144,7 @@ const Risk = () => {
                     id="risk-retrieve"
                     onClick={() => {
                       setSecuritySymbol(inputValue);
+                      getSymbolName(inputValue);
                       setShowTv(true);
                     }}
                   >
@@ -147,21 +159,22 @@ const Risk = () => {
         {showTv && (
           <div>
             <Grid
-              item
-              xs={12}
-              style={{
-                backgroundColor: "#00002E",
-                color: fontColor,
-                borderRadius: "15px",
-              }}
+                item
+                xs={12}
+                style={{
+                  backgroundColor: "#00002E",
+                  color: fontColor,
+                  borderRadius: "15px",
+                }}
             >
               <h2>Calculations</h2>
+              <h3>{companyName}</h3>
 
               <Grid container alignItems="space-between">
                 <Grid item xs={4} className={styles.statContainer}>
                   <SharpeRatio
-                    symbol={securitySymbol}
-                    setIsLoading={setIsLoading}
+                      symbol={securitySymbol}
+                      setIsLoading={setIsLoading}
                   />
                 </Grid>
                 <Grid item xs={4} className={styles.statContainer}>
