@@ -329,7 +329,7 @@ export async function getCalcSymbols(token: string) {
 
 export async function getCompanyName(symbol: string, token: string) {
   let response = await api
-    .get(`${backendURL}/logistic/lookup?symbol=${symbol}`, {
+    .get(`${backendURL}/misc/symbol-name/${symbol}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
