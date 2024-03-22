@@ -365,7 +365,8 @@ export async function getCompanyName(symbol: string, token: string) {
 
 export async function getDiversRec(symbol: string, token: string) {
   let response = await api
-    .get(`${backendURL}/diversification?symbol=${symbol}`, {
+    .post(`${backendURL}/diversification`, {
+      "symbol": symbol,
       headers: {
         "Content-Type": "multipart/form-data",
         "Is-Test": "True",
