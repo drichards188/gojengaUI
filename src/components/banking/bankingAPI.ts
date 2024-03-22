@@ -327,7 +327,7 @@ export async function getCalcSymbols(token: string) {
   );
 }
 
-export async function getCompanyName(symbol: string, token: string) {
+export async function getCompanyName(symbol: string | null, token: string) {
   let response = await api
     .get(`${backendURL}/misc/symbol-name/${symbol}`, {
       headers: {
