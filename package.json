@@ -61,6 +61,7 @@
     "cypress": "^12.8.1",
     "eslint-plugin-cypress": "^2.15.1",
     "prettier": "2.7.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
