@@ -29,12 +29,10 @@ const Risk = () => {
   const jwtToken = getAccessToken();
   const [isLoading, setIsLoading] = React.useState(false);
   const [companyName, setCompanyName] = React.useState<string | null>();
-
-  const divColor = "rgba(0,0,0,.5)";
+  const [manualSymbol, setManualSymbol] = React.useState<string | null>();
   const fontColor = "#61429E";
   const state = useAppSelector(selectStatus);
 
-  // todo need to change to getting risk symbols not diversification
   useEffect(() => {
     async function getAllSymbols() {
       let response = await getCalcSymbols(jwtToken);
@@ -135,6 +133,11 @@ const Risk = () => {
                         setInputValue(newInputValue);
                       }
                     }}
+                    onChange={(event: any, newValue: string | null) => {
+                      if (newValue !== "Symbol") {
+                        setSecuritySymbol(newValue);
+                      }
+                    }}
                     renderInput={(params) => (
                       <TextField {...params} label="Select Symbol" />
                     )}
@@ -143,9 +146,11 @@ const Risk = () => {
                   <Button
                     id="risk-retrieve"
                     onClick={() => {
-                      setSecuritySymbol(inputValue);
-                      getSymbolName(inputValue);
-                      setShowTv(true);
+                      if (securitySymbol != null) {
+                        setManualSymbol(securitySymbol);
+                        getSymbolName(securitySymbol);
+                        setShowTv(true);
+                      }
                     }}
                   >
                     Retrieve
@@ -173,7 +178,7 @@ const Risk = () => {
               <Grid container alignItems="space-between">
                 <Grid item xs={4} className={styles.statContainer}>
                   <SharpeRatio
-                      symbol={securitySymbol}
+                      symbol={manualSymbol}
                       setIsLoading={setIsLoading}
                   />
                 </Grid>
@@ -190,7 +195,7 @@ const Risk = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} style={{ height: "40vh" }}>
-              <TradingViewWidget chartId={securitySymbol} />
+              <TradingViewWidget chartId={manualSymbol} />
             </Grid>
           </div>
         )}
