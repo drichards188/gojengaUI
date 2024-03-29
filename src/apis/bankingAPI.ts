@@ -1,8 +1,8 @@
 import axios from "axios";
-import api from "../../api";
-import { backendURL } from "../../api";
-import { makeLogout, resetBankState, responseType } from "./bankingSlice";
-import { resetDashboardState } from "../dashboard/dashboardSlice";
+import api from "./api";
+import { backendURL } from "./api";
+import { makeLogout, resetBankState, responseType } from "../slices/bankingSlice";
+import { resetDashboardState } from "../slices/dashboardSlice";
 
 // A mock function to mimic making an async request for data
 export function fetchCount(amount = 1) {

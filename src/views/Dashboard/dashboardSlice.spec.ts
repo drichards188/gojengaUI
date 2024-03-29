@@ -1,4 +1,4 @@
-import counterReducer, { DashboardState } from "./dashboardSlice";
+import counterReducer, { DashboardState } from "../../slices/dashboardSlice";
 
 describe("dashboard reducer", () => {
   const initialState: DashboardState = {

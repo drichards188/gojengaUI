@@ -11,7 +11,7 @@ import {
   setRefreshToken,
   setToken,
   setUser,
-} from "../banking/bankingSlice";
+} from "../../slices/bankingSlice";
 
 export function Welcome() {
   const dispatch = useAppDispatch();

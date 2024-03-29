@@ -10,7 +10,7 @@ import {
     selectStatus,
     selectToken,
     setMessage,
-} from "../banking/bankingSlice";
+} from "../../slices/bankingSlice";
 import {useAppSelector} from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
 import styles from "../banking/Banking.module.css";

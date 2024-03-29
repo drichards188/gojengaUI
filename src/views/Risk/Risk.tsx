@@ -5,14 +5,14 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import Header from "../../etc/Header";
-import TradingViewWidget from "./TradingViewChart";
+import Header from "../../components/general/Header";
+import TradingViewWidget from "../../components/risk/TradingViewChart";
 import React, { useEffect, useState } from "react";
-import SharpeRatio from "./SharpeRatio";
-import styles from "../banking/Banking.module.css";
-import {getAccessToken, getCalcSymbols, getCompanyName} from "../banking/bankingAPI";
+import SharpeRatio from "../../components/risk/SharpeRatio";
+import styles from "../../components/banking/Banking.module.css";
+import {getAccessToken, getCalcSymbols, getCompanyName} from "../../apis/bankingAPI";
 import { useAppSelector } from "../../app/hooks";
-import { selectStatus } from "../banking/bankingSlice";
+import { selectStatus } from "../../slices/bankingSlice";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState([

@@ -6,7 +6,7 @@ import {
   getPortfolio,
   removeCoinFromDisplayList,
   selectCoinDisplayList,
-} from "./dashboardSlice";
+} from "../../slices/dashboardSlice";
 import {
   Button,
   FormControl,
@@ -17,9 +17,9 @@ import {
   TextField,
 } from "@mui/material";
 import styles from "../banking/Banking.module.css";
-import { selectBankingUser, selectToken } from "../banking/bankingSlice";
-import { updatePortfolio } from "./dashboardAPI";
-import { getAccessToken } from "../banking/bankingAPI";
+import { selectBankingUser, selectToken } from "../../slices/bankingSlice";
+import { updatePortfolio } from "../../apis/dashboardAPI";
+import { getAccessToken } from "../../apis/bankingAPI";
 
 const Card = (props: any) => {
   let { id, last, volume } = props.data;

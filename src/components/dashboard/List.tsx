@@ -3,12 +3,12 @@ import {
   selectCoinList,
   addCoinToDisplayList,
   getCoinListAsync,
-} from "./dashboardSlice";
+} from "../../slices/dashboardSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CustomButton from "../general/CustomButton";
-import { updatePortfolio } from "./dashboardAPI";
-import { selectBankingUser, selectToken } from "../banking/bankingSlice";
+import { updatePortfolio } from "../../apis/dashboardAPI";
+import { selectBankingUser, selectToken } from "../../slices/bankingSlice";
 
 function List(props: any) {
   const coinData = useAppSelector(selectCoinList);

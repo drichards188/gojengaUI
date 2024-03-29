@@ -1,10 +1,10 @@
 import renderer from "react-test-renderer";
-import { Banking } from "../views/Banking";
+import { Banking } from "../../views/Banking";
 import { fireEvent, render } from "@testing-library/react";
 import { store } from "../../app/store";
 import { Provider } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectBankingUser, setAmount, setUser } from "./bankingSlice";
+import { selectBankingUser, setAmount, setUser } from "../../slices/bankingSlice";
 
 it("checking the render of the banking interface", () => {
   const { getByText, queryByText } = render(
