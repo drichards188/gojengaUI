@@ -9,7 +9,7 @@ import "../card/Card.css"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: "25px",
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -72,7 +72,7 @@ export default function SearchAppBar() {
         Search For Asset
       </Grid>
       <Grid item xs={10} sm={10} md={8} lg={6}>
-        <Grid item xs={12} className="search">
+        <Grid item xs={12} className="search" style={{borderRadius:"25px"}}>
           <Search>
             <Grid container justifyContent="space-between" alignItems="center">
               <SearchIconWrapper>
@@ -86,12 +86,12 @@ export default function SearchAppBar() {
                 onChange={inputHandler}
               />
               <a
-                style={{ cursor: "pointer", color: "#F6F6F6", backgroundColor: "rgba(0,0,0,.5)" }}
+                style={{ cursor: "pointer", color: "#222222", marginRight:"1%" }}
                 onClick={() => {
                   setInputText("");
                 }}
               >
-                x
+                X
               </a>
             </Grid>
           </Search>
