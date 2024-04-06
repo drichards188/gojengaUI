@@ -1,6 +1,6 @@
-import axiosInstance from "./api";
+import axiosInstance from "./apis/api";
 import TokenService from "./services/token.service";
-import { setToken } from "./components/banking/bankingSlice";
+import { setToken } from "./slices/bankingSlice";
 
 const setup = (store: { dispatch: any }) => {
   axiosInstance.interceptors.request.use(

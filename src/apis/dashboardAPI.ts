@@ -1,7 +1,7 @@
 import axios from "axios";
-import api from "../../api";
-import { backendURL } from "../../api";
-import { getPortfolio } from "./dashboardSlice";
+import api from "./api";
+import { backendURL } from "./api";
+import { getPortfolio } from "../slices/dashboardSlice";
 
 // headers is Is-Test and Update-Type
 

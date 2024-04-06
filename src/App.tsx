@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./components/views/Dashboard";
+import Dashboard from "./views/Dashboard/Dashboard";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
-import Risk from "./components/risk/Risk";
-import Diversification from "./components/views/Diversification";
+import Risk from "./views/Risk/Risk";
+import Diversification from "./views/Diversification/Diversification";
 
 function App() {
   return (

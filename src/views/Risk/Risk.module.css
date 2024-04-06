@@ -1,0 +1,9 @@
+.riskContainer {
+    background-color: #00002E;
+    color: #61429E;
+    border-radius: 15px;
+}
+
+.smallHeight {
+    height: 40vh;
+}

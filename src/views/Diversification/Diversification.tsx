@@ -1,27 +1,23 @@
 import {
-    Alert,
     Autocomplete,
-    Box,
     Button,
     CircularProgress,
     Grid,
-    Paper,
-    Snackbar,
     SnackbarOrigin,
     TextField,
 } from "@mui/material";
-import Header from "../../etc/Header";
+import Header from "../../components/general/Header";
 import React, {useEffect, useState} from "react";
-import TradingViewWidget from "../risk/TradingViewChart";
-import styles from "../banking/Banking.module.css";
+import TradingViewWidget from "../../components/risk/TradingViewChart";
+import styles from "../../components/general/common.module.css";
 import {
     getAccessToken,
     getCalcSymbols,
     getCompanyName,
     getDiversRec,
-} from "../banking/bankingAPI";
-import DiversificationCard from "../general/DiversificationCard";
-import {selectStatus} from "../banking/bankingSlice";
+} from "../../apis/bankingAPI";
+import DiversificationCard from "../../components/general/DiversificationCard";
+import {selectStatus} from "../../slices/bankingSlice";
 import {useAppSelector} from "../../app/hooks";
 import Typography from "@mui/material/Typography";
 
@@ -66,7 +62,6 @@ const Diversification = () => {
     ]);
     const jwtToken = getAccessToken();
 
-    const divColor = "#2C2F36";
     const fontColor = "#61429E";
 
     useEffect(() => {
@@ -124,9 +119,7 @@ const Diversification = () => {
             container
             justifyContent="center"
             alignItems="flex-start"
-            style={{
-                minHeight: "100vh",
-            }}
+            className={styles.fullscreenHeight}
         >
             <Grid
                 item

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import Cards from "../dashboard/Cards";
+import Cards from "../../components/cards/Cards";
 import React, { useEffect } from "react";
 import {
   getCoinBatchAsync,
@@ -9,16 +9,16 @@ import {
   selectCoinData,
   selectCoinDisplayList,
   selectCoinList,
-} from "../dashboard/dashboardSlice";
-import styles from "../banking/Banking.module.css";
-import SearchAppBar from "../dashboard/Search";
+} from "../../slices/dashboardSlice";
+import styles from "../../components/general/common.module.css";
+import SearchAppBar from "../../components/search/Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken, triggerLogout } from "../banking/bankingAPI";
+import { getAccessToken, triggerLogout } from "../../apis/bankingAPI";
 import TokenService from "../../services/token.service";
-import { selectStatus } from "../banking/bankingSlice";
-import Header from "../../etc/Header";
-import SimpleSnackbar from "../general/SimpleSnackbar";
+import { selectStatus } from "../../slices/bankingSlice";
+import Header from "../../components/general/Header";
+import SimpleSnackbar from "../../components/general/SimpleSnackbar";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();

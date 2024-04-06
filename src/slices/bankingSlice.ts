@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { RootState, AppThunk } from "../app/store";
 import {
   crtDelete,
   crtDeposit,
@@ -7,8 +7,8 @@ import {
   crtInfo,
   crtTransaction,
   crtUser,
-} from "./bankingAPI";
-import { crtLogin } from "./bankingAPI";
+} from "../apis/bankingAPI";
+import { crtLogin } from "../apis/bankingAPI";
 
 export interface BankingState {
   amount: number;

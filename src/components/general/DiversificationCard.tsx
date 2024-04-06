@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
-import styles from "../banking/Banking.module.css";
+import styles from "./common.module.css";
 import "./DiversificationCard.css";
 
 const DiversificationCard = (props: any) => {

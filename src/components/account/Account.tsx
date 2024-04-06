@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { selectBankingUser, createDeleteAsync } from "../banking/bankingSlice";
-import styles from "../banking/Banking.module.css";
+import { selectBankingUser, createDeleteAsync } from "../../slices/bankingSlice";
+import styles from "../general/common.module.css";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken } from "../banking/bankingAPI";
+import { getAccessToken } from "../../apis/bankingAPI";
 
 export function Account() {
   const bankingUser = useAppSelector(selectBankingUser);

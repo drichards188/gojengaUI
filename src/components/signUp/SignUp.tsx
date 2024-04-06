@@ -1,17 +1,17 @@
 import { Box, Button, CircularProgress, Grid, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import styles from "../banking/Banking.module.css";
+import styles from "../general/common.module.css";
 import React, { useEffect, useState } from "react";
 import {
   createUserAsync,
   selectStatus,
   selectToken,
-} from "../banking/bankingSlice";
+} from "../../slices/bankingSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
 import CustomTextField from "../general/CustomTextField";
 import axios from "axios";
-import { getChartId } from "../banking/bankingAPI";
+import { getChartId } from "../../apis/bankingAPI";
 import logo from "../../gojenga1.webp";
 
 const SignUp = () => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useState, createContext } from "react";
-import Card from "./Card";
+import Card from "../card/Card";
 import { Grid } from "@mui/material";
 
 const Cards = ({ cardData }: any) => {

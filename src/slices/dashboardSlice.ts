@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { RootState } from "../app/store";
 import {
   crtDelete,
   crtUser,
   getCoinBatch,
   getCoinsList,
   getUserPortfolio,
-} from "./dashboardAPI";
+} from "../apis/dashboardAPI";
 
 export interface DashboardState {
   // coinData: { last: number},

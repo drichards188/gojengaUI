@@ -4,7 +4,7 @@ import {
   getAccessToken,
   getCalcSymbols,
   getSharpeRatio,
-} from "../banking/bankingAPI";
+} from "../../apis/bankingAPI";
 
 const SharpeRatio = (props: any) => {
   let symbol = props.symbol;

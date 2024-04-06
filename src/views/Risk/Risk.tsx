@@ -5,14 +5,15 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import Header from "../../etc/Header";
-import TradingViewWidget from "./TradingViewChart";
+import Header from "../../components/general/Header";
+import TradingViewWidget from "../../components/risk/TradingViewChart";
 import React, { useEffect, useState } from "react";
-import SharpeRatio from "./SharpeRatio";
-import styles from "../banking/Banking.module.css";
-import {getAccessToken, getCalcSymbols, getCompanyName} from "../banking/bankingAPI";
+import SharpeRatio from "../../components/risk/SharpeRatio";
+import styles from "../../components/general/common.module.css";
+import riskStyles from "./Risk.module.css";
+import {getAccessToken, getCalcSymbols, getCompanyName} from "../../apis/bankingAPI";
 import { useAppSelector } from "../../app/hooks";
-import { selectStatus } from "../banking/bankingSlice";
+import { selectStatus } from "../../slices/bankingSlice";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState([
@@ -30,7 +31,6 @@ const Risk = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [companyName, setCompanyName] = React.useState<string | null>();
   const [manualSymbol, setManualSymbol] = React.useState<string | null>();
-  const fontColor = "#61429E";
   const state = useAppSelector(selectStatus);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const Risk = () => {
       container
       justifyContent="center"
       alignItems="flex-start"
-      style={{ minHeight: "100vh" }}
+      className={styles.fullscreenHeight}
     >
       <Grid
         item
@@ -166,11 +166,7 @@ const Risk = () => {
             <Grid
                 item
                 xs={12}
-                style={{
-                  backgroundColor: "#00002E",
-                  color: fontColor,
-                  borderRadius: "15px",
-                }}
+                className={riskStyles.riskContainer}
             >
               <h2>Calculations</h2>
               <h3>{companyName}</h3>
@@ -194,7 +190,7 @@ const Risk = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} style={{ height: "40vh" }}>
+            <Grid item xs={12} className={riskStyles.smallHeight}>
               <TradingViewWidget chartId={manualSymbol} />
             </Grid>
           </div>
