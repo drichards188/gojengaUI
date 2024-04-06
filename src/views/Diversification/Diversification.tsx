@@ -9,7 +9,7 @@ import {
 import Header from "../../components/general/Header";
 import React, {useEffect, useState} from "react";
 import TradingViewWidget from "../../components/risk/TradingViewChart";
-import styles from "../../components/banking/Banking.module.css";
+import styles from "../../components/general/common.module.css";
 import {
     getAccessToken,
     getCalcSymbols,
@@ -119,9 +119,7 @@ const Diversification = () => {
             container
             justifyContent="center"
             alignItems="flex-start"
-            style={{
-                minHeight: "100vh",
-            }}
+            className={styles.fullscreenHeight}
         >
             <Grid
                 item

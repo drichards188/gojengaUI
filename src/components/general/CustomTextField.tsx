@@ -1,4 +1,4 @@
-import styles from "../banking/Banking.module.css";
+import styles from "./common.module.css";
 import {TextField} from "@mui/material";
 import React from "react";
 

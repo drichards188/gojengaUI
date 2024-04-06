@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../gojenga1.webp";
 import "../../App.css";
-import styles from "../banking/Banking.module.css";
+import styles from "../general/common.module.css";
 import { Box, Button, Grid, Paper } from "@mui/material";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { selectBankingUser, createDeleteAsync } from "../../slices/bankingSlice";
-import styles from "../banking/Banking.module.css";
+import styles from "../general/common.module.css";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../../apis/bankingAPI";
 

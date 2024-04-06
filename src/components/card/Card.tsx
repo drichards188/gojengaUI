@@ -16,7 +16,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import styles from "../banking/Banking.module.css";
+import styles from "../general/common.module.css";
 import { selectBankingUser, selectToken } from "../../slices/bankingSlice";
 import { updatePortfolio } from "../../apis/dashboardAPI";
 import { getAccessToken } from "../../apis/bankingAPI";

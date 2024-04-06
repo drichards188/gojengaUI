@@ -1,4 +1,4 @@
-import styles from "../banking/Banking.module.css";
+import styles from "./common.module.css";
 import React from "react";
 
 interface CustomButtonProps {

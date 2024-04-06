@@ -2,10 +2,10 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import List from "./List";
+import List from "../list/List";
 import { useState } from "react";
 import { Grid } from "@mui/material";
-import "./Card.css"
+import "../card/Card.css"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -91,7 +91,7 @@ export default function SearchAppBar() {
                   setInputText("");
                 }}
               >
-                X
+                x
               </a>
             </Grid>
           </Search>

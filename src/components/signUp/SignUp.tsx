@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Grid, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import styles from "../banking/Banking.module.css";
+import styles from "../general/common.module.css";
 import React, { useEffect, useState } from "react";
 import {
   createUserAsync,

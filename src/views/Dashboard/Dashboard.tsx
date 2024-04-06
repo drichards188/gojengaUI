@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import Cards from "../../components/dashboard/Cards";
+import Cards from "../../components/cards/Cards";
 import React, { useEffect } from "react";
 import {
   getCoinBatchAsync,
@@ -10,8 +10,8 @@ import {
   selectCoinDisplayList,
   selectCoinList,
 } from "../../slices/dashboardSlice";
-import styles from "../../components/banking/Banking.module.css";
-import SearchAppBar from "../../components/dashboard/Search";
+import styles from "../../components/general/common.module.css";
+import SearchAppBar from "../../components/search/Search";
 import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../../apis/bankingAPI";
