@@ -14,6 +14,7 @@ import riskStyles from "./Risk.module.css";
 import {getAccessToken, getCalcSymbols, getCompanyName} from "../../apis/bankingAPI";
 import { useAppSelector } from "../../app/hooks";
 import { selectStatus } from "../../slices/bankingSlice";
+import Typography from "@mui/material/Typography";
 
 const Risk = () => {
   const [securityList, setSecurityList] = useState([
@@ -103,7 +104,9 @@ const Risk = () => {
               className={styles.defaultContainer}
             >
               <Grid item xs={4}>
-                <h1>Risk</h1>
+                <Typography fontSize="2.5ch" noWrap style={{overflowWrap: "break-word"}} className={styles.headerCard}>
+                  Risk
+                </Typography>
               </Grid>
               <Grid item xs={8}>
                 <Grid container>

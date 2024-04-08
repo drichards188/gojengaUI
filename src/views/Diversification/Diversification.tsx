@@ -142,11 +142,7 @@ const Diversification = () => {
                             className={styles.defaultContainer}
                         >
                             <Grid item xs={12} md={6}>
-                                <Typography
-                                    variant="h3"
-                                    noWrap
-                                    style={{overflowWrap: "break-word"}}
-                                >
+                                <Typography fontSize="2.5ch" noWrap style={{overflowWrap: "break-word"}} className={styles.headerCard}>
                                     Diversification
                                 </Typography>
                             </Grid>
