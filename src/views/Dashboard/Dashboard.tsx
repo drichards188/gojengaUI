@@ -36,6 +36,7 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const storedUser: string | null = localStorage.getItem("user");
+  let loadingCircle: JSX.Element = <></>;
 
   useEffect(() => {
     if (currentUser === "hire") {
@@ -45,7 +46,6 @@ export function Dashboard() {
     }
   }, [currentUser]);
 
-  let loadingCircle: JSX.Element = <></>;
   // detect if request is loading
   useEffect(() => {
     if (state === "loading") {
@@ -70,13 +70,28 @@ export function Dashboard() {
         alert("logout failed");
       }
     }
-    dispatch(getPortfolio({ user: currentUser, jwt: token }));
-    dispatch(
-      getCoinBatchAsync({
-        coinArray: displayCoins,
-      })
-    );
-  }, [JSON.stringify(displayCoins)]);
+    dispatch(getPortfolio({user: currentUser, jwt: token}));
+  }, []);
+
+  useEffect(() => {
+    if (!storedUser) {
+      let logoutResponse: boolean = triggerLogout(dispatch);
+
+      if (logoutResponse) {
+        navigate("/login");
+      } else {
+        alert("logout failed");
+      }
+    }
+    // alert(`displayCoins is ${JSON.stringify(displayCoins)}`);
+    if (displayCoins !== undefined && Object.keys(displayCoins).length > 0) {
+      dispatch(
+          getCoinBatchAsync({
+            coinArray: displayCoins,
+          })
+      );
+    }
+  }, [displayCoins]);
 
   useEffect(() => {
     if (coinSearchList.length === 1) {
