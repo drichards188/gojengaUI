@@ -127,32 +127,29 @@ export async function getUserPortfolio(username: string, token: string) {
     username = user.username;
   }
 
-  let response = await axios
-    .get(`${backendURL}/portfolio/${username}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Is-Test": "True",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(function (response) {
-      //handle success
-      // alert("success " + JSON.stringify(response.data));
-      return response;
-      // return ["bitcoin", "ethereum", "ripple"];
-    })
-    .catch(function (response) {
-      if (response.response.status === 401) {
-        localStorage.removeItem("user");
-      }
-
-      //handle error
-      alert("failed " + response);
-      return response;
-    });
+  let data = await axios
+      .get(`${backendURL}/portfolio/${username}`)
+      .then(function (response: any) {
+        if (response.status !== 200) {
+          alert(`getting coin list status error: ${response.status}`);
+        }
+        return response.data;
+      })
+      .catch((error: any) => {
+        if (error.response) {
+          alert(`error in getting getUserPortfolio: ${error.response.data}`);
+          console.error(error.response.data);
+          console.error(error.response.status);
+          console.error(error.response.headers);
+        } else if (error.request) {
+          console.error(error.request);
+        } else {
+          console.error("Error", error.message);
+        }
+      });
 
   return new Promise<{ data: any }>((resolve) =>
-    setTimeout(() => resolve({ data: response }))
+      setTimeout(() => resolve({ data: data }), 500)
   );
 }
 
@@ -177,7 +174,7 @@ export async function updatePortfolio(
       // alert("success " + JSON.stringify(response.data));
       return response.data;
     })
-    .then(() => getPortfolio({ user: "drichards", jwt: token }))
+    .then(() => getPortfolio({ user: "david", jwt: token }))
     .catch(function (response) {
       //handle error
       alert("failed " + response);

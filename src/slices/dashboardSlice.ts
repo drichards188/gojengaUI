@@ -67,8 +67,7 @@ export const getPortfolio = createAsyncThunk(
     const response = await getUserPortfolio(payload.user, payload.jwt);
 
     // The value we return becomes the `fulfilled` action payload
-    let wrappedData = { coinList: response.data };
-    return wrappedData;
+    return response.data;
   }
 );
 
@@ -214,19 +213,27 @@ export const dashboardSlice = createSlice({
       .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "idle";
 
-        if ("data" in action.payload.coinList) {
-          let coins = action.payload.coinList.data;
+        if ("portfolio" in action.payload) {
+          let coinsArray = action.payload.portfolio;
 
           state.displayCoinList = {};
 
-          coins.forEach(
-            (item: { username: string; amount: number; asset: string }) => {
-              if (!(item.asset in state.displayCoinList)) {
-                const coinName = item.asset;
-                state.displayCoinList[coinName] = { quantity: item.amount };
-              }
-            }
-          );
+          coinsArray.forEach((item: { quantity: number; symbol: string }) => {
+
+            const coinName = item.symbol;
+            state.displayCoinList[coinName] = { quantity: item.quantity };
+          });
+
+          alert(JSON.stringify(state.displayCoinList));
+
+          // coinsArray.forEach(
+          //   (item: { quantity: number; symbol: string }) => {
+          //     if (!(item.symbol in state.displayCoinList)) {
+          //       const coinName = item.symbol;
+          //       state.displayCoinList[coinName] = { quantity: item.quantity };
+          //     }
+          //   }
+          // );
         }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
