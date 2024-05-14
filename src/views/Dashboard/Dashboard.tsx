@@ -83,7 +83,7 @@ export function Dashboard() {
         alert("logout failed");
       }
     }
-    // alert(`displayCoins is ${JSON.stringify(displayCoins)}`);
+
     if (displayCoins !== undefined && Object.keys(displayCoins).length > 0) {
       dispatch(
           getCoinBatchAsync({

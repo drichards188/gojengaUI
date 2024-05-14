@@ -174,8 +174,9 @@ async function triggerPortfolioUpdate(
     quantity = parseInt(String(quantity));
     let resp = await updatePortfolio(
       {
-        orderType: updateType,
-        amount: quantity,
+        username: currentUser,
+        order_type: updateType,
+        quantity: quantity,
         asset: coinId,
       },
       token

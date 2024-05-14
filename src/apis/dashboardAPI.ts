@@ -137,7 +137,7 @@ export async function getUserPortfolio(username: string, token: string) {
       })
       .catch((error: any) => {
         if (error.response) {
-          alert(`error in getting getUserPortfolio: ${error.response.data}`);
+          alert(`error in getting getUserPortfolio: ${JSON.stringify(error.response.data)}`);
           console.error(error.response.data);
           console.error(error.response.status);
           console.error(error.response.headers);
@@ -155,13 +155,13 @@ export async function getUserPortfolio(username: string, token: string) {
 
 // todo move axios calls to the axios instance calls
 export async function updatePortfolio(
-  coin: { orderType: string; amount: number; asset: string },
+  coin: {username: string, order_type: string; quantity: number; asset: string },
   token: string
 ) {
   let response = await axios({
     method: "PUT",
     // url: `${backendURL}/portfolio/` + coin.username,
-    url: `${backendURL}/portfolio/drichards`,
+    url: `${backendURL}/portfolio`,
     data: JSON.stringify(coin),
     headers: {
       "Content-Type": "application/json",
