@@ -137,7 +137,7 @@ export async function getUserPortfolio(username: string, token: string) {
       })
       .catch((error: any) => {
         if (error.response) {
-          alert(`error in getting getUserPortfolio: ${error.response.data}`);
+          alert(`error in getting getUserPortfolio: ${JSON.stringify(error.response.data)}`);
           console.error(error.response.data);
           console.error(error.response.status);
           console.error(error.response.headers);
