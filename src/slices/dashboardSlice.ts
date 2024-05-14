@@ -223,17 +223,6 @@ export const dashboardSlice = createSlice({
             const coinName = item.symbol;
             state.displayCoinList[coinName] = { quantity: item.quantity };
           });
-
-          alert(JSON.stringify(state.displayCoinList));
-
-          // coinsArray.forEach(
-          //   (item: { quantity: number; symbol: string }) => {
-          //     if (!(item.symbol in state.displayCoinList)) {
-          //       const coinName = item.symbol;
-          //       state.displayCoinList[coinName] = { quantity: item.quantity };
-          //     }
-          //   }
-          // );
         }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
