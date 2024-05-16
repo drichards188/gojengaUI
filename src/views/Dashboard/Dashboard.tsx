@@ -16,14 +16,14 @@ import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../../apis/bankingAPI";
 import TokenService from "../../services/token.service";
-import { selectStatus } from "../../slices/bankingSlice";
+import { selectStatus } from "../../slices/dashboardSlice";
 import Header from "../../components/general/Header";
 import SimpleSnackbar from "../../components/general/SimpleSnackbar";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [openOveride, setOpenOveride] = React.useState(false);
 
   const coinData = useAppSelector(selectCoinData);
@@ -50,7 +50,7 @@ export function Dashboard() {
   useEffect(() => {
     if (state === "loading") {
       setIsLoading(true);
-    } else {
+    } else if (state === "idle") {
       setIsLoading(false);
       loadingCircle = <></>;
     }

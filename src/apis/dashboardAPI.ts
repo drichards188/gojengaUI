@@ -125,6 +125,9 @@ export async function getUserPortfolio(username: string, token: string) {
   if (storedUser) {
     const user = JSON.parse(storedUser);
     username = user.username;
+
+    // todo delete debug code
+    username = "eric";
   }
 
   let data = await axios
@@ -174,7 +177,7 @@ export async function updatePortfolio(
       // alert("success " + JSON.stringify(response.data));
       return response.data;
     })
-    .then(() => getPortfolio({ user: "david", jwt: token }))
+    .then(() => getPortfolio({ user: coin.username, jwt: token }))
     .catch(function (response) {
       //handle error
       alert("failed " + response);
