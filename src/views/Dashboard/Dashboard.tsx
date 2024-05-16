@@ -140,7 +140,7 @@ export function Dashboard() {
           </Grid>
           <Grid item xs={12}>
             <Grid item md={12}>
-              <a style={{ color: "#BA79F7" }}>Portfolio</a>
+              <a style={{ color: "#BA79F7" }}>Your Portfolio {currentUser}</a>
             </Grid>
             {emptyPortfolioMessage}
             <Cards cardData={coinData} />
