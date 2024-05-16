@@ -37,6 +37,7 @@ export function Dashboard() {
 
   const storedUser: string | null = localStorage.getItem("user");
   let loadingCircle: JSX.Element = <></>;
+  let emptyPortfolioMessage = <></>;
 
   useEffect(() => {
     if (currentUser === "hire") {
@@ -58,6 +59,14 @@ export function Dashboard() {
 
   if (isLoading) {
     loadingCircle = <CircularProgress />;
+  }
+
+  if (coinData.length === 0) {
+    emptyPortfolioMessage = (
+      <Grid item md={12}>
+        <a style={{ color: "#BA79F7" }}>Your portfolio is empty</a>
+      </Grid>
+    );
   }
 
   useEffect(() => {
@@ -133,6 +142,7 @@ export function Dashboard() {
             <Grid item md={12}>
               <a style={{ color: "#BA79F7" }}>Portfolio</a>
             </Grid>
+            {emptyPortfolioMessage}
             <Cards cardData={coinData} />
           </Grid>
         </Grid>

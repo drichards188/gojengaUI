@@ -27,6 +27,7 @@ const initialState: DashboardState = {
   coinData: [
     { id: "default", last: 1654.32, volume: 100, userQuantity: 5 },
     { id: "placeholder", last: 15.32, volume: 32, userQuantity: 2 },
+
   ],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
   displayCoinList: {},
@@ -215,7 +216,7 @@ export const dashboardSlice = createSlice({
 
         if ("portfolio" in action.payload) {
           if (action.payload.portfolio.length === 0) {
-            state.displayCoinList = {}
+            state.coinData = [];
           } else {
 
             let coinsArray = action.payload.portfolio;

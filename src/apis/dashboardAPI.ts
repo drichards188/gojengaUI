@@ -125,9 +125,6 @@ export async function getUserPortfolio(username: string, token: string) {
   if (storedUser) {
     const user = JSON.parse(storedUser);
     username = user.username;
-
-    // todo delete debug code
-    username = "eric";
   }
 
   let data = await axios
