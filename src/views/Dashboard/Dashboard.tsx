@@ -16,14 +16,14 @@ import { CircularProgress, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, triggerLogout } from "../../apis/bankingAPI";
 import TokenService from "../../services/token.service";
-import { selectStatus } from "../../slices/bankingSlice";
+import { selectStatus } from "../../slices/dashboardSlice";
 import Header from "../../components/general/Header";
 import SimpleSnackbar from "../../components/general/SimpleSnackbar";
 
 export function Dashboard() {
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [openOveride, setOpenOveride] = React.useState(false);
 
   const coinData = useAppSelector(selectCoinData);
@@ -37,6 +37,7 @@ export function Dashboard() {
 
   const storedUser: string | null = localStorage.getItem("user");
   let loadingCircle: JSX.Element = <></>;
+  let emptyPortfolioMessage = <></>;
 
   useEffect(() => {
     if (currentUser === "hire") {
@@ -50,7 +51,7 @@ export function Dashboard() {
   useEffect(() => {
     if (state === "loading") {
       setIsLoading(true);
-    } else {
+    } else if (state === "idle") {
       setIsLoading(false);
       loadingCircle = <></>;
     }
@@ -58,6 +59,14 @@ export function Dashboard() {
 
   if (isLoading) {
     loadingCircle = <CircularProgress />;
+  }
+
+  if (coinData.length === 0) {
+    emptyPortfolioMessage = (
+      <Grid item md={12}>
+        <a style={{ color: "#BA79F7" }}>Your portfolio is empty</a>
+      </Grid>
+    );
   }
 
   useEffect(() => {
@@ -131,8 +140,9 @@ export function Dashboard() {
           </Grid>
           <Grid item xs={12}>
             <Grid item md={12}>
-              <a style={{ color: "#BA79F7" }}>Portfolio</a>
+              <a style={{ color: "#BA79F7" }}>Your Portfolio {currentUser}</a>
             </Grid>
+            {emptyPortfolioMessage}
             <Cards cardData={coinData} />
           </Grid>
         </Grid>

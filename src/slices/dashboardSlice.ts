@@ -27,6 +27,7 @@ const initialState: DashboardState = {
   coinData: [
     { id: "default", last: 1654.32, volume: 100, userQuantity: 5 },
     { id: "placeholder", last: 15.32, volume: 32, userQuantity: 2 },
+
   ],
   coinList: [{ id: "bitcoin", name: "og-bitcoin" }],
   displayCoinList: {},
@@ -214,15 +215,20 @@ export const dashboardSlice = createSlice({
         state.status = "idle";
 
         if ("portfolio" in action.payload) {
-          let coinsArray = action.payload.portfolio;
+          if (action.payload.portfolio.length === 0) {
+            state.coinData = [];
+          } else {
 
-          state.displayCoinList = {};
+            let coinsArray = action.payload.portfolio;
 
-          coinsArray.forEach((item: { quantity: number; symbol: string }) => {
+            state.displayCoinList = {};
 
-            const coinName = item.symbol;
-            state.displayCoinList[coinName] = { quantity: item.quantity };
-          });
+            coinsArray.forEach((item: { quantity: number; symbol: string }) => {
+
+              const coinName = item.symbol;
+              state.displayCoinList[coinName] = {quantity: item.quantity};
+            });
+          }
         }
       })
       .addCase(getPortfolio.rejected, (state, action) => {
@@ -248,6 +254,7 @@ export const selectCoinData = (state: RootState) => state.dashboard.coinData;
 export const selectCoinDisplayList = (state: RootState) =>
   state.dashboard.displayCoinList;
 export const selectCoinList = (state: RootState) => state.dashboard.coinList;
+export const selectStatus = (state: RootState) => state.dashboard.status;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
